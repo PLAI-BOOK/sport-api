@@ -1,0 +1,4 @@
+#you need to create a .env file with the following:
+
+API_KEY= ""
+BASE_URL = "v3.football.api-sports.io"
