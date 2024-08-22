@@ -508,7 +508,7 @@
                     "year": 2023,
                     "start": "2023-09-09",
                     "end": "2023-12-02",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": false,
@@ -2395,7 +2395,7 @@
                     "year": 2023,
                     "start": "2023-08-19",
                     "end": "2024-05-25",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -2432,7 +2432,7 @@
                     "year": 2023,
                     "start": "2023-08-19",
                     "end": "2024-05-25",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -2728,7 +2728,7 @@
                     "year": 2023,
                     "start": "2023-08-18",
                     "end": "2024-05-04",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -3246,7 +3246,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-06-16",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -4282,7 +4282,7 @@
                     "year": 2023,
                     "start": "2023-08-19",
                     "end": "2024-06-20",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -4430,7 +4430,7 @@
                     "year": 2023,
                     "start": "2023-08-18",
                     "end": "2024-06-01",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": false,
@@ -4467,7 +4467,7 @@
                     "year": 2023,
                     "start": "2023-09-01",
                     "end": "2024-05-25",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": false,
@@ -4504,7 +4504,7 @@
                     "year": 2023,
                     "start": "2023-08-19",
                     "end": "2024-06-01",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": false,
@@ -4874,7 +4874,7 @@
                     "year": 2023,
                     "start": "2023-09-16",
                     "end": "2024-05-12",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -5207,7 +5207,7 @@
                     "year": 2023,
                     "start": "2023-09-30",
                     "end": "2024-04-20",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": false,
@@ -5429,7 +5429,7 @@
                     "year": 2023,
                     "start": "2023-09-09",
                     "end": "2024-05-12",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -5466,7 +5466,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-12",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -5577,7 +5577,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-12",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -6391,7 +6391,7 @@
                     "year": 2023,
                     "start": "2023-08-15",
                     "end": "2024-06-08",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -7279,7 +7279,7 @@
                     "year": 2023,
                     "start": "2023-08-19",
                     "end": "2024-05-26",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -7353,7 +7353,7 @@
                     "year": 2023,
                     "start": "2023-08-25",
                     "end": "2024-06-14",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -7612,7 +7612,7 @@
                     "year": 2023,
                     "start": "2023-08-25",
                     "end": "2024-05-19",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -7686,7 +7686,7 @@
                     "year": 2023,
                     "start": "2023-09-06",
                     "end": "2024-05-09",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -7723,7 +7723,7 @@
                     "year": 2023,
                     "start": "2023-09-15",
                     "end": "2024-05-25",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -8685,7 +8685,7 @@
                     "year": 2023,
                     "start": "2023-09-20",
                     "end": "2024-05-22",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9018,7 +9018,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9055,7 +9055,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9092,7 +9092,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9129,7 +9129,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9166,7 +9166,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9203,7 +9203,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9240,7 +9240,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9277,7 +9277,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9314,7 +9314,7 @@
                     "year": 2023,
                     "start": "2023-09-10",
                     "end": "2024-05-05",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -9684,7 +9684,7 @@
                     "year": 2023,
                     "start": "2023-08-22",
                     "end": "2024-05-15",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -10683,7 +10683,7 @@
                     "year": 2023,
                     "start": "2023-10-05",
                     "end": "2024-05-12",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -10868,7 +10868,7 @@
                     "year": 2023,
                     "start": "2023-10-07",
                     "end": "2024-06-01",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -12533,7 +12533,7 @@
                     "year": 2023,
                     "start": "2023-10-14",
                     "end": "2023-10-29",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,
@@ -12733,7 +12733,7 @@
                         "top_cards": false,
                         "injuries": false,
                         "predictions": true,
-                        "odds": true
+                        "odds": false
                     }
                 }
             ]
@@ -13050,7 +13050,7 @@
                 {
                     "year": 2023,
                     "start": "2024-02-23",
-                    "end": "2024-08-15",
+                    "end": "2024-08-23",
                     "current": true,
                     "coverage": {
                         "fixtures": {
@@ -13658,7 +13658,7 @@
                         "top_cards": false,
                         "injuries": false,
                         "predictions": true,
-                        "odds": true
+                        "odds": false
                     }
                 }
             ]
@@ -14974,14 +14974,14 @@
                 {
                     "year": 2023,
                     "start": "2024-05-28",
-                    "end": "2024-06-01",
+                    "end": "2024-08-22",
                     "current": true,
                     "coverage": {
                         "fixtures": {
                             "events": true,
                             "lineups": true,
-                            "statistics_fixtures": false,
-                            "statistics_players": false
+                            "statistics_fixtures": true,
+                            "statistics_players": true
                         },
                         "standings": false,
                         "players": false,
@@ -14990,7 +14990,7 @@
                         "top_cards": false,
                         "injuries": false,
                         "predictions": true,
-                        "odds": false
+                        "odds": true
                     }
                 }
             ]
@@ -15196,7 +15196,7 @@
                 {
                     "year": 2023,
                     "start": "2024-06-19",
-                    "end": "2024-08-13",
+                    "end": "2024-09-08",
                     "current": true,
                     "coverage": {
                         "fixtures": {
@@ -15286,7 +15286,7 @@
                         "top_cards": false,
                         "injuries": false,
                         "predictions": true,
-                        "odds": true
+                        "odds": false
                     }
                 }
             ]
@@ -22301,7 +22301,7 @@
                     "year": 2023,
                     "start": "2023-02-18",
                     "end": "2023-08-06",
-                    "current": true,
+                    "current": false,
                     "coverage": {
                         "fixtures": {
                             "events": true,

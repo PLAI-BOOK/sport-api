@@ -1,8 +1,6 @@
 import http.client
-import requests
 import json
 import sys
-from pprint import pprint
 from dotenv import load_dotenv
 import os
 
@@ -36,9 +34,6 @@ data = res.read()
 
 # Decode the JSON response
 response_data = json.loads(data.decode("utf-8"))
-
-# Use pprint to print the JSON response to the console in a formatted way
-pprint(response_data)
 
 # create good filename
 safe_filename = f"{base_url}{params.replace('?', '_').replace('&', '_').replace('=', '-').replace('/', '-')}.json"
