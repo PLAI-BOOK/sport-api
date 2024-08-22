@@ -1,0 +1,984 @@
+{
+    "get": "fixtures",
+    "parameters": {
+        "live": "all"
+    },
+    "errors": [],
+    "results": 38,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "fixture": {
+                "id": 1216981,
+                "referee": "O. Yates",
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 567,
+                    "name": "Meadow Lane",
+                    "city": "Nottingham, Nottinghamshire"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 23
+                }
+            },
+            "league": {
+                "id": 42,
+                "name": "League Two",
+                "country": "England",
+                "logo": "https://media.api-sports.io/football/leagues/42.png",
+                "flag": "https://media.api-sports.io/flags/gb.svg",
+                "season": 2024,
+                "round": "Regular Season - 3"
+            },
+            "teams": {
+                "home": {
+                    "id": 1376,
+                    "name": "Notts County",
+                    "logo": "https://media.api-sports.io/football/teams/1376.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 1365,
+                    "name": "Grimsby",
+                    "logo": "https://media.api-sports.io/football/teams/1365.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 6,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 1376,
+                        "name": "Notts County",
+                        "logo": "https://media.api-sports.io/football/teams/1376.png"
+                    },
+                    "player": {
+                        "id": 60648,
+                        "name": "A. Jatta"
+                    },
+                    "assist": {
+                        "id": 36789,
+                        "name": "D. Crowley"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 13,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 1365,
+                        "name": "Grimsby",
+                        "logo": "https://media.api-sports.io/football/teams/1365.png"
+                    },
+                    "player": {
+                        "id": 17688,
+                        "name": "C. Ainley"
+                    },
+                    "assist": {
+                        "id": 82948,
+                        "name": "J. Davies"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 1",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 15,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 1376,
+                        "name": "Notts County",
+                        "logo": "https://media.api-sports.io/football/teams/1376.png"
+                    },
+                    "player": {
+                        "id": 36789,
+                        "name": "D. Crowley"
+                    },
+                    "assist": {
+                        "id": 20010,
+                        "name": "J. Jones"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1239849,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Stade Mustapha Tchaker",
+                    "city": "Blida"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 18
+                }
+            },
+            "league": {
+                "id": 12,
+                "name": "CAF Champions League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/12.png",
+                "flag": null,
+                "season": 2024,
+                "round": "1st Preliminary Round"
+            },
+            "teams": {
+                "home": {
+                    "id": 906,
+                    "name": "MC Alger",
+                    "logo": "https://media.api-sports.io/football/teams/906.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 16151,
+                    "name": "Watanga",
+                    "logo": "https://media.api-sports.io/football/teams/16151.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 10,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 906,
+                        "name": "MC Alger",
+                        "logo": "https://media.api-sports.io/football/teams/906.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "S. Bayazid"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1287564,
+                "referee": "Miguel Nogueira, Portugal",
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 1543,
+                    "name": "kybunpark",
+                    "city": "St. Gallen"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 22
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 1011,
+                    "name": "FC ST. Gallen",
+                    "logo": "https://media.api-sports.io/football/teams/1011.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 998,
+                    "name": "Trabzonspor",
+                    "logo": "https://media.api-sports.io/football/teams/998.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": []
+        },
+        {
+            "fixture": {
+                "id": 1287570,
+                "referee": "Gergo Bogar, Hungary",
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 654,
+                    "name": "Stade Bollaert-Delelis",
+                    "city": "Lens"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 23
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 116,
+                    "name": "Lens",
+                    "logo": "https://media.api-sports.io/football/teams/116.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 617,
+                    "name": "Panathinaikos",
+                    "logo": "https://media.api-sports.io/football/teams/617.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 4,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 116,
+                        "name": "Lens",
+                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                    },
+                    "player": {
+                        "id": 3007,
+                        "name": "P. Frankowski"
+                    },
+                    "assist": {
+                        "id": 20761,
+                        "name": "F. Sotoca"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 13,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 116,
+                        "name": "Lens",
+                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                    },
+                    "player": {
+                        "id": 6231,
+                        "name": "F. Medina"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
+                    "comments": "Tripping"
+                },
+                {
+                    "time": {
+                        "elapsed": 22,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 116,
+                        "name": "Lens",
+                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                    },
+                    "player": {
+                        "id": 6231,
+                        "name": "F. Medina"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Red Card",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1287578,
+                "referee": "Mohammad Al-Emara, Finland",
+                "timezone": "UTC",
+                "date": "2024-08-22T18:45:00+00:00",
+                "timestamp": 1724352300,
+                "periods": {
+                    "first": 1724352300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 865,
+                    "name": "Tallaght Stadium",
+                    "city": "Dublin"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 38
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 3843,
+                    "name": "St Patrick's Athl.",
+                    "logo": "https://media.api-sports.io/football/teams/3843.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 564,
+                    "name": "Istanbul Basaksehir",
+                    "logo": "https://media.api-sports.io/football/teams/564.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": []
+        },
+        {
+            "fixture": {
+                "id": 1287584,
+                "referee": "Jeremie Pignard, France",
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 519,
+                    "name": "Stamford Bridge",
+                    "city": "London"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 23
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 49,
+                    "name": "Chelsea",
+                    "logo": "https://media.api-sports.io/football/teams/49.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 2184,
+                    "name": "Servette FC",
+                    "logo": "https://media.api-sports.io/football/teams/2184.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": []
+        },
+        {
+            "fixture": {
+                "id": 1287600,
+                "referee": "Ishmael Barbara, Malta",
+                "timezone": "UTC",
+                "date": "2024-08-22T19:00:00+00:00",
+                "timestamp": 1724353200,
+                "periods": {
+                    "first": 1724353200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 760,
+                    "name": "Estádio Do Algarve",
+                    "city": "Almancil"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 23
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 667,
+                    "name": "Lincoln Red Imps FC",
+                    "logo": "https://media.api-sports.io/football/teams/667.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 5354,
+                    "name": "Larne",
+                    "logo": "https://media.api-sports.io/football/teams/5354.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 16,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 5354,
+                        "name": "Larne",
+                        "logo": "https://media.api-sports.io/football/teams/5354.png"
+                    },
+                    "player": {
+                        "id": 309855,
+                        "name": "M. Lusty"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 23,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 667,
+                        "name": "Lincoln Red Imps FC",
+                        "logo": "https://media.api-sports.io/football/teams/667.png"
+                    },
+                    "player": {
+                        "id": 108526,
+                        "name": "K. Gomez"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "Joe"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1287602,
+                "referee": "Lawrence Visser, Belgium",
+                "timezone": "UTC",
+                "date": "2024-08-22T18:45:00+00:00",
+                "timestamp": 1724352300,
+                "periods": {
+                    "first": 1724352300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 2609,
+                    "name": "Tórsvøllur",
+                    "city": "Tórshavn, Streymoy"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 37
+                }
+            },
+            "league": {
+                "id": 848,
+                "name": "UEFA Europa Conference League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/848.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 701,
+                    "name": "KI Klaksvik",
+                    "logo": "https://media.api-sports.io/football/teams/701.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 649,
+                    "name": "HJK helsinki",
+                    "logo": "https://media.api-sports.io/football/teams/649.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 14,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 649,
+                        "name": "HJK helsinki",
+                        "logo": "https://media.api-sports.io/football/teams/649.png"
+                    },
+                    "player": {
+                        "id": 29846,
+                        "name": "L. Erwin"
+                    },
+                    "assist": {
+                        "id": 135853,
+                        "name": "G. Kanellopoulos"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 23,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 701,
+                        "name": "KI Klaksvik",
+                        "logo": "https://media.api-sports.io/football/teams/701.png"
+                    },
+                    "player": {
+                        "id": 28908,
+                        "name": "R. Joensen"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1287604,
+                "referee": "Rohit Saggi, Norway",
+                "timezone": "UTC",
+                "date": "2024-08-22T18:45:00+00:00",
+                "timestamp": 1724352300,
+                "periods": {
+                    "first": 1724352300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 805,
+                    "name": "Városi Stadion",
+                    "city": "Mezőkövesd"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 38
+                }
+            },
+            "league": {
+                "id": 3,
+                "name": "UEFA Europa League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/3.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 394,
+                    "name": "Dinamo Minsk",
+                    "logo": "https://media.api-sports.io/football/teams/394.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 554,
+                    "name": "Anderlecht",
+                    "logo": "https://media.api-sports.io/football/teams/554.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 9,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 554,
+                        "name": "Anderlecht",
+                        "logo": "https://media.api-sports.io/football/teams/554.png"
+                    },
+                    "player": {
+                        "id": 2852,
+                        "name": "L. Augustinsson"
+                    },
+                    "assist": {
+                        "id": 77,
+                        "name": "M. Rits"
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1287616,
+                "referee": "Rade Obrenovič, Slovenia",
+                "timezone": "UTC",
+                "date": "2024-08-22T18:45:00+00:00",
+                "timestamp": 1724352300,
+                "periods": {
+                    "first": 1724352300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 1249,
+                    "name": "Stadion Miejski",
+                    "city": "Białystok"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 37
+                }
+            },
+            "league": {
+                "id": 3,
+                "name": "UEFA Europa League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/3.png",
+                "flag": null,
+                "season": 2024,
+                "round": "Play-offs"
+            },
+            "teams": {
+                "home": {
+                    "id": 336,
+                    "name": "Jagiellonia",
+                    "logo": "https://media.api-sports.io/football/teams/336.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 194,
+                    "name": "Ajax",
+                    "logo": "https://media.api-sports.io/football/teams/194.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 2
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 2
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 5,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 336,
+                        "name": "Jagiellonia",
+                        "logo": "https://media.api-sports.io/football/teams/336.png"
+                    },
+                    "player": {
+                        "id": 47564,
+                        
