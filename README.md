@@ -4,6 +4,8 @@ you need to create .env and put in
 API_KEY
 BASE_URL
 
+also you need to run:
+pip install -r requirements.txt
 
 to check a new endpoint look at easy_structure.py and do the same on a new folder with good name!
 it will print the result in the folder in a new json file 
