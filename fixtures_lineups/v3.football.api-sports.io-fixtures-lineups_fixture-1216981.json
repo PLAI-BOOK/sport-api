@@ -1,0 +1,396 @@
+{
+    "get": "fixtures/lineups",
+    "parameters": {
+        "fixture": "1216981"
+    },
+    "errors": [],
+    "results": 2,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1376,
+                "name": "Notts County",
+                "logo": "https://media.api-sports.io/football/teams/1376.png",
+                "colors": {
+                    "player": {
+                        "primary": "080808",
+                        "number": "ffffff",
+                        "border": "080808"
+                    },
+                    "goalkeeper": {
+                        "primary": "66cc00",
+                        "number": "ffffff",
+                        "border": "66cc00"
+                    }
+                }
+            },
+            "formation": "3-5-1-1",
+            "startXI": [
+                {
+                    "player": {
+                        "id": 19844,
+                        "name": "Alex Bass",
+                        "number": 1,
+                        "pos": "G",
+                        "grid": "1:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 298130,
+                        "name": "Lewis Macari",
+                        "number": 28,
+                        "pos": "D",
+                        "grid": "2:3"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 19471,
+                        "name": "Matthew Platt",
+                        "number": 5,
+                        "pos": "D",
+                        "grid": "2:2"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 20455,
+                        "name": "Jacob Bedeau",
+                        "number": 4,
+                        "pos": "D",
+                        "grid": "2:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 20010,
+                        "name": "Jodi Jones",
+                        "number": 10,
+                        "pos": "M",
+                        "grid": "3:5"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 48099,
+                        "name": "Curtis Edwards",
+                        "number": 22,
+                        "pos": "M",
+                        "grid": "3:4"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 138237,
+                        "name": "Scott Robertson",
+                        "number": 20,
+                        "pos": "M",
+                        "grid": "3:3"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 36789,
+                        "name": "Daniel Crowley",
+                        "number": 7,
+                        "pos": "M",
+                        "grid": "3:2"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 169224,
+                        "name": "Nick Tsaroulla",
+                        "number": 25,
+                        "pos": "M",
+                        "grid": "3:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 137225,
+                        "name": "Conor Grant",
+                        "number": 11,
+                        "pos": "F",
+                        "grid": "4:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 60648,
+                        "name": "Alassana Jatta",
+                        "number": 29,
+                        "pos": "F",
+                        "grid": "5:1"
+                    }
+                }
+            ],
+            "substitutes": [
+                {
+                    "player": {
+                        "id": 296121,
+                        "name": "Jack Hinchy",
+                        "number": 6,
+                        "pos": "M",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 118597,
+                        "name": "Sam Austin",
+                        "number": 8,
+                        "pos": "M",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 19669,
+                        "name": "Matt Palmer",
+                        "number": 18,
+                        "pos": "M",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 19108,
+                        "name": "David McGoldrick",
+                        "number": 17,
+                        "pos": "F",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 108046,
+                        "name": "Cedwyn Scott",
+                        "number": 9,
+                        "pos": "F",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 20195,
+                        "name": "Sam Slocombe",
+                        "number": 21,
+                        "pos": "G",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 20486,
+                        "name": "Adam Chicksen",
+                        "number": 23,
+                        "pos": "D",
+                        "grid": null
+                    }
+                }
+            ],
+            "coach": {
+                "id": 13971,
+                "name": "S. Maynard",
+                "photo": "https://media.api-sports.io/football/coachs/13971.png"
+            }
+        },
+        {
+            "team": {
+                "id": 1365,
+                "name": "Grimsby",
+                "logo": "https://media.api-sports.io/football/teams/1365.png",
+                "colors": {
+                    "player": {
+                        "primary": "bd9751",
+                        "number": "d60909",
+                        "border": "bd9751"
+                    },
+                    "goalkeeper": {
+                        "primary": "2ef00d",
+                        "number": "ffffff",
+                        "border": "2ef00d"
+                    }
+                }
+            },
+            "formation": "4-2-3-1",
+            "startXI": [
+                {
+                    "player": {
+                        "id": 182430,
+                        "name": "Jordan Wright",
+                        "number": 1,
+                        "pos": "G",
+                        "grid": "1:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 68126,
+                        "name": "Lewis Cass",
+                        "number": 2,
+                        "pos": "D",
+                        "grid": "2:4"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 20174,
+                        "name": "Harvey Rodgers",
+                        "number": 5,
+                        "pos": "D",
+                        "grid": "2:3"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 149552,
+                        "name": "Cameron McJannett",
+                        "number": 17,
+                        "pos": "D",
+                        "grid": "2:2"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 138884,
+                        "name": "Evan Khouri",
+                        "number": 30,
+                        "pos": "D",
+                        "grid": "2:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 82948,
+                        "name": "Jordan Davies",
+                        "number": 7,
+                        "pos": "M",
+                        "grid": "3:2"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 2293,
+                        "name": "George McEachran",
+                        "number": 20,
+                        "pos": "M",
+                        "grid": "3:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 328095,
+                        "name": "Luca Barrington",
+                        "number": 14,
+                        "pos": "M",
+                        "grid": "4:3"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 82223,
+                        "name": "Kieran Green",
+                        "number": 4,
+                        "pos": "M",
+                        "grid": "4:2"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 17844,
+                        "name": "Charles Vernam",
+                        "number": 10,
+                        "pos": "M",
+                        "grid": "4:1"
+                    }
+                },
+                {
+                    "player": {
+                        "id": 17620,
+                        "name": "Donovan Wilson",
+                        "number": 25,
+                        "pos": "F",
+                        "grid": "5:1"
+                    }
+                }
+            ],
+            "substitutes": [
+                {
+                    "player": {
+                        "id": 17688,
+                        "name": "Callum Ainley",
+                        "number": 16,
+                        "pos": "M",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 61641,
+                        "name": "Jason Daði Svanþórsson",
+                        "number": 11,
+                        "pos": "F",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 19888,
+                        "name": "Denver Hume",
+                        "number": 33,
+                        "pos": "D",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 17475,
+                        "name": "Danny Rose",
+                        "number": 32,
+                        "pos": "F",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 82004,
+                        "name": "Jake Eastwood",
+                        "number": 12,
+                        "pos": "G",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 163243,
+                        "name": "Tyrell Warren",
+                        "number": 21,
+                        "pos": "D",
+                        "grid": null
+                    }
+                },
+                {
+                    "player": {
+                        "id": 438093,
+                        "name": "Cameron Gardner",
+                        "number": 22,
+                        "pos": "F",
+                        "grid": null
+                    }
+                }
+            ],
+            "coach": {
+                "id": 596,
+                "name": "D. Artell",
+                "photo": "https://media.api-sports.io/football/coachs/596.png"
+            }
+        }
+    ]
+}

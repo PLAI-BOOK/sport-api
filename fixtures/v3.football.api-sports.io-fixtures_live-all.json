@@ -4,7 +4,7 @@
         "live": "all"
     },
     "errors": [],
-    "results": 38,
+    "results": 19,
     "paging": {
         "current": 1,
         "total": 1
@@ -12,46 +12,1474 @@
     "response": [
         {
             "fixture": {
-                "id": 1216981,
-                "referee": "O. Yates",
+                "id": 1268337,
+                "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
+                "date": "2024-08-23T11:00:00+00:00",
+                "timestamp": 1724410800,
                 "periods": {
-                    "first": 1724353200,
+                    "first": 1724410800,
                     "second": null
                 },
                 "venue": {
-                    "id": 567,
-                    "name": "Meadow Lane",
-                    "city": "Nottingham, Nottinghamshire"
+                    "id": 4069,
+                    "name": "RSN Stadium",
+                    "city": "Phnom Penh"
                 },
                 "status": {
                     "long": "First Half",
                     "short": "1H",
-                    "elapsed": 23
+                    "elapsed": 6
                 }
             },
             "league": {
-                "id": 42,
-                "name": "League Two",
-                "country": "England",
-                "logo": "https://media.api-sports.io/football/leagues/42.png",
-                "flag": "https://media.api-sports.io/flags/gb.svg",
+                "id": 410,
+                "name": "C-League",
+                "country": "Cambodia",
+                "logo": "https://media.api-sports.io/football/leagues/410.png",
+                "flag": "https://media.api-sports.io/flags/kh.svg",
+                "season": 2024,
+                "round": "Regular Season - 2"
+            },
+            "teams": {
+                "home": {
+                    "id": 5394,
+                    "name": "Phnom Penh Crown",
+                    "logo": "https://media.api-sports.io/football/teams/5394.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 5387,
+                    "name": "Boeung Ket",
+                    "logo": "https://media.api-sports.io/football/teams/5387.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": []
+        },
+        {
+            "fixture": {
+                "id": 1275331,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:30:00+00:00",
+                "timestamp": 1724409000,
+                "periods": {
+                    "first": 1724409000,
+                    "second": null
+                },
+                "venue": {
+                    "id": 20035,
+                    "name": "Kigali Pelé Stadium",
+                    "city": "Kigali"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 34
+                }
+            },
+            "league": {
+                "id": 405,
+                "name": "National Soccer League",
+                "country": "Rwanda",
+                "logo": "https://media.api-sports.io/football/leagues/405.png",
+                "flag": "https://media.api-sports.io/flags/rw.svg",
+                "season": 2024,
+                "round": "Regular Season - 2"
+            },
+            "teams": {
+                "home": {
+                    "id": 7574,
+                    "name": "Gasogi United",
+                    "logo": "https://media.api-sports.io/football/teams/7574.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 5318,
+                    "name": "Marines",
+                    "logo": "https://media.api-sports.io/football/teams/5318.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": []
+        },
+        {
+            "fixture": {
+                "id": 1278206,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": null
+                },
+                "venue": {
+                    "id": 20004,
+                    "name": "Stadion Molodizhnyy",
+                    "city": "Poltava"
+                },
+                "status": {
+                    "long": "First Half",
+                    "short": "1H",
+                    "elapsed": 25
+                }
+            },
+            "league": {
+                "id": 334,
+                "name": "Persha Liga",
+                "country": "Ukraine",
+                "logo": "https://media.api-sports.io/football/leagues/334.png",
+                "flag": "https://media.api-sports.io/flags/ua.svg",
                 "season": 2024,
                 "round": "Regular Season - 3"
             },
             "teams": {
                 "home": {
-                    "id": 1376,
-                    "name": "Notts County",
-                    "logo": "https://media.api-sports.io/football/teams/1376.png",
+                    "id": 17165,
+                    "name": "SK Poltava",
+                    "logo": "https://media.api-sports.io/football/teams/17165.png",
                     "winner": true
                 },
                 "away": {
-                    "id": 1365,
-                    "name": "Grimsby",
-                    "logo": "https://media.api-sports.io/football/teams/1365.png",
+                    "id": 6487,
+                    "name": "Dinaz Vyshhorod",
+                    "logo": "https://media.api-sports.io/football/teams/6487.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 16,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 17165,
+                        "name": "SK Poltava",
+                        "logo": "https://media.api-sports.io/football/teams/17165.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "Y. Streltsov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 20,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 6487,
+                        "name": "Dinaz Vyshhorod",
+                        "logo": "https://media.api-sports.io/football/teams/6487.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "E. Romanchuk"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Red Card",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 21,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 17165,
+                        "name": "SK Poltava",
+                        "logo": "https://media.api-sports.io/football/teams/17165.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "D. Plakhtyr"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1211959,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T09:30:00+00:00",
+                "timestamp": 1724405400,
+                "periods": {
+                    "first": 1724405400,
+                    "second": 1724409000
+                },
+                "venue": {
+                    "id": 19697,
+                    "name": "Thuwunna Stadium",
+                    "city": "Yangon"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 79
+                }
+            },
+            "league": {
+                "id": 588,
+                "name": "National League",
+                "country": "Myanmar",
+                "logo": "https://media.api-sports.io/football/leagues/588.png",
+                "flag": "https://media.api-sports.io/flags/mm.svg",
+                "season": 2024,
+                "round": "Regular Season - 8"
+            },
+            "teams": {
+                "home": {
+                    "id": 19048,
+                    "name": "Myawady",
+                    "logo": "https://media.api-sports.io/football/teams/19048.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 12528,
+                    "name": "Sagaing United",
+                    "logo": "https://media.api-sports.io/football/teams/12528.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 18,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": 164088,
+                        "name": "K. Moukailou"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 29,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "T. H. Zaw"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 40,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "S. T. Maung"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "Y. P. Naung"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 1",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 40,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "T. Zaw"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "T. H. Zaw"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 2",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 45,
+                        "extra": 2
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "P. Gilles"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 52,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "T. Zaw"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 54,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "W. K. Htay"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "P. Gilles"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 1",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 54,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "A. k. Kyaw"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "K. S. Min"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 2",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 60,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "S. O. Hlaing"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "K. K. Aung"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 3",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 60,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19048,
+                        "name": "Myawady",
+                        "logo": "https://media.api-sports.io/football/teams/19048.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "N. Z. Htet"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": "Y. M. Yan"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 4",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 64,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "K. Z. Lin"
+                    },
+                    "assist": {
+                        "id": 122454,
+                        "name": "Thet Naing"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 3",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 64,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 12528,
+                        "name": "Sagaing United",
+                        "logo": "https://media.api-sports.io/football/teams/12528.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "M. M. Phyo"
+                    },
+                    "assist": {
+                        "id": 164088,
+                        "name": "K. Moukailou"
+                    },
+                    "type": "subst",
+                    "detail": "Substitution 4",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1268064,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T09:30:00+00:00",
+                "timestamp": 1724405400,
+                "periods": {
+                    "first": 1724405400,
+                    "second": 1724409000
+                },
+                "venue": {
+                    "id": null,
+                    "name": null,
+                    "city": null
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 75
+                }
+            },
+            "league": {
+                "id": 1020,
+                "name": "Calcutta Premier Division",
+                "country": "India",
+                "logo": "https://media.api-sports.io/football/leagues/1020.png",
+                "flag": "https://media.api-sports.io/flags/in.svg",
+                "season": 2024,
+                "round": "Regular Season - 13"
+            },
+            "teams": {
+                "home": {
+                    "id": 15749,
+                    "name": "Bhawanipore",
+                    "logo": "https://media.api-sports.io/football/teams/15749.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 21599,
+                    "name": "Calcutta Customs",
+                    "logo": "https://media.api-sports.io/football/teams/21599.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 4,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 16,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15749,
+                        "name": "Bhawanipore",
+                        "logo": "https://media.api-sports.io/football/teams/15749.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "J. Zaihmingthanga"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 44,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15749,
+                        "name": "Bhawanipore",
+                        "logo": "https://media.api-sports.io/football/teams/15749.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "D. Saha"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Penalty",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 61,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15749,
+                        "name": "Bhawanipore",
+                        "logo": "https://media.api-sports.io/football/teams/15749.png"
+                    },
+                    "player": {
+                        "id": 483793,
+                        "name": "E. Anyichie"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 65,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15749,
+                        "name": "Bhawanipore",
+                        "logo": "https://media.api-sports.io/football/teams/15749.png"
+                    },
+                    "player": {
+                        "id": 29083,
+                        "name": "A. Mallick"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1286971,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": 1724410800
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Stadion Rubin' zapasnoe pole",
+                    "city": "Kazan'"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 47
+                }
+            },
+            "league": {
+                "id": 238,
+                "name": "Youth Championship",
+                "country": "Russia",
+                "logo": "https://media.api-sports.io/football/leagues/238.png",
+                "flag": "https://media.api-sports.io/flags/ru.svg",
+                "season": 2024,
+                "round": "Relegation Round - 1"
+            },
+            "teams": {
+                "home": {
+                    "id": 9226,
+                    "name": "Rubin Kazan U20",
+                    "logo": "https://media.api-sports.io/football/teams/9226.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 17151,
+                    "name": "Nizhny Novgorod U19",
+                    "logo": "https://media.api-sports.io/football/teams/17151.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 23,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 9226,
+                        "name": "Rubin Kazan U20",
+                        "logo": "https://media.api-sports.io/football/teams/9226.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "F. Zolotarev"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1286972,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": 1724410800
+                },
+                "venue": {
+                    "id": 4984,
+                    "name": "Stadion Yantar'",
+                    "city": "Moskva"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 50
+                }
+            },
+            "league": {
+                "id": 238,
+                "name": "Youth Championship",
+                "country": "Russia",
+                "logo": "https://media.api-sports.io/football/leagues/238.png",
+                "flag": "https://media.api-sports.io/flags/ru.svg",
+                "season": 2024,
+                "round": "Relegation Round - 1"
+            },
+            "teams": {
+                "home": {
+                    "id": 15179,
+                    "name": "Strogino U20",
+                    "logo": "https://media.api-sports.io/football/teams/15179.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 9231,
+                    "name": "Ural U20",
+                    "logo": "https://media.api-sports.io/football/teams/9231.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 17,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15179,
+                        "name": "Strogino U20",
+                        "logo": "https://media.api-sports.io/football/teams/15179.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "R. Khuranov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 41,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15179,
+                        "name": "Strogino U20",
+                        "logo": "https://media.api-sports.io/football/teams/15179.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "S. D. Chekhlov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1286973,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": 1724410800
+                },
+                "venue": {
+                    "id": 4978,
+                    "name": "Stadion Metallurg",
+                    "city": "Novotroitsk"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 50
+                }
+            },
+            "league": {
+                "id": 238,
+                "name": "Youth Championship",
+                "country": "Russia",
+                "logo": "https://media.api-sports.io/football/leagues/238.png",
+                "flag": "https://media.api-sports.io/flags/ru.svg",
+                "season": 2024,
+                "round": "Relegation Round - 1"
+            },
+            "teams": {
+                "home": {
+                    "id": 17150,
+                    "name": "Krylya Sovetov U19",
+                    "logo": "https://media.api-sports.io/football/teams/17150.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 9217,
+                    "name": "Akhmat Grozny U20",
+                    "logo": "https://media.api-sports.io/football/teams/9217.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 3,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 3,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 1,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 17150,
+                        "name": "Krylya Sovetov U19",
+                        "logo": "https://media.api-sports.io/football/teams/17150.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "I. Morozov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 14,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 17150,
+                        "name": "Krylya Sovetov U19",
+                        "logo": "https://media.api-sports.io/football/teams/17150.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "Y. Demchenko"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 16,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 17150,
+                        "name": "Krylya Sovetov U19",
+                        "logo": "https://media.api-sports.io/football/teams/17150.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "D. Cherkasov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 28,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 9217,
+                        "name": "Akhmat Grozny U20",
+                        "logo": "https://media.api-sports.io/football/teams/9217.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "A. Davlitgereev"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1294327,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T09:30:00+00:00",
+                "timestamp": 1724405400,
+                "periods": {
+                    "first": 1724405400,
+                    "second": 1724409000
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Olympic Park",
+                    "city": "Melbourne"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 72
+                }
+            },
+            "league": {
+                "id": 195,
+                "name": "Victoria NPL",
+                "country": "Australia",
+                "logo": "https://media.api-sports.io/football/leagues/195.png",
+                "flag": "https://media.api-sports.io/flags/au.svg",
+                "season": 2024,
+                "round": "Qualifying Finals"
+            },
+            "teams": {
+                "home": {
+                    "id": 3803,
+                    "name": "Heidelberg United",
+                    "logo": "https://media.api-sports.io/football/teams/3803.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 3804,
+                    "name": "Hume City",
+                    "logo": "https://media.api-sports.io/football/teams/3804.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 41,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 3803,
+                        "name": "Heidelberg United",
+                        "logo": "https://media.api-sports.io/football/teams/3803.png"
+                    },
+                    "player": {
+                        "id": 262899,
+                        "name": "S. James Ngor"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1162284,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:15:00+00:00",
+                "timestamp": 1724408100,
+                "periods": {
+                    "first": 1724408100,
+                    "second": null
+                },
+                "venue": {
+                    "id": 10556,
+                    "name": "KGV Football Park",
+                    "city": "Hobart"
+                },
+                "status": {
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
+                }
+            },
+            "league": {
+                "id": 648,
+                "name": "Tasmania NPL",
+                "country": "Australia",
+                "logo": "https://media.api-sports.io/football/leagues/648.png",
+                "flag": "https://media.api-sports.io/flags/au.svg",
+                "season": 2024,
+                "round": "Regular Season - 19"
+            },
+            "teams": {
+                "home": {
+                    "id": 14101,
+                    "name": "Glenorchy Knights",
+                    "logo": "https://media.api-sports.io/football/teams/14101.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 14102,
+                    "name": "Kingborough Lions",
+                    "logo": "https://media.api-sports.io/football/teams/14102.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 4,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14102,
+                        "name": "Kingborough Lions",
+                        "logo": "https://media.api-sports.io/football/teams/14102.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "K. Douce"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1162285,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:15:00+00:00",
+                "timestamp": 1724408100,
+                "periods": {
+                    "first": 1724408100,
+                    "second": null
+                },
+                "venue": {
+                    "id": 10560,
+                    "name": "Windsor Park",
+                    "city": "Launceston"
+                },
+                "status": {
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
+                }
+            },
+            "league": {
+                "id": 648,
+                "name": "Tasmania NPL",
+                "country": "Australia",
+                "logo": "https://media.api-sports.io/football/leagues/648.png",
+                "flag": "https://media.api-sports.io/flags/au.svg",
+                "season": 2024,
+                "round": "Regular Season - 19"
+            },
+            "teams": {
+                "home": {
+                    "id": 14105,
+                    "name": "Riverside",
+                    "logo": "https://media.api-sports.io/football/teams/14105.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 21047,
+                    "name": "Launceston United",
+                    "logo": "https://media.api-sports.io/football/teams/21047.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 0
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 0
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 9,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14105,
+                        "name": "Riverside",
+                        "logo": "https://media.api-sports.io/football/teams/14105.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "A. Marshall"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 40,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14105,
+                        "name": "Riverside",
+                        "logo": "https://media.api-sports.io/football/teams/14105.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "G. Krusa"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1178518,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": null
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Sangam Auxiliary Stadium",
+                    "city": "Seoul"
+                },
+                "status": {
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
+                }
+            },
+            "league": {
+                "id": 660,
+                "name": "WK-League",
+                "country": "South-Korea",
+                "logo": "https://media.api-sports.io/football/leagues/660.png",
+                "flag": "https://media.api-sports.io/flags/kr.svg",
+                "season": 2024,
+                "round": "Regular Season - 23"
+            },
+            "teams": {
+                "home": {
+                    "id": 14378,
+                    "name": "Seoul",
+                    "logo": "https://media.api-sports.io/football/teams/14378.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 14372,
+                    "name": "Boeun Sangmu",
+                    "logo": "https://media.api-sports.io/football/teams/14372.png",
                     "winner": false
                 }
             },
@@ -84,17 +1512,17 @@
                         "extra": null
                     },
                     "team": {
-                        "id": 1376,
-                        "name": "Notts County",
-                        "logo": "https://media.api-sports.io/football/teams/1376.png"
+                        "id": 14378,
+                        "name": "Seoul",
+                        "logo": "https://media.api-sports.io/football/teams/14378.png"
                     },
                     "player": {
-                        "id": 60648,
-                        "name": "A. Jatta"
+                        "id": null,
+                        "name": null
                     },
                     "assist": {
-                        "id": 36789,
-                        "name": "D. Crowley"
+                        "id": null,
+                        "name": null
                     },
                     "type": "Goal",
                     "detail": "Normal Goal",
@@ -102,43 +1530,21 @@
                 },
                 {
                     "time": {
-                        "elapsed": 13,
+                        "elapsed": 9,
                         "extra": null
                     },
                     "team": {
-                        "id": 1365,
-                        "name": "Grimsby",
-                        "logo": "https://media.api-sports.io/football/teams/1365.png"
+                        "id": 14378,
+                        "name": "Seoul",
+                        "logo": "https://media.api-sports.io/football/teams/14378.png"
                     },
                     "player": {
-                        "id": 17688,
-                        "name": "C. Ainley"
+                        "id": null,
+                        "name": null
                     },
                     "assist": {
-                        "id": 82948,
-                        "name": "J. Davies"
-                    },
-                    "type": "subst",
-                    "detail": "Substitution 1",
-                    "comments": null
-                },
-                {
-                    "time": {
-                        "elapsed": 15,
-                        "extra": null
-                    },
-                    "team": {
-                        "id": 1376,
-                        "name": "Notts County",
-                        "logo": "https://media.api-sports.io/football/teams/1376.png"
-                    },
-                    "player": {
-                        "id": 36789,
-                        "name": "D. Crowley"
-                    },
-                    "assist": {
-                        "id": 20010,
-                        "name": "J. Jones"
+                        "id": null,
+                        "name": null
                     },
                     "type": "Goal",
                     "detail": "Normal Goal",
@@ -148,57 +1554,57 @@
         },
         {
             "fixture": {
-                "id": 1239849,
+                "id": 1179916,
                 "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
                 "periods": {
-                    "first": 1724353200,
+                    "first": 1724407200,
                     "second": null
                 },
                 "venue": {
-                    "id": null,
-                    "name": "Stade Mustapha Tchaker",
-                    "city": "Blida"
+                    "id": 1009,
+                    "name": "Chuncheon Songam Stadium",
+                    "city": "Chuncheon"
                 },
                 "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 18
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
                 }
             },
             "league": {
-                "id": 12,
-                "name": "CAF Champions League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/12.png",
-                "flag": null,
+                "id": 295,
+                "name": "K3 League",
+                "country": "South-Korea",
+                "logo": "https://media.api-sports.io/football/leagues/295.png",
+                "flag": "https://media.api-sports.io/flags/kr.svg",
                 "season": 2024,
-                "round": "1st Preliminary Round"
+                "round": "Regular Season - 22"
             },
             "teams": {
                 "home": {
-                    "id": 906,
-                    "name": "MC Alger",
-                    "logo": "https://media.api-sports.io/football/teams/906.png",
-                    "winner": true
+                    "id": 7064,
+                    "name": "Chuncheon",
+                    "logo": "https://media.api-sports.io/football/teams/7064.png",
+                    "winner": false
                 },
                 "away": {
-                    "id": 16151,
-                    "name": "Watanga",
-                    "logo": "https://media.api-sports.io/football/teams/16151.png",
-                    "winner": false
+                    "id": 7105,
+                    "name": "Siheung Citizen",
+                    "logo": "https://media.api-sports.io/football/teams/7105.png",
+                    "winner": true
                 }
             },
             "goals": {
-                "home": 1,
-                "away": 0
+                "home": 0,
+                "away": 1
             },
             "score": {
                 "halftime": {
-                    "home": 1,
-                    "away": 0
+                    "home": 0,
+                    "away": 1
                 },
                 "fulltime": {
                     "home": null,
@@ -220,13 +1626,13 @@
                         "extra": null
                     },
                     "team": {
-                        "id": 906,
-                        "name": "MC Alger",
-                        "logo": "https://media.api-sports.io/football/teams/906.png"
+                        "id": 7105,
+                        "name": "Siheung Citizen",
+                        "logo": "https://media.api-sports.io/football/teams/7105.png"
                     },
                     "player": {
                         "id": null,
-                        "name": "S. Bayazid"
+                        "name": "L. Ji-Hong"
                     },
                     "assist": {
                         "id": null,
@@ -240,56 +1646,56 @@
         },
         {
             "fixture": {
-                "id": 1287564,
-                "referee": "Miguel Nogueira, Portugal",
+                "id": 1222709,
+                "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
                 "periods": {
-                    "first": 1724353200,
+                    "first": 1724407200,
                     "second": null
                 },
                 "venue": {
-                    "id": 1543,
-                    "name": "kybunpark",
-                    "city": "St. Gallen"
+                    "id": 8341,
+                    "name": "NTB Dynamo",
+                    "city": "Koncha-Zaspa"
                 },
                 "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 22
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
                 }
             },
             "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
+                "id": 1065,
+                "name": "U19 League",
+                "country": "Ukraine",
+                "logo": "https://media.api-sports.io/football/leagues/1065.png",
+                "flag": "https://media.api-sports.io/flags/ua.svg",
                 "season": 2024,
-                "round": "Play-offs"
+                "round": "Regular Season - 4"
             },
             "teams": {
                 "home": {
-                    "id": 1011,
-                    "name": "FC ST. Gallen",
-                    "logo": "https://media.api-sports.io/football/teams/1011.png",
-                    "winner": null
+                    "id": 7898,
+                    "name": "Dynamo Kyiv U19",
+                    "logo": "https://media.api-sports.io/football/teams/7898.png",
+                    "winner": true
                 },
                 "away": {
-                    "id": 998,
-                    "name": "Trabzonspor",
-                    "logo": "https://media.api-sports.io/football/teams/998.png",
-                    "winner": null
+                    "id": 23083,
+                    "name": "Vorskla U19",
+                    "logo": "https://media.api-sports.io/football/teams/23083.png",
+                    "winner": false
                 }
             },
             "goals": {
-                "home": 0,
+                "home": 3,
                 "away": 0
             },
             "score": {
                 "halftime": {
-                    "home": 0,
+                    "home": 3,
                     "away": 0
                 },
                 "fulltime": {
@@ -305,61 +1711,128 @@
                     "away": null
                 }
             },
-            "events": []
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 2,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 7898,
+                        "name": "Dynamo Kyiv U19",
+                        "logo": "https://media.api-sports.io/football/teams/7898.png"
+                    },
+                    "player": {
+                        "id": 345405,
+                        "name": "A. Matkevych"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 10,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 7898,
+                        "name": "Dynamo Kyiv U19",
+                        "logo": "https://media.api-sports.io/football/teams/7898.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "I. Andreyko"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 12,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 7898,
+                        "name": "Dynamo Kyiv U19",
+                        "logo": "https://media.api-sports.io/football/teams/7898.png"
+                    },
+                    "player": {
+                        "id": 345405,
+                        "name": "A. Matkevych"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
         },
         {
             "fixture": {
-                "id": 1287570,
-                "referee": "Gergo Bogar, Hungary",
+                "id": 1224484,
+                "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
                 "periods": {
-                    "first": 1724353200,
+                    "first": 1724407200,
                     "second": null
                 },
                 "venue": {
-                    "id": 654,
-                    "name": "Stade Bollaert-Delelis",
-                    "city": "Lens"
+                    "id": 12094,
+                    "name": "Areál Vlastislava Marečka",
+                    "city": "Zlín"
                 },
                 "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 23
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
                 }
             },
             "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
+                "id": 668,
+                "name": "1. Liga U19",
+                "country": "Czech-Republic",
+                "logo": "https://media.api-sports.io/football/leagues/668.png",
+                "flag": "https://media.api-sports.io/flags/cz.svg",
                 "season": 2024,
-                "round": "Play-offs"
+                "round": "Regular Season - 3"
             },
             "teams": {
                 "home": {
-                    "id": 116,
-                    "name": "Lens",
-                    "logo": "https://media.api-sports.io/football/teams/116.png",
+                    "id": 14840,
+                    "name": "Zlín U19",
+                    "logo": "https://media.api-sports.io/football/teams/14840.png",
                     "winner": true
                 },
                 "away": {
-                    "id": 617,
-                    "name": "Panathinaikos",
-                    "logo": "https://media.api-sports.io/football/teams/617.png",
+                    "id": 14836,
+                    "name": "Pardubice U19",
+                    "logo": "https://media.api-sports.io/football/teams/14836.png",
                     "winner": false
                 }
             },
             "goals": {
-                "home": 1,
-                "away": 0
+                "home": 2,
+                "away": 1
             },
             "score": {
                 "halftime": {
-                    "home": 1,
-                    "away": 0
+                    "home": 2,
+                    "away": 1
                 },
                 "fulltime": {
                     "home": null,
@@ -381,17 +1854,17 @@
                         "extra": null
                     },
                     "team": {
-                        "id": 116,
-                        "name": "Lens",
-                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                        "id": 14840,
+                        "name": "Zlín U19",
+                        "logo": "https://media.api-sports.io/football/teams/14840.png"
                     },
                     "player": {
-                        "id": 3007,
-                        "name": "P. Frankowski"
+                        "id": null,
+                        "name": null
                     },
                     "assist": {
-                        "id": 20761,
-                        "name": "F. Sotoca"
+                        "id": null,
+                        "name": null
                     },
                     "type": "Goal",
                     "detail": "Normal Goal",
@@ -399,17 +1872,61 @@
                 },
                 {
                     "time": {
-                        "elapsed": 13,
+                        "elapsed": 8,
                         "extra": null
                     },
                     "team": {
-                        "id": 116,
-                        "name": "Lens",
-                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                        "id": 14840,
+                        "name": "Zlín U19",
+                        "logo": "https://media.api-sports.io/football/teams/14840.png"
                     },
                     "player": {
-                        "id": 6231,
-                        "name": "F. Medina"
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 17,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14836,
+                        "name": "Pardubice U19",
+                        "logo": "https://media.api-sports.io/football/teams/14836.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 20,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14836,
+                        "name": "Pardubice U19",
+                        "logo": "https://media.api-sports.io/football/teams/14836.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
                     },
                     "assist": {
                         "id": null,
@@ -417,223 +1934,107 @@
                     },
                     "type": "Card",
                     "detail": "Yellow Card",
-                    "comments": "Tripping"
+                    "comments": null
                 },
                 {
                     "time": {
-                        "elapsed": 22,
+                        "elapsed": 36,
                         "extra": null
                     },
                     "team": {
-                        "id": 116,
-                        "name": "Lens",
-                        "logo": "https://media.api-sports.io/football/teams/116.png"
+                        "id": 14840,
+                        "name": "Zlín U19",
+                        "logo": "https://media.api-sports.io/football/teams/14840.png"
                     },
                     "player": {
-                        "id": 6231,
-                        "name": "F. Medina"
+                        "id": null,
+                        "name": null
                     },
                     "assist": {
                         "id": null,
                         "name": null
                     },
                     "type": "Card",
-                    "detail": "Red Card",
+                    "detail": "Yellow Card",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 38,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 14840,
+                        "name": "Zlín U19",
+                        "logo": "https://media.api-sports.io/football/teams/14840.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Card",
+                    "detail": "Yellow Card",
                     "comments": null
                 }
             ]
         },
         {
             "fixture": {
-                "id": 1287578,
-                "referee": "Mohammad Al-Emara, Finland",
+                "id": 1234487,
+                "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T18:45:00+00:00",
-                "timestamp": 1724352300,
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
                 "periods": {
-                    "first": 1724352300,
+                    "first": 1724407200,
                     "second": null
                 },
                 "venue": {
-                    "id": 865,
-                    "name": "Tallaght Stadium",
-                    "city": "Dublin"
+                    "id": 20707,
+                    "name": "Samtse Dzongkhag Ground",
+                    "city": "Samtse"
                 },
                 "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 38
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
                 }
             },
             "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
+                "id": 1031,
+                "name": "Premier League",
+                "country": "Bhutan",
+                "logo": "https://media.api-sports.io/football/leagues/1031.png",
+                "flag": "https://media.api-sports.io/flags/bt.svg",
                 "season": 2024,
-                "round": "Play-offs"
+                "round": "Regular Season - 7"
             },
             "teams": {
                 "home": {
-                    "id": 3843,
-                    "name": "St Patrick's Athl.",
-                    "logo": "https://media.api-sports.io/football/teams/3843.png",
-                    "winner": null
+                    "id": 21275,
+                    "name": "Samtse",
+                    "logo": "https://media.api-sports.io/football/teams/21275.png",
+                    "winner": false
                 },
                 "away": {
-                    "id": 564,
-                    "name": "Istanbul Basaksehir",
-                    "logo": "https://media.api-sports.io/football/teams/564.png",
-                    "winner": null
-                }
-            },
-            "goals": {
-                "home": 0,
-                "away": 0
-            },
-            "score": {
-                "halftime": {
-                    "home": 0,
-                    "away": 0
-                },
-                "fulltime": {
-                    "home": null,
-                    "away": null
-                },
-                "extratime": {
-                    "home": null,
-                    "away": null
-                },
-                "penalty": {
-                    "home": null,
-                    "away": null
-                }
-            },
-            "events": []
-        },
-        {
-            "fixture": {
-                "id": 1287584,
-                "referee": "Jeremie Pignard, France",
-                "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
-                "periods": {
-                    "first": 1724353200,
-                    "second": null
-                },
-                "venue": {
-                    "id": 519,
-                    "name": "Stamford Bridge",
-                    "city": "London"
-                },
-                "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 23
-                }
-            },
-            "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
-                "season": 2024,
-                "round": "Play-offs"
-            },
-            "teams": {
-                "home": {
-                    "id": 49,
-                    "name": "Chelsea",
-                    "logo": "https://media.api-sports.io/football/teams/49.png",
-                    "winner": null
-                },
-                "away": {
-                    "id": 2184,
-                    "name": "Servette FC",
-                    "logo": "https://media.api-sports.io/football/teams/2184.png",
-                    "winner": null
-                }
-            },
-            "goals": {
-                "home": 0,
-                "away": 0
-            },
-            "score": {
-                "halftime": {
-                    "home": 0,
-                    "away": 0
-                },
-                "fulltime": {
-                    "home": null,
-                    "away": null
-                },
-                "extratime": {
-                    "home": null,
-                    "away": null
-                },
-                "penalty": {
-                    "home": null,
-                    "away": null
-                }
-            },
-            "events": []
-        },
-        {
-            "fixture": {
-                "id": 1287600,
-                "referee": "Ishmael Barbara, Malta",
-                "timezone": "UTC",
-                "date": "2024-08-22T19:00:00+00:00",
-                "timestamp": 1724353200,
-                "periods": {
-                    "first": 1724353200,
-                    "second": null
-                },
-                "venue": {
-                    "id": 760,
-                    "name": "Estádio Do Algarve",
-                    "city": "Almancil"
-                },
-                "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 23
-                }
-            },
-            "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
-                "season": 2024,
-                "round": "Play-offs"
-            },
-            "teams": {
-                "home": {
-                    "id": 667,
-                    "name": "Lincoln Red Imps FC",
-                    "logo": "https://media.api-sports.io/football/teams/667.png",
-                    "winner": null
-                },
-                "away": {
-                    "id": 5354,
-                    "name": "Larne",
-                    "logo": "https://media.api-sports.io/football/teams/5354.png",
-                    "winner": null
+                    "id": 9426,
+                    "name": "Paro",
+                    "logo": "https://media.api-sports.io/football/teams/9426.png",
+                    "winner": true
                 }
             },
             "goals": {
                 "home": 1,
-                "away": 1
+                "away": 3
             },
             "score": {
                 "halftime": {
                     "home": 1,
-                    "away": 1
+                    "away": 3
                 },
                 "fulltime": {
                     "home": null,
@@ -651,17 +2052,17 @@
             "events": [
                 {
                     "time": {
-                        "elapsed": 16,
+                        "elapsed": 8,
                         "extra": null
                     },
                     "team": {
-                        "id": 5354,
-                        "name": "Larne",
-                        "logo": "https://media.api-sports.io/football/teams/5354.png"
+                        "id": 9426,
+                        "name": "Paro",
+                        "logo": "https://media.api-sports.io/football/teams/9426.png"
                     },
                     "player": {
-                        "id": 309855,
-                        "name": "M. Lusty"
+                        "id": null,
+                        "name": "E. Asante"
                     },
                     "assist": {
                         "id": null,
@@ -673,227 +2074,65 @@
                 },
                 {
                     "time": {
-                        "elapsed": 23,
+                        "elapsed": 10,
                         "extra": null
                     },
                     "team": {
-                        "id": 667,
-                        "name": "Lincoln Red Imps FC",
-                        "logo": "https://media.api-sports.io/football/teams/667.png"
+                        "id": 21275,
+                        "name": "Samtse",
+                        "logo": "https://media.api-sports.io/football/teams/21275.png"
                     },
                     "player": {
-                        "id": 108526,
-                        "name": "K. Gomez"
-                    },
-                    "assist": {
                         "id": null,
-                        "name": "Joe"
-                    },
-                    "type": "Goal",
-                    "detail": "Normal Goal",
-                    "comments": null
-                }
-            ]
-        },
-        {
-            "fixture": {
-                "id": 1287602,
-                "referee": "Lawrence Visser, Belgium",
-                "timezone": "UTC",
-                "date": "2024-08-22T18:45:00+00:00",
-                "timestamp": 1724352300,
-                "periods": {
-                    "first": 1724352300,
-                    "second": null
-                },
-                "venue": {
-                    "id": 2609,
-                    "name": "Tórsvøllur",
-                    "city": "Tórshavn, Streymoy"
-                },
-                "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 37
-                }
-            },
-            "league": {
-                "id": 848,
-                "name": "UEFA Europa Conference League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/848.png",
-                "flag": null,
-                "season": 2024,
-                "round": "Play-offs"
-            },
-            "teams": {
-                "home": {
-                    "id": 701,
-                    "name": "KI Klaksvik",
-                    "logo": "https://media.api-sports.io/football/teams/701.png",
-                    "winner": false
-                },
-                "away": {
-                    "id": 649,
-                    "name": "HJK helsinki",
-                    "logo": "https://media.api-sports.io/football/teams/649.png",
-                    "winner": true
-                }
-            },
-            "goals": {
-                "home": 0,
-                "away": 1
-            },
-            "score": {
-                "halftime": {
-                    "home": 0,
-                    "away": 1
-                },
-                "fulltime": {
-                    "home": null,
-                    "away": null
-                },
-                "extratime": {
-                    "home": null,
-                    "away": null
-                },
-                "penalty": {
-                    "home": null,
-                    "away": null
-                }
-            },
-            "events": [
-                {
-                    "time": {
-                        "elapsed": 14,
-                        "extra": null
-                    },
-                    "team": {
-                        "id": 649,
-                        "name": "HJK helsinki",
-                        "logo": "https://media.api-sports.io/football/teams/649.png"
-                    },
-                    "player": {
-                        "id": 29846,
-                        "name": "L. Erwin"
-                    },
-                    "assist": {
-                        "id": 135853,
-                        "name": "G. Kanellopoulos"
-                    },
-                    "type": "Goal",
-                    "detail": "Normal Goal",
-                    "comments": null
-                },
-                {
-                    "time": {
-                        "elapsed": 23,
-                        "extra": null
-                    },
-                    "team": {
-                        "id": 701,
-                        "name": "KI Klaksvik",
-                        "logo": "https://media.api-sports.io/football/teams/701.png"
-                    },
-                    "player": {
-                        "id": 28908,
-                        "name": "R. Joensen"
+                        "name": null
                     },
                     "assist": {
                         "id": null,
                         "name": null
                     },
-                    "type": "Card",
-                    "detail": "Yellow Card",
+                    "type": "Goal",
+                    "detail": "Normal Goal",
                     "comments": null
-                }
-            ]
-        },
-        {
-            "fixture": {
-                "id": 1287604,
-                "referee": "Rohit Saggi, Norway",
-                "timezone": "UTC",
-                "date": "2024-08-22T18:45:00+00:00",
-                "timestamp": 1724352300,
-                "periods": {
-                    "first": 1724352300,
-                    "second": null
                 },
-                "venue": {
-                    "id": 805,
-                    "name": "Városi Stadion",
-                    "city": "Mezőkövesd"
-                },
-                "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 38
-                }
-            },
-            "league": {
-                "id": 3,
-                "name": "UEFA Europa League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/3.png",
-                "flag": null,
-                "season": 2024,
-                "round": "Play-offs"
-            },
-            "teams": {
-                "home": {
-                    "id": 394,
-                    "name": "Dinamo Minsk",
-                    "logo": "https://media.api-sports.io/football/teams/394.png",
-                    "winner": false
-                },
-                "away": {
-                    "id": 554,
-                    "name": "Anderlecht",
-                    "logo": "https://media.api-sports.io/football/teams/554.png",
-                    "winner": true
-                }
-            },
-            "goals": {
-                "home": 0,
-                "away": 1
-            },
-            "score": {
-                "halftime": {
-                    "home": 0,
-                    "away": 1
-                },
-                "fulltime": {
-                    "home": null,
-                    "away": null
-                },
-                "extratime": {
-                    "home": null,
-                    "away": null
-                },
-                "penalty": {
-                    "home": null,
-                    "away": null
-                }
-            },
-            "events": [
                 {
                     "time": {
-                        "elapsed": 9,
+                        "elapsed": 20,
                         "extra": null
                     },
                     "team": {
-                        "id": 554,
-                        "name": "Anderlecht",
-                        "logo": "https://media.api-sports.io/football/teams/554.png"
+                        "id": 9426,
+                        "name": "Paro",
+                        "logo": "https://media.api-sports.io/football/teams/9426.png"
                     },
                     "player": {
-                        "id": 2852,
-                        "name": "L. Augustinsson"
+                        "id": null,
+                        "name": "E. Asante"
                     },
                     "assist": {
-                        "id": 77,
-                        "name": "M. Rits"
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 45,
+                        "extra": 3
+                    },
+                    "team": {
+                        "id": 9426,
+                        "name": "Paro",
+                        "logo": "https://media.api-sports.io/football/teams/9426.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
                     },
                     "type": "Goal",
                     "detail": "Normal Goal",
@@ -903,46 +2142,46 @@
         },
         {
             "fixture": {
-                "id": 1287616,
-                "referee": "Rade Obrenovič, Slovenia",
+                "id": 1252011,
+                "referee": null,
                 "timezone": "UTC",
-                "date": "2024-08-22T18:45:00+00:00",
-                "timestamp": 1724352300,
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
                 "periods": {
-                    "first": 1724352300,
+                    "first": 1724407200,
                     "second": null
                 },
                 "venue": {
-                    "id": 1249,
-                    "name": "Stadion Miejski",
-                    "city": "Białystok"
+                    "id": null,
+                    "name": null,
+                    "city": null
                 },
                 "status": {
-                    "long": "First Half",
-                    "short": "1H",
-                    "elapsed": 37
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
                 }
             },
             "league": {
-                "id": 3,
-                "name": "UEFA Europa League",
-                "country": "World",
-                "logo": "https://media.api-sports.io/football/leagues/3.png",
-                "flag": null,
+                "id": 676,
+                "name": "Central Youth League",
+                "country": "Poland",
+                "logo": "https://media.api-sports.io/football/leagues/676.png",
+                "flag": "https://media.api-sports.io/flags/pl.svg",
                 "season": 2024,
-                "round": "Play-offs"
+                "round": "Regular Season - 3"
             },
             "teams": {
                 "home": {
-                    "id": 336,
-                    "name": "Jagiellonia",
-                    "logo": "https://media.api-sports.io/football/teams/336.png",
+                    "id": 7987,
+                    "name": "Legia Warszawa U19",
+                    "logo": "https://media.api-sports.io/football/teams/7987.png",
                     "winner": false
                 },
                 "away": {
-                    "id": 194,
-                    "name": "Ajax",
-                    "logo": "https://media.api-sports.io/football/teams/194.png",
+                    "id": 20244,
+                    "name": "Zagłębie Lubin U19",
+                    "logo": "https://media.api-sports.io/football/teams/20244.png",
                     "winner": true
                 }
             },
@@ -971,14 +2210,277 @@
             "events": [
                 {
                     "time": {
-                        "elapsed": 5,
+                        "elapsed": 3,
                         "extra": null
                     },
                     "team": {
-                        "id": 336,
-                        "name": "Jagiellonia",
-                        "logo": "https://media.api-sports.io/football/teams/336.png"
+                        "id": 7987,
+                        "name": "Legia Warszawa U19",
+                        "logo": "https://media.api-sports.io/football/teams/7987.png"
                     },
                     "player": {
-                        "id": 47564,
-                        
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 29,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 20244,
+                        "name": "Zagłębie Lubin U19",
+                        "logo": "https://media.api-sports.io/football/teams/20244.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 39,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 20244,
+                        "name": "Zagłębie Lubin U19",
+                        "logo": "https://media.api-sports.io/football/teams/20244.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": null
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1286924,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": null
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Stadion Akademii im. Yuriya Konopleva",
+                    "city": "Primorskiy"
+                },
+                "status": {
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
+                }
+            },
+            "league": {
+                "id": 238,
+                "name": "Youth Championship",
+                "country": "Russia",
+                "logo": "https://media.api-sports.io/football/leagues/238.png",
+                "flag": "https://media.api-sports.io/flags/ru.svg",
+                "season": 2024,
+                "round": "Championship Round - 1"
+            },
+            "teams": {
+                "home": {
+                    "id": 15175,
+                    "name": "Akademiya Konoplev U20",
+                    "logo": "https://media.api-sports.io/football/teams/15175.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 7941,
+                    "name": "Zenit U19",
+                    "logo": "https://media.api-sports.io/football/teams/7941.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": 1,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 1,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 32,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 15175,
+                        "name": "Akademiya Konoplev U20",
+                        "logo": "https://media.api-sports.io/football/teams/15175.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "R. Kulyakhtin"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                },
+                {
+                    "time": {
+                        "elapsed": 36,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 7941,
+                        "name": "Zenit U19",
+                        "logo": "https://media.api-sports.io/football/teams/7941.png"
+                    },
+                    "player": {
+                        "id": null,
+                        "name": "V. Santalov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        },
+        {
+            "fixture": {
+                "id": 1286974,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2024-08-23T10:00:00+00:00",
+                "timestamp": 1724407200,
+                "periods": {
+                    "first": 1724407200,
+                    "second": null
+                },
+                "venue": {
+                    "id": null,
+                    "name": "Stadion Master-Saturn",
+                    "city": "Yegoryevsk"
+                },
+                "status": {
+                    "long": "Halftime",
+                    "short": "HT",
+                    "elapsed": 45
+                }
+            },
+            "league": {
+                "id": 238,
+                "name": "Youth Championship",
+                "country": "Russia",
+                "logo": "https://media.api-sports.io/football/leagues/238.png",
+                "flag": "https://media.api-sports.io/flags/ru.svg",
+                "season": 2024,
+                "round": "Relegation Round - 1"
+            },
+            "teams": {
+                "home": {
+                    "id": 15180,
+                    "name": "UOR №5 U20",
+                    "logo": "https://media.api-sports.io/football/teams/15180.png",
+                    "winner": false
+                },
+                "away": {
+                    "id": 19295,
+                    "name": "Fakel U19",
+                    "logo": "https://media.api-sports.io/football/teams/19295.png",
+                    "winner": true
+                }
+            },
+            "goals": {
+                "home": 0,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 0,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            },
+            "events": [
+                {
+                    "time": {
+                        "elapsed": 31,
+                        "extra": null
+                    },
+                    "team": {
+                        "id": 19295,
+                        "name": "Fakel U19",
+                        "logo": "https://media.api-sports.io/football/teams/19295.png"
+                    },
+                    "player": {
+                        "id": 441761,
+                        "name": "K. Simonov"
+                    },
+                    "assist": {
+                        "id": null,
+                        "name": null
+                    },
+                    "type": "Goal",
+                    "detail": "Normal Goal",
+                    "comments": null
+                }
+            ]
+        }
+    ]
+}
