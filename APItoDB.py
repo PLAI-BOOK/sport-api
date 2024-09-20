@@ -1,13 +1,16 @@
 import requests
 import psycopg2
 from connection import *
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
 
 # Establish the connection
 conn = psycopg2.connect(
-    host="localhost",  # replace with your DB host, in this case, "localhost"
-    database="feature2",  # replace with your DB name
-    user="postgres",  # replace with your username
-    password="8299"  # replace with your password
+    host=os.getenv("DB_HOST"),
+    database=os.getenv("DB_NAME").lower(),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD")
 )
 
 # Create a cursor object
