@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="067f9401-019c-47f4-9f2c-c5ba273e8eee" name="plaibook">
+        <fileTransfer accessType="SFTP" host="54.234.14.60" port="22" sshConfigId="d102f6a5-bf65-4aa7-8325-3088785e34a6" sshConfig="ec2-user@54.234.14.60:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

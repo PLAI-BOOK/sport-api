@@ -45,6 +45,8 @@ def call_api(params):
         # Save the JSON response to a file with a dynamic name
         with open(safe_filename, 'w', encoding='utf-8') as file:
             json.dump(response_data, file, ensure_ascii=False, indent=4)
+        # omri added - return the response
+        return response_data
     except Exception as e:
         print(f"Error: {e}")
         return

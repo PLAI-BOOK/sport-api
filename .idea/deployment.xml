@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="plaibook" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="plaibook">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ec2-user/sport-api/remoteConnection" local="$PROJECT_DIR$" web="http://34.227.10.217:5000/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
