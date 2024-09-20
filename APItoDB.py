@@ -1,17 +1,11 @@
-import requests
 import psycopg2
 from connection import *
 from dotenv import load_dotenv
+from db import connectDB
+
 # Load environment variables from .env file
 load_dotenv()
-
-# Establish the connection
-conn = psycopg2.connect(
-    host=os.getenv("DB_HOST"),
-    database=os.getenv("DB_NAME").lower(),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD")
-)
+conn = connectDB.get_db_connection()  # Connect to the default postgres database
 
 # Create a cursor object
 cur = conn.cursor()
@@ -449,7 +443,7 @@ def takePlayers():
 
     # Commit the transaction to the database
     conn.commit()
-
+    print("Players data inserted successfully!")
 
 
 

@@ -1,31 +1,25 @@
 import os
-import psycopg2
-from dotenv import load_dotenv
+from asyncore import ExitNow
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from dotenv import load_dotenv
+from db import connectDB
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Variables from .env file
-DB_HOST = os.getenv("DB_HOST")
-DB_NAME = os.getenv("DB_NAME").lower()
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-
+# Step 1: try to create database, if exists no need to create and moves on
 try:
-    conn = psycopg2.connect(
-        host=DB_HOST,
-        database="postgres",  # Connect to the default postgres database
-        user=DB_USER,
-        password=DB_PASSWORD
-    )
-    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)  # Required to run CREATE DATABASE command
+    conn = connectDB.get_db_connection()  # Connect to the default postgres database
+    if conn is None:
+        print("Error: Unable to connect to the default database.")
+        ExitNow(1)
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
+    DB_NAME =os.getenv("DB_NAME").lower()
 
     # Check if the database already exists
     cur.execute(f"SELECT 1 FROM pg_database WHERE datname = '{DB_NAME}'")
     exists = cur.fetchone()
-
     if not exists:
         # Database doesn't exist, so create it
         cur.execute(f"CREATE DATABASE {DB_NAME}")
@@ -46,13 +40,6 @@ except Exception as e:
 
 # Step 2: Connect to the newly created or existing 'manuDB' database and create the tables
 try:
-    conn = psycopg2.connect(
-        host=DB_HOST,
-        database=DB_NAME,  # Connect to the 'manuDB' database
-        user=DB_USER,
-        password=DB_PASSWORD
-    )
-    cur = conn.cursor()
     # SQL to create the Fixtures table
     create_fixtures_table = '''
     CREATE TABLE IF NOT EXISTS Fixtures (
