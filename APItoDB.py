@@ -142,7 +142,6 @@ def pull_fixture_statistics(fixture_id):
             else:
                 print(f"Column {stat_type}_{team_type} not found, skipping update.")
 
-
 # Step 4: Pull Fixture Lineups
 def pull_fixture_lineups(fixture_id):
     params = f"/fixtures/lineups?fixture={fixture_id}"
@@ -235,7 +234,6 @@ def pull_team_data(team_id,season,league_id):
             ON CONFLICT (team_id, season, league_id) DO NOTHING
         ''', (team_id, team_name, season, league_id))
 
-
 # Step 7: Pull Team Statistics
 def pull_team_statistics(team_id, season_year, league_id):
     params = f"/teams/statistics?team={team_id}&season={season_year}&league={league_id}"
@@ -322,10 +320,144 @@ def main():
     # Commit all changes to the database
     conn.commit()
 
+# take data for each player
+def takePlayers():
+    cur.execute("SELECT team_id FROM Teams")
+    team_ids = cur.fetchall()
+
+    for team_id in team_ids:
+        params = f"/players?team={team_id[0]}&season=2023"
+        data = call_api(params)
+
+        if not data['response']:
+            print("Data is empty on takePlayers")
+            return
+
+        for item in data['response']:
+            player = item['player']
+            player_id = player['id']
+            firstname = player['firstname']
+            lastname = player['lastname']
+
+            # Player stats from each league
+            for stats in item['statistics']:
+                # Extract relevant data from the response
+                appearances = stats['games']['appearences'] if stats['games']['appearences'] is not None else 0
+                lineups = stats['games']['lineups'] if stats['games']['lineups'] is not None else 0
+                minutes = stats['games']['minutes'] if stats['games']['minutes'] is not None else 0
+                position = stats['games']['position']
+                rating = stats['games']['rating'] if stats['games']['rating'] is not None else None
+                captain = stats['games']['captain']
+
+                substitutions_in = stats['substitutes']['in'] if stats['substitutes']['in'] is not None else 0
+                substitutions_out = stats['substitutes']['out'] if stats['substitutes']['out'] is not None else 0
+                bench_appearances = stats['substitutes']['bench'] if stats['substitutes']['bench'] is not None else 0
+
+                total_shots = stats['shots']['total'] if stats['shots']['total'] is not None else 0
+                shots_on_target = stats['shots']['on'] if stats['shots']['on'] is not None else 0
+                total_goals = stats['goals']['total'] if stats['goals']['total'] is not None else 0
+                assists = stats['goals']['assists'] if stats['goals']['assists'] is not None else 0
+                goals_conceded =  stats['goals']['conceded'] if stats['goals']['assists'] is not None else 0
+                saves = stats['goals']['saves'] if stats['goals']['saves'] is not None else 0
+
+                total_passes = stats['passes']['total'] if stats['passes']['total'] is not None else 0
+                key_passes = stats['passes']['key'] if stats['passes']['key'] is not None else 0
+                pass_accuracy = stats['passes']['accuracy'] if stats['passes']['accuracy'] is not None else 0
+
+                total_tackles = stats['tackles']['total'] if stats['tackles']['total'] is not None else 0
+                blocks = stats['tackles']['blocks'] if stats['tackles']['blocks'] is not None else 0
+                interceptions = stats['tackles']['interceptions'] if stats['tackles']['interceptions'] is not None else 0
+
+                total_duels = stats['duels']['total'] if stats['duels']['total'] is not None else 0
+                duels_won = stats['duels']['won'] if stats['duels']['won'] is not None else 0
+                dribble_attempts = stats['dribbles']['attempts'] if stats['dribbles']['attempts'] is not None else 0
+                successful_dribbles = stats['dribbles']['success'] if stats['dribbles']['success'] is not None else 0
+                dribbled_past = stats['dribbles']['past'] if stats['dribbles']['past'] is not None else 0
+
+                fouls_drawn = stats['fouls']['drawn'] if stats['fouls']['drawn'] is not None else 0
+                fouls_committed = stats['fouls']['committed'] if stats['fouls']['committed'] is not None else 0
+                yellow_cards = stats['cards']['yellow'] if stats['cards']['yellow'] is not None else 0
+                yellow_red_cards = stats['cards']['yellowred'] if stats['cards']['yellowred'] is not None else 0
+                red_cards = stats['cards']['red'] if stats['cards']['red'] is not None else 0
+
+                penalties_won = stats['penalty']['won'] if stats['penalty']['won'] is not None else 0
+                penalties_committed = stats['penalty']['commited'] if stats['penalty']['commited'] is not None else 0
+                penalties_scored = stats['penalty']['scored'] if stats['penalty']['scored'] is not None else 0
+                penalties_missed = stats['penalty']['missed'] if stats['penalty']['missed'] is not None else 0
+                penalties_saved = stats['penalty']['saved'] if stats['penalty']['saved'] is not None else 0
+
+
+                # Insert data into the Players table
+                cur.execute('''
+                    INSERT INTO Players (
+                        player_id,firstname,lastname, appearances, lineups, minutes_played, position, rating, captain,
+                        substitutions_in, substitutions_out, bench_appearances, total_shots, shots_on_target,
+                        total_goals, assists, goals_conceded, saves, total_passes, key_passes, pass_accuracy,
+                        total_tackles, blocks, interceptions, total_duels, duels_won, dribble_attempts,
+                        successful_dribbles, dribbled_past, fouls_drawn, fouls_committed, yellow_cards,
+                        yellow_red_cards, red_cards, penalties_won, penalties_committed, penalties_scored,
+                        penalties_missed, penalties_saved
+                    )
+                    VALUES (%s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (player_id) DO UPDATE SET
+                        appearances = EXCLUDED.appearances,
+                        firstname = EXCLUDED.firstname,
+                        lastname = EXCLUDED.lastname,
+                        lineups = EXCLUDED.lineups,
+                        minutes_played = EXCLUDED.minutes_played,
+                        position = EXCLUDED.position,
+                        rating = EXCLUDED.rating,
+                        captain = EXCLUDED.captain,
+                        substitutions_in = EXCLUDED.substitutions_in,
+                        substitutions_out = EXCLUDED.substitutions_out,
+                        bench_appearances = EXCLUDED.bench_appearances,
+                        total_shots = EXCLUDED.total_shots,
+                        shots_on_target = EXCLUDED.shots_on_target,
+                        total_goals = EXCLUDED.total_goals,
+                        assists = EXCLUDED.assists,
+                        goals_conceded = EXCLUDED.goals_conceded,
+                        saves = EXCLUDED.saves,
+                        total_passes = EXCLUDED.total_passes,
+                        key_passes = EXCLUDED.key_passes,
+                        pass_accuracy = EXCLUDED.pass_accuracy,
+                        total_tackles = EXCLUDED.total_tackles,
+                        blocks = EXCLUDED.blocks,
+                        interceptions = EXCLUDED.interceptions,
+                        total_duels = EXCLUDED.total_duels,
+                        duels_won = EXCLUDED.duels_won,
+                        dribble_attempts = EXCLUDED.dribble_attempts,
+                        successful_dribbles = EXCLUDED.successful_dribbles,
+                        dribbled_past = EXCLUDED.dribbled_past,
+                        fouls_drawn = EXCLUDED.fouls_drawn,
+                        fouls_committed = EXCLUDED.fouls_committed,
+                        yellow_cards = EXCLUDED.yellow_cards,
+                        yellow_red_cards = EXCLUDED.yellow_red_cards,
+                        red_cards = EXCLUDED.red_cards,
+                        penalties_won = EXCLUDED.penalties_won,
+                        penalties_committed = EXCLUDED.penalties_committed,
+                        penalties_scored = EXCLUDED.penalties_scored,
+                        penalties_missed = EXCLUDED.penalties_missed,
+                        penalties_saved = EXCLUDED.penalties_saved
+                ''', (player_id,firstname,lastname, appearances, lineups, minutes, position, rating, captain, substitutions_in,
+                      substitutions_out, bench_appearances, total_shots, shots_on_target, total_goals, assists,
+                      goals_conceded, saves, total_passes, key_passes, pass_accuracy, total_tackles, blocks,
+                      interceptions, total_duels, duels_won, dribble_attempts, successful_dribbles, dribbled_past,
+                      fouls_drawn, fouls_committed, yellow_cards, yellow_red_cards, red_cards, penalties_won,
+                      penalties_committed, penalties_scored, penalties_missed, penalties_saved
+                      ))
+
+    # Commit the transaction to the database
+    conn.commit()
+
+
+
 
 # Run the main function
 if __name__ == "__main__":
-    main()
+    # main()
+    takePlayers()
+
 
 # Close the cursor and connection
 cur.close()
