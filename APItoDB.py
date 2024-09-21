@@ -49,6 +49,13 @@ def pull_fixtures(league_id, season_year):
         goals_half_time_away = fixture['score']['halftime']['away']
         goals_full_time_home = fixture['score']['fulltime']['home']
         goals_full_time_away = fixture['score']['fulltime']['away']
+        # manu added:
+        goals_extra_time_home= fixture['score']['extratime']['home']
+        goals_extra_time_away=fixture['score']['extratime']['away']
+        goals_penalty_home=fixture['score']['penalty']['home']
+        goals_penalty_away=fixture['score']['penalty']['away']
+        league_round = fixture['league']['round']
+
 
         # Updated print statement with all values
         print(f"Fixture ID: {fixture_id}, League ID: {league_id}, League Name: {league_name}, "
@@ -64,16 +71,18 @@ def pull_fixtures(league_id, season_year):
                 home_team_id, home_team_name, 
                 away_team_id, away_team_name, 
                 goals_half_time_home, goals_half_time_away, 
-                goals_full_time_home, goals_full_time_away
+                goals_full_time_home, goals_full_time_away,goals_extra_time_home,
+                goals_extra_time_away,goals_penalty_home,goals_penalty_away,league_round
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
             ON CONFLICT (fixture_id) DO NOTHING
         ''', (
             fixture_id, league_id, league_name,
             home_team_id, home_team_name,
             away_team_id, away_team_name,
             goals_half_time_home, goals_half_time_away,
-            goals_full_time_home, goals_full_time_away
+            goals_full_time_home, goals_full_time_away,goals_extra_time_home,
+            goals_extra_time_away,goals_penalty_home,goals_penalty_away,league_round
         ))
 
 def column_exists(stat_type, team_type):
@@ -105,9 +114,9 @@ def pull_fixture_statistics(fixture_id):
         team_id = team_stats['team']['id']
 
         # Determine if it's home or away team
-        if team_id == home_team_id:
+        if str(team_id) == str(home_team_id):
             team_type = 'home'
-        elif team_id == away_team_id:
+        elif str(team_id) == str(away_team_id):
             team_type = 'away'
         else:
             print(f"Unknown team {team_id} for fixture {fixture_id}")
@@ -133,6 +142,7 @@ def pull_fixture_statistics(fixture_id):
                     SET {stat_type}_{team_type} = %s
                     WHERE fixture_id = %s
                 ''', (stat_value, fixture_id))
+                conn.commit()
             else:
                 print(f"Column {stat_type}_{team_type} not found, skipping update.")
 
@@ -294,7 +304,6 @@ def main():
             for fixture_id in fixture_ids:
                 # Step 3: Pull statistics for each fixture
                 pull_fixture_statistics(fixture_id[0])
-                print("fixture statistics pulled correctly")
 
                 # Step 4: Pull lineups for each fixture
                 pull_fixture_lineups(fixture_id[0])
@@ -315,12 +324,12 @@ def main():
     conn.commit()
 
 # take data for each player
-def takePlayers():
+def takePlayers(season_year):
     cur.execute("SELECT team_id FROM Teams")
     team_ids = cur.fetchall()
 
     for team_id in team_ids:
-        params = f"/players?team={team_id[0]}&season=2023"
+        params = f"/players?team={team_id[0]}&season={season_year}"
         data = call_api(params)
 
         if not data['response']:
@@ -445,12 +454,23 @@ def takePlayers():
     conn.commit()
     print("Players data inserted successfully!")
 
+def check_fexturs_statistic():
+    # Fetch fixture IDs from the database for a given league_id
+    cur.execute("SELECT fixture_id FROM Fixtures WHERE league_id = %s",
+                ("39",))  # Use league_id in the query
+    fixture_ids = cur.fetchall()  # Fetch all fixture IDs
 
+    print(fixture_ids)
+
+    for fixture_id in fixture_ids:
+        # Step 3: Pull statistics for each fixture
+        pull_fixture_statistics(fixture_id[0])
 
 # Run the main function
 if __name__ == "__main__":
     # main()
-    takePlayers()
+    # takePlayers(2023)
+    check_fexturs_statistic()
 
 
 # Close the cursor and connection
