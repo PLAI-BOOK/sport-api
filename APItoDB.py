@@ -1,10 +1,7 @@
-import psycopg2
 from connection import *
-from dotenv import load_dotenv
 from db import connectDB
 
 # Load environment variables from .env file
-load_dotenv()
 conn = connectDB.get_db_connection()  # Connect to the default postgres database
 
 # Create a cursor object
@@ -323,13 +320,13 @@ def main():
     # Commit all changes to the database
     conn.commit()
 
-# take data for each player
-def takePlayers(season_year):
+# pull data for each player
+def pull_players(season_year, league_id):
     cur.execute("SELECT team_id FROM Teams")
     team_ids = cur.fetchall()
 
     for team_id in team_ids:
-        params = f"/players?team={team_id[0]}&season={season_year}"
+        params = f"/players?team={team_id[0]}&season={season_year}&league={league_id}"
         data = call_api(params)
 
         if not data['response']:
@@ -341,9 +338,13 @@ def takePlayers(season_year):
             player_id = player['id']
             firstname = player['firstname']
             lastname = player['lastname']
+            age=player['age']
+            height = int(player['height'][:-3]) if player['height'] else None
+            weight=int((player['weight'])[:-3]) if player['weight'] else None
 
             # Player stats from each league
             for stats in item['statistics']:
+
                 # Extract relevant data from the response
                 appearances = stats['games']['appearences'] if stats['games']['appearences'] is not None else 0
                 lineups = stats['games']['lineups'] if stats['games']['lineups'] is not None else 0
@@ -351,7 +352,6 @@ def takePlayers(season_year):
                 position = stats['games']['position']
                 rating = stats['games']['rating'] if stats['games']['rating'] is not None else None
                 captain = stats['games']['captain']
-
                 substitutions_in = stats['substitutes']['in'] if stats['substitutes']['in'] is not None else 0
                 substitutions_out = stats['substitutes']['out'] if stats['substitutes']['out'] is not None else 0
                 bench_appearances = stats['substitutes']['bench'] if stats['substitutes']['bench'] is not None else 0
@@ -393,7 +393,7 @@ def takePlayers(season_year):
                 # Insert data into the Players table
                 cur.execute('''
                     INSERT INTO Players (
-                        player_id,firstname,lastname, appearances, lineups, minutes_played, position, rating, captain,
+                        player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes_played, position, rating, captain,
                         substitutions_in, substitutions_out, bench_appearances, total_shots, shots_on_target,
                         total_goals, assists, goals_conceded, saves, total_passes, key_passes, pass_accuracy,
                         total_tackles, blocks, interceptions, total_duels, duels_won, dribble_attempts,
@@ -401,48 +401,10 @@ def takePlayers(season_year):
                         yellow_red_cards, red_cards, penalties_won, penalties_committed, penalties_scored,
                         penalties_missed, penalties_saved
                     )
-                    VALUES (%s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                    VALUES (%s, %s,%s, %s, %s, %s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (player_id) DO UPDATE SET
-                        appearances = EXCLUDED.appearances,
-                        firstname = EXCLUDED.firstname,
-                        lastname = EXCLUDED.lastname,
-                        lineups = EXCLUDED.lineups,
-                        minutes_played = EXCLUDED.minutes_played,
-                        position = EXCLUDED.position,
-                        rating = EXCLUDED.rating,
-                        captain = EXCLUDED.captain,
-                        substitutions_in = EXCLUDED.substitutions_in,
-                        substitutions_out = EXCLUDED.substitutions_out,
-                        bench_appearances = EXCLUDED.bench_appearances,
-                        total_shots = EXCLUDED.total_shots,
-                        shots_on_target = EXCLUDED.shots_on_target,
-                        total_goals = EXCLUDED.total_goals,
-                        assists = EXCLUDED.assists,
-                        goals_conceded = EXCLUDED.goals_conceded,
-                        saves = EXCLUDED.saves,
-                        total_passes = EXCLUDED.total_passes,
-                        key_passes = EXCLUDED.key_passes,
-                        pass_accuracy = EXCLUDED.pass_accuracy,
-                        total_tackles = EXCLUDED.total_tackles,
-                        blocks = EXCLUDED.blocks,
-                        interceptions = EXCLUDED.interceptions,
-                        total_duels = EXCLUDED.total_duels,
-                        duels_won = EXCLUDED.duels_won,
-                        dribble_attempts = EXCLUDED.dribble_attempts,
-                        successful_dribbles = EXCLUDED.successful_dribbles,
-                        dribbled_past = EXCLUDED.dribbled_past,
-                        fouls_drawn = EXCLUDED.fouls_drawn,
-                        fouls_committed = EXCLUDED.fouls_committed,
-                        yellow_cards = EXCLUDED.yellow_cards,
-                        yellow_red_cards = EXCLUDED.yellow_red_cards,
-                        red_cards = EXCLUDED.red_cards,
-                        penalties_won = EXCLUDED.penalties_won,
-                        penalties_committed = EXCLUDED.penalties_committed,
-                        penalties_scored = EXCLUDED.penalties_scored,
-                        penalties_missed = EXCLUDED.penalties_missed,
-                        penalties_saved = EXCLUDED.penalties_saved
-                ''', (player_id,firstname,lastname, appearances, lineups, minutes, position, rating, captain, substitutions_in,
+                    ON CONFLICT (player_id) DO NOTHING
+                ''', (player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes, position, rating, captain, substitutions_in,
                       substitutions_out, bench_appearances, total_shots, shots_on_target, total_goals, assists,
                       goals_conceded, saves, total_passes, key_passes, pass_accuracy, total_tackles, blocks,
                       interceptions, total_duels, duels_won, dribble_attempts, successful_dribbles, dribbled_past,
@@ -454,6 +416,10 @@ def takePlayers(season_year):
     conn.commit()
     print("Players data inserted successfully!")
 
+# pull data of injuries for each player
+
+
+# only run pull_fixture_statistics to fix it
 def check_fexturs_statistic():
     # Fetch fixture IDs from the database for a given league_id
     cur.execute("SELECT fixture_id FROM Fixtures WHERE league_id = %s",
@@ -469,8 +435,9 @@ def check_fexturs_statistic():
 # Run the main function
 if __name__ == "__main__":
     # main()
-    # takePlayers(2023)
-    check_fexturs_statistic()
+    pull_players(2023,39)
+    # check_fexturs_statistic()
+    print("bla")
 
 
 # Close the cursor and connection

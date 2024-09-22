@@ -27,9 +27,7 @@ try:
     else:
         print(f"Database {DB_NAME} already exists.")
 
-    # Close cursor and connection after database creation
-    cur.close()
-    conn.close()
+
 
     # Wait a few seconds to ensure that the creation is recognized (a brief delay can help)
     import time
@@ -152,6 +150,9 @@ try:
         player_id VARCHAR(255) PRIMARY KEY,
         firstname VARCHAR(255),
         lastname VARCHAR(255),
+        age INT,
+        height INT,
+        weight INT,
         appearances INT,
         lineups INT,
         minutes_played INT,

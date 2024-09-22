@@ -2,3 +2,8 @@
 
 API_KEY= ""
 BASE_URL = "v3.football.api-sports.io"
+
+DB_HOST=localhost
+DB_NAME=manuDB
+DB_USER=postgres
+DB_PASSWORD=123
