@@ -27,26 +27,42 @@ def _connect():
 
 # this will make the api call and save the response to a file in the directory you call it from with a dynamic name
 def call_api(params):
-    global conn,headers
+    global conn, headers
     if not conn:
         _connect()
-    try:
-        conn.request("GET", params, headers=headers)
-        res = conn.getresponse()
-        data = res.read()
-        # Decode the JSON response
-        response_data = json.loads(data.decode("utf-8"))
-    except Exception as e:
-        print(f"Error: {e}")
-        return
-    # create good filename
-    safe_filename = f"{base_url}{params.replace('?', '_').replace('&', '_').replace('=', '-').replace('/', '-')}.json"
-    try:
-        # Save the JSON response to a file with a dynamic name
-        with open(safe_filename, 'w', encoding='utf-8') as file:
-            json.dump(response_data, file, ensure_ascii=False, indent=4)
-        # omri added - return the response
-        return response_data
-    except Exception as e:
-        print(f"Error: {e}")
-        return
+
+    page = 1  # Start with the first page
+    total_pages = 1  # Default, will be updated after first call
+
+    while page <= total_pages:
+        try:
+            # Make the API call without pagination on the first request
+            paginated_params = f"{params}" if page == 1 else f"{params}&page={page}"
+
+            conn.request("GET", paginated_params, headers=headers)
+            res = conn.getresponse()
+            data = res.read()
+
+            # Decode the JSON response
+            response_data = json.loads(data.decode("utf-8"))
+
+            # Generate a unique filename for each page
+            safe_filename = f"{base_url}{paginated_params.replace('?', '_').replace('&', '_').replace('=', '-').replace('/', '-')}.json"
+
+            # Save the JSON response to a file
+            with open(safe_filename, 'w', encoding='utf-8') as file:
+                json.dump(response_data, file, ensure_ascii=False, indent=4)
+
+            # Extract pagination info (total pages and current page)
+            if page == 1:
+                current_page = response_data.get("paging", {}).get("current", 1)
+                total_pages = response_data.get("paging", {}).get("total", 1)
+
+                # Print pagination info for debugging
+                print(f"Total Pages: {total_pages}, Current Page: {current_page}")
+
+            page += 1  # Increment the page number for the next iteration
+
+        except Exception as e:
+            print(f"Error: {e}")
+            return

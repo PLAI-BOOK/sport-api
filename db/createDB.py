@@ -1,5 +1,5 @@
 import os
-from asyncore import ExitNow
+#from asyncore import ExitNow
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from dotenv import load_dotenv
 from db import connectDB
@@ -12,7 +12,7 @@ try:
     conn = connectDB.get_db_connection()  # Connect to the default postgres database
     if conn is None:
         print("Error: Unable to connect to the default database.")
-        ExitNow(1)
+        #ExitNow(1)
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
     DB_NAME =os.getenv("DB_NAME").lower()
