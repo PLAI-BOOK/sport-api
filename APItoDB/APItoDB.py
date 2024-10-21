@@ -540,9 +540,9 @@ def check_fexturs_statistic():
 # Run the main function
 if __name__ == "__main__":
     # main()
-    pull_players(2023,39)
+    # pull_players(2023,39)
     # check_fexturs_statistic()
-    print("bla")
+    print("bla, activate main maybe")
 
 
 # Close the cursor and connection
