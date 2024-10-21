@@ -33,6 +33,7 @@ def call_api(params):
 
     page = 1  # Start with the first page
     total_pages = 1  # Default, will be updated after first call
+    all_responses = []  # List to store responses from all pages
 
     while page <= total_pages:
         try:
@@ -45,6 +46,9 @@ def call_api(params):
 
             # Decode the JSON response
             response_data = json.loads(data.decode("utf-8"))
+
+            # Add the response to the list of all responses
+            all_responses.append(response_data)
 
             # Generate a unique filename for each page
             safe_filename = f"{base_url}{paginated_params.replace('?', '_').replace('&', '_').replace('=', '-').replace('/', '-')}.json"
@@ -66,3 +70,6 @@ def call_api(params):
         except Exception as e:
             print(f"Error: {e}")
             return
+
+    # Return all the responses after fetching all pages
+    return all_responses

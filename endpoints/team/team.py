@@ -4,3 +4,4 @@ if __name__=="__main__":
     # Specify the API endpoint, headers, and directory to save the file
     params = "/teams?id=1"  # Change as needed
     call_api(params)
+
