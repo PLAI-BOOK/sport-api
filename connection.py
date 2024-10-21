@@ -63,7 +63,7 @@ def call_api(params):
                 total_pages = response_data.get("paging", {}).get("total", 1)
 
                 # Print pagination info for debugging
-                print(f"Total Pages: {total_pages}, Current Page: {current_page}")
+                # print(f"Total Pages: {total_pages}, Current Page: {current_page}")
 
             page += 1  # Increment the page number for the next iteration
 
