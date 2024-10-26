@@ -156,4 +156,4 @@ def get_possession(window_time, first_half_minutes, second_half_minutes, game_id
     driver.quit()
 if __name__ == "__main__":
     get_possession(10, 46, 53, "1729540")
-    #TODO: I don't see any DB and where to fetch it!!! when I'll have a table with half times and games ID I will fetch everything game by gam using threads.
+    #TODO: I don't see any DB and where to fetch it!!! when I'll have a table with half times and games ID I will fetch everything game by game using threads.
