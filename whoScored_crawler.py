@@ -20,12 +20,12 @@ def insert_window_possession(window_time, driver):
     home_element = driver.find_element(By.XPATH,
                                        '/html/body/div[3]/div[5]/div[2]/div[2]/div[1]/ul[1]/li[3]/div[1]/span[1]')
     home_value = home_element.text  # Get the text (value inside the element)
-    time.sleep(0.15)
+    time.sleep(0.5)
     # Locate the away data using full XPath
     away_element = driver.find_element(By.XPATH,
                                        '/html/body/div[3]/div[5]/div[2]/div[2]/div[1]/ul[1]/li[3]/div[1]/span[3]')
     away_value = away_element.text  # Get the text (value inside the element)
-    time.sleep(0.15)
+    time.sleep(0.5)
 
     data_values = [float(home_value), float(away_value)]
     # insert the time to the dictionary
@@ -35,12 +35,12 @@ def insert_window_possession(window_time, driver):
 def move_window_left(number_of_steps, actions):
     """
 
-    :param number_of_steps: number of munutes according to the time window.
+    :param number_of_steps: number of minutes according to the time window.
     :param actions: gives access to the driver
     """
     for i in range(number_of_steps):
         actions.send_keys(Keys.ARROW_LEFT).perform()
-        time.sleep(0.15)
+        time.sleep(0.2)
 
 
 def calculate_half_last_window(half_time, window_time, actions, driver):
@@ -96,20 +96,35 @@ def time_offset_calculate(is_first_half, is_over_time):
 def half_possessions(window_time, half_time, actions, driver, is_first_half=False, is_over_time=False):
     last_window = 0
     time_offset = time_offset_calculate(is_first_half, is_over_time)
+    # if time window bigger than overtime, we collect the whole half period.
+    if is_over_time and window_time >= half_time:
+        insert_window_possession(half_time + time_offset, driver)
+        move_window_left(half_time, actions)
+        return
     # if there is one window that should be shorter than the regular one we do it here
     if half_time % window_time != 0:
         last_window = calculate_half_last_window(half_time + time_offset, window_time, actions, driver)
 
     number_of_windows = half_time // window_time
 
+    # in case of only one window when further calculations don't needed
+    if number_of_windows == 1:
+        insert_window_possession(half_time + time_offset, driver)
+        move_window_left(window_time, actions)
+        return
+    # calculating the last movement to the previous half
+    last_movement = half_time - (number_of_windows-1) * window_time - last_window + 1
+
     for i in range(number_of_windows):
         insert_window_possession(half_time + time_offset - last_window - i * window_time, driver)
         if i == number_of_windows - 1 and is_first_half and not is_over_time:
-            break
+            return
+        elif i == number_of_windows - 1:
+            move_window_left(last_movement, actions)
         else:
             move_window_left(window_time, actions)
-    # It's needed because there are duplicated minutes in the start and the end of the half
-    move_window_left(1, actions)
+    # moving to the end of the previous half
+
 
 
 def get_possession(window_time, first_half_minutes, second_half_minutes, game_id, overtime_first_half=0, overtime_second_half=0):
@@ -122,6 +137,10 @@ def get_possession(window_time, first_half_minutes, second_half_minutes, game_id
     :param overtime_first_half: length of the overtime first half in minutes
     :param overtime_second_half: length of the overtime second half in minutes
     """
+    if window_time >= 45:
+        print("screw you, I'm not doing that window time")
+        return
+
     # Set up the WebDriver (for Chrome, but you can use any other browser)
     options = Options()
     options.add_argument("--start-maximized")  # Optional: Start the browser maximized
