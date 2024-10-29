@@ -1,5 +1,4 @@
 import os
-#from asyncore import ExitNow
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from dotenv import load_dotenv
 from db import connectDB
@@ -7,15 +6,14 @@ from db import connectDB
 # Load environment variables from .env file
 load_dotenv()
 
-# Step 1: try to create database, if exists no need to create and moves on
+# Step 1: Try to create the database; if it exists, move on
 try:
     conn = connectDB.get_db_connection()  # Connect to the default postgres database
     if conn is None:
         print("Error: Unable to connect to the default database.")
-        #ExitNow(1)
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
-    DB_NAME =os.getenv("DB_NAME").lower()
+    DB_NAME = os.getenv("DB_NAME").lower()
 
     # Check if the database already exists
     cur.execute(f"SELECT 1 FROM pg_database WHERE datname = '{DB_NAME}'")
@@ -27,16 +25,14 @@ try:
     else:
         print(f"Database {DB_NAME} already exists.")
 
-
-
-    # Wait a few seconds to ensure that the creation is recognized (a brief delay can help)
+    # Wait a few seconds to ensure that the creation is recognized
     import time
     time.sleep(2)
 
 except Exception as e:
     print(f"Error while connecting to the default database: {e}")
 
-# Step 2: Connect to the newly created or existing 'manuDB' database and create the tables
+# Step 2: Connect to the newly created or existing database and create the tables
 try:
     # SQL to create the Fixtures table
     create_fixtures_table = '''
@@ -144,15 +140,64 @@ try:
     );
     '''
 
+    # # SQL to create the Players table
+    # create_players_table = '''
+    # CREATE TABLE IF NOT EXISTS Players (
+    #     player_id VARCHAR(255) PRIMARY KEY,
+    #     firstname VARCHAR(255),
+    #     lastname VARCHAR(255),
+    #     age INT,
+    #     height INT,
+    #     weight INT,
+    #     appearances INT,
+    #     lineups INT,
+    #     minutes_played INT,
+    #     position VARCHAR(255),
+    #     rating FLOAT,
+    #     captain BOOLEAN,
+    #     substitutions_in INT,
+    #     substitutions_out INT,
+    #     bench_appearances INT,
+    #     total_shots INT,
+    #     shots_on_target INT,
+    #     total_goals INT,
+    #     assists INT,
+    #     goals_conceded INT,
+    #     saves INT,
+    #     total_passes INT,
+    #     key_passes INT,
+    #     pass_accuracy INT,
+    #     total_tackles INT,
+    #     blocks INT,
+    #     interceptions INT,
+    #     total_duels INT,
+    #     duels_won INT,
+    #     dribble_attempts INT,
+    #     successful_dribbles INT,
+    #     dribbled_past INT,
+    #     fouls_drawn INT,
+    #     fouls_committed INT,
+    #     yellow_cards INT,
+    #     yellow_red_cards INT,
+    #     red_cards INT,
+    #     penalties_won INT,
+    #     penalties_committed INT,
+    #     penalties_scored INT,
+    #     penalties_missed INT,
+    #     penalties_saved INT
+    # );
+    # '''
+
     # SQL to create the Players table
     create_players_table = '''
-        CREATE TABLE IF NOT EXISTS Players (
-        player_id VARCHAR(255) PRIMARY KEY,
+    CREATE TABLE IF NOT EXISTS Players (
+        season VARCHAR(255),
+        player_id VARCHAR(255),
         firstname VARCHAR(255),
         lastname VARCHAR(255),
         age INT,
-        height INT,
-        weight INT,
+        height VARCHAR(255),
+        weight VARCHAR(255),
         appearances INT,
         lineups INT,
         minutes_played INT,
@@ -166,7 +211,7 @@ try:
         shots_on_target INT,
         total_goals INT,
         assists INT,
-        goals_conceded INT,  -- Use NULL for non-applicable fields
+        goals_conceded INT,
         saves INT,
         total_passes INT,
         key_passes INT,
@@ -188,26 +233,40 @@ try:
         penalties_committed INT,
         penalties_scored INT,
         penalties_missed INT,
-        penalties_saved INT
-       );
-       '''
-# Execute the SQL statements
-    try:
-        cur.execute(create_fixtures_table)
-        cur.execute(create_events_table)
-        cur.execute(create_teams_table)
-        cur.execute(create_players_table)
-        # Commit the transaction
-        conn.commit()
-        print("Tables created successfully!")
+        penalties_saved INT,
+        PRIMARY KEY (season, player_id)
+    );
+    '''
 
-    except Exception as e:
-        print(f"Error creating tables: {e}")
-        conn.rollback()
+    # SQL to create the whoScored_events table
+    create_whoScored_events_table = '''
+    CREATE TABLE IF NOT EXISTS whoScored_events (
+        game_id VARCHAR(255) NOT NULL,
+        team VARCHAR(255),
+        team_id VARCHAR(255),
+        period INT NOT NULL,
+        minute INT NOT NULL,
+        second INT NOT NULL,
+        type VARCHAR(50) NOT NULL,
+        formation VARCHAR(255),
+        PRIMARY KEY (game_id, minute, second)
+    );
+    '''
+
+    # Execute the SQL statements
+    cur.execute(create_fixtures_table)
+    cur.execute(create_events_table)
+    cur.execute(create_teams_table)
+    cur.execute(create_players_table)
+    cur.execute(create_whoScored_events_table)
+
+    # Commit the transaction
+    conn.commit()
+    print("Tables created successfully!")
 
     # Close the cursor and connection
     cur.close()
     conn.close()
 
 except Exception as e:
-    print(f"Error while connecting to the manuDB database: {e}")
+    print(f"Error while connecting to the {DB_NAME} database: {e}")

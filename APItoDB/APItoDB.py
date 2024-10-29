@@ -376,7 +376,7 @@ def main():
 
         for season in league['seasons']:
             # remove the break when we want to pull all the seasons
-            if season != 2023:
+            if season not in [2020,2021,2022]:
                 continue
             print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
@@ -437,13 +437,11 @@ def pull_players(season_year, league_id):
                 for item in page_data['response']:
                     player = item['player']
                     player_id = player['id']
-                    if(player_id==19366):
-                        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                     firstname = player['firstname']
                     lastname = player['lastname']
                     age=player['age']
-                    height = int(player['height'][:-3]) if player['height'] else None
-                    weight=int((player['weight'])[:-3]) if player['weight'] else None
+                    height =player['height'][:-3] if player['height'] else None
+                    weight=player['weight'][:-3] if player['weight'] else None
 
                     # Player stats from each league
                     for stats in item['statistics']:
@@ -496,7 +494,7 @@ def pull_players(season_year, league_id):
                         # Insert data into the Players table
                         cur.execute('''
                             INSERT INTO Players (
-                                player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes_played, position, rating, captain,
+                                season,player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes_played, position, rating, captain,
                                 substitutions_in, substitutions_out, bench_appearances, total_shots, shots_on_target,
                                 total_goals, assists, goals_conceded, saves, total_passes, key_passes, pass_accuracy,
                                 total_tackles, blocks, interceptions, total_duels, duels_won, dribble_attempts,
@@ -504,10 +502,10 @@ def pull_players(season_year, league_id):
                                 yellow_red_cards, red_cards, penalties_won, penalties_committed, penalties_scored,
                                 penalties_missed, penalties_saved
                             )
-                            VALUES (%s, %s,%s, %s, %s, %s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                            VALUES (%s,%s, %s,%s, %s, %s, %s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
                                     %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            ON CONFLICT (player_id) DO NOTHING
-                        ''', (player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes, position, rating, captain, substitutions_in,
+                            ON CONFLICT (season, player_id) DO NOTHING
+                        ''', (season_year,player_id,firstname,lastname,age,height,weight, appearances, lineups, minutes, position, rating, captain, substitutions_in,
                               substitutions_out, bench_appearances, total_shots, shots_on_target, total_goals, assists,
                               goals_conceded, saves, total_passes, key_passes, pass_accuracy, total_tackles, blocks,
                               interceptions, total_duels, duels_won, dribble_attempts, successful_dribbles, dribbled_past,
@@ -540,7 +538,11 @@ def check_fexturs_statistic():
 # Run the main function
 if __name__ == "__main__":
     # main()
-    # pull_players(2023,39)
+    # you need main to run players
+    pull_players(2020,39)
+    pull_players(2021, 39)
+    pull_players(2022, 39)
+    pull_players(2023, 39)
     # check_fexturs_statistic()
     print("bla, activate main maybe")
 
