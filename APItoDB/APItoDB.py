@@ -297,14 +297,18 @@ def pull_team_data(team_id, season, league_id):
                 team_id = team['team']['id']
                 team_name = team['team']['name']
 
+                stadium_capacity = team['venue']['capacity']
+                print(f"log!!!! {team_name} stadium capacity is {stadium_capacity}")
+
+
                 # Insert team data into the Teams table
                 cur.execute('''
                     INSERT INTO Teams (
-                        team_id, team_name, season, league_id
+                        team_id, team_name, season, league_id,capacity
                     )
                     VALUES (%s, %s, %s, %s)
-                    ON CONFLICT (team_id, season, league_id) DO NOTHING
-                ''', (team_id, team_name, season, league_id))
+                    ON CONFLICT (team_id, season, league_id, stadium_capacity) DO NOTHING
+                ''', (team_id, team_name, season, league_id, stadium_capacity))
         except Exception as e:
             print(f"Error occurred for team {team_id}: {e}")
             return
@@ -376,7 +380,7 @@ def main():
 
         for season in league['seasons']:
             # remove the break when we want to pull all the seasons
-            if season not in [2020,2021,2022]:
+            if season not in [2023]:
                 continue
             print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
@@ -537,12 +541,12 @@ def check_fexturs_statistic():
 
 # Run the main function
 if __name__ == "__main__":
-    # main()
+    main()
     # you need main to run players
-    pull_players(2020,39)
-    pull_players(2021, 39)
-    pull_players(2022, 39)
-    pull_players(2023, 39)
+    # pull_players(2020,39)
+    # pull_players(2021, 39)
+    # pull_players(2022, 39)
+    # pull_players(2023, 39)
     # check_fexturs_statistic()
     print("bla, activate main maybe")
 
