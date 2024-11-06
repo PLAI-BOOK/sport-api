@@ -1,4 +1,8 @@
+import os
+import sys
+
 import soccerdata as sd
+from pathlib import Path
 import pandas as pd
 import psycopg2
 from psycopg2.extras import execute_values
@@ -26,6 +30,13 @@ formations_dict = {
 # Initialize global variable for connection
 conn = None
 
+def whoscored_call_api_schedule(league_name,season):
+    chrome_path = Path("C:/Program Files/Google/Chrome/Application/chrome.exe")
+    # for now we will pull only ENG-Premier League - otherwise, change it
+    # season format for exm- '2020-2021'
+    ws = sd.WhoScored(leagues="ENG-Premier League", seasons=[season], path_to_browser = chrome_path, headless=False)
+    schedule = ws.read_schedule()
+    return schedule
 
 # Connect to PostgreSQL using environment variables
 def connect_to_db():

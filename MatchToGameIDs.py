@@ -13,7 +13,7 @@ def football_api_json_extraction(fixtures_data):
     fixtures_dict = {}
 
     # Extract data and store in the dictionary
-    for fixture in fixtures_data["response"]:
+    for fixture in fixtures_data[0]["response"]:
         fixture_id = fixture["fixture"]["id"]
         # format "2022-07-06T18:15:00+00:00"
         full_date = fixture["fixture"]["date"]
