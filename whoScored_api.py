@@ -117,56 +117,56 @@ if __name__ == "__main__":
         # Retrieve the schedule for the 2023-2024 season
         epl_schedule = ws.read_schedule()
         print(f"this is schedule for season {season}: \n epl schedule: {epl_schedule}")
+        epl_schedule.values()
+        # Connect to the database
+        connect_to_db()
+        if conn is None:
+            exit("Failed to connect to the database")
 
-        # # Connect to the database
-        # connect_to_db()
-        # if conn is None:
-        #     exit("Failed to connect to the database")
-
-        for stage_id in epl_schedule['stage_id'].unique():
-            stages_id.append(int(stage_id))
-        print(stages_id)
+        # for stage_id in epl_schedule['stage_id'].unique():
+        #     stages_id.append(int(stage_id))
+        # print(stages_id)
 
         # Loop through each match in the schedule
-        # for game_id in epl_schedule['game_id'].unique():
-        #     # Convert game_id to a list to avoid TypeError
-        #     game_id_list = [game_id]  # Convert game_id to a list
-        #
-        #     # Read the events for the current match
-        #     events_df = ws.read_events(match_id=game_id_list)  # Pass game_id as a list
-        #
-        #     # Filter for FormationSet and FormationChange events
-        #     formation_events_df = events_df[events_df['type'].isin(['FormationSet', 'FormationChange'])]
-        #
-        #     # Prepare data for insertion
-        #     data_to_insert = []
-        #     for _, row in formation_events_df.iterrows():
-        #         qualifiers = row['qualifiers']
-        #         formation_value = None
-        #
-        #         # Extract the formation value based on TeamFormation
-        #         for qualifier in qualifiers:
-        #             if qualifier['type']['displayName'] == 'TeamFormation':
-        #                 formation_value = get_mapped_formation(qualifier['value'])
-        #                 break
-        #
-        #         # Convert period to integer using the conversion function
-        #         period_value = convert_period(row['period'])
-        #
-        #         # Add the tuple to the data list for bulk insert
-        #         data_to_insert.append((
-        #             row['game_id'],
-        #             row['team_id'],
-        #             row['team'],
-        #             period_value,  # Use converted period value
-        #             row['minute'],
-        #             row['second'],
-        #             row['type'],
-        #             formation_value
-        #         ))
-        #
-        #     # Insert the data into the database
-        #     insert_game_events(data_to_insert)
+        for game_id in epl_schedule['game_id'].unique():
+            # Convert game_id to a list to avoid TypeError
+            game_id_list = [game_id]  # Convert game_id to a list
+
+            # Read the events for the current match
+            events_df = ws.read_events(match_id=game_id_list)  # Pass game_id as a list
+
+            # Filter for FormationSet and FormationChange events
+            formation_events_df = events_df[events_df['type'].isin(['FormationSet', 'FormationChange'])]
+
+            # Prepare data for insertion
+            data_to_insert = []
+            for _, row in formation_events_df.iterrows():
+                qualifiers = row['qualifiers']
+                formation_value = None
+
+                # Extract the formation value based on TeamFormation
+                for qualifier in qualifiers:
+                    if qualifier['type']['displayName'] == 'TeamFormation':
+                        formation_value = get_mapped_formation(qualifier['value'])
+                        break
+
+                # Convert period to integer using the conversion function
+                period_value = convert_period(row['period'])
+
+                # Add the tuple to the data list for bulk insert
+                data_to_insert.append((
+                    row['game_id'],
+                    row['team_id'],
+                    row['team'],
+                    period_value,  # Use converted period value
+                    row['minute'],
+                    row['second'],
+                    row['type'],
+                    formation_value
+                ))
+
+            # Insert the data into the database
+            insert_game_events(data_to_insert)
 
     # Close the database connection
     if conn:

@@ -396,9 +396,9 @@ def main():
         league_name = league['league_name']
 
         for season in league['seasons']:
-            # remove the break when we want to pull all the seasons
-            if season not in [2023]:
-                continue
+            # # remove the break when we want to pull all the seasons
+            # if season not in [2023]:
+            #     continue
             print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
             # Step 2: Pull fixtures for the league and season
