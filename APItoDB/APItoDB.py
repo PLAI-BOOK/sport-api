@@ -1,5 +1,9 @@
+from trio import sleep
+
 from connection import *
 from db import connectDB
+
+COUNT_PULL_REQUESTS = 0
 
 # Load environment variables from .env file
 conn = connectDB.get_db_connection()  # Connect to the default postgres database
@@ -7,13 +11,26 @@ conn = connectDB.get_db_connection()  # Connect to the default postgres database
 # Create a cursor object
 cur = conn.cursor()
 
+
+# this function responsible to make sure we won't pull more than 450 requests in minute
+def call_api_counter_caller(params):
+    global COUNT_PULL_REQUESTS
+    COUNT_PULL_REQUESTS += 1
+    if COUNT_PULL_REQUESTS == 449:
+        print("!!!!!!!!! API requests is over 450 in minute, I'm going to sleep for 100 seconds !!!!!!!!!")
+        sleep(100)
+        COUNT_PULL_REQUESTS = 0
+    return call_api(params)
+
+
+
 # Step 1: Fetch all available leagues
 def fetch_all_leagues():
     # params for leagues (you can modify as needed)
     params = "/leagues?id=39"  # Adjust this to retrieve all leagues if necessary
 
     # Call the API to fetch all pages of data
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     leagues = []  # List to store all league information
 
@@ -41,7 +58,7 @@ def fetch_all_leagues():
 def pull_fixtures(league_id, season_year):
     params = f"/fixtures?league={league_id}&season={season_year}"
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if no data is returned from any page
     if not all_data or not all_data[0]['response']:
@@ -117,7 +134,7 @@ def pull_fixture_statistics(fixture_id):
     params = f"/fixtures/statistics?fixture={fixture_id}"
 
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if the response is empty for any page
     if not all_data or not all_data[0]['response']:
@@ -182,7 +199,7 @@ def pull_fixture_lineups(fixture_id):
     params = f"/fixtures/lineups?fixture={fixture_id}"
 
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if the response is empty
     if not all_data or not all_data[0]['response']:
@@ -238,7 +255,7 @@ def pull_fixture_events(fixture_id):
     params = f"/fixtures/events?fixture={fixture_id}"
 
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if the response is empty
     if not all_data or not all_data[0]['response']:
@@ -281,7 +298,7 @@ def pull_team_data(team_id, season, league_id):
     params = f"/teams?id={team_id}"
 
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if the response is empty
     if not all_data or not all_data[0]['response']:
@@ -320,7 +337,7 @@ def pull_team_statistics(team_id, season_year, league_id):
     params = f"/teams/statistics?team={team_id}&season={season_year}&league={league_id}"
 
     # Fetch all pages of data from the API
-    all_data = call_api(params)
+    all_data = call_api_counter_caller(params)
 
     # Check if the response is empty
     if not all_data or not all_data[0]['response']:
@@ -426,7 +443,7 @@ def pull_players(season_year, league_id):
         params = f"/players?team={team_id[0]}&season={season_year}&league={league_id}"
 
         # Fetch all pages of player data for the team
-        all_data = call_api(params)
+        all_data = call_api_counter_caller(params)
 
         if not all_data or not all_data[0]['response']:
             print(f"Data is empty for team {team_id[0]} in pull_players")
