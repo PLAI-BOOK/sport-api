@@ -13,7 +13,7 @@ def whoscored_call_api_schedule(league_name,season):
     chrome_path = Path("C:/Program Files/Google/Chrome/Application/chrome.exe")
     # for now we will pull only ENG-Premier League - otherwise, change it
     # season format for exm- '2020-2021'
-    ws = sd.WhoScored(leagues="ENG-Premier League", seasons=[season], path_to_browser=chrome_path, headless=False)
+    ws = sd.WhoScored(leagues="ENG-Premier League", seasons=[season], path_to_browser = chrome_path, headless=False)
     schedule = ws.read_schedule()
     return schedule
 
