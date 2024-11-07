@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 
@@ -104,6 +105,11 @@ def convert_period(period):
         return 1  # Default to 1 if period is unrecognized
 
 
+def insert_to_json(game_id_array, possessions_json_path){
+
+}
+
+
 # Main code to fetch events and insert them into the database
 if __name__ == "__main__":
     # Initialize WhoScored for the 2023-2024 season
@@ -117,11 +123,28 @@ if __name__ == "__main__":
         # Retrieve the schedule for the 2023-2024 season
         epl_schedule = ws.read_schedule()
         print(f"this is schedule for season {season}: \n epl schedule: {epl_schedule}")
-        epl_schedule.values()
+        values = epl_schedule.values
         # Connect to the database
-        connect_to_db()
-        if conn is None:
-            exit("Failed to connect to the database")
+        # connect_to_db()
+        # if conn is None:
+        #     exit("Failed to connect to the database")
+
+        possessions_json = r'C:\Users\peret\Desktop\possessions_data.json'
+
+        # Load the existing data
+        with open(possessions_json, 'r') as file:
+            data = json.load(file)
+        # If it's an empty dictionary, initialize it as an empty collection (for example, a dictionary)
+        # if not data:
+        #     data = {}
+        #
+        # data[game_id] = possessions_dict
+
+        # Write the updated data back to the JSON file
+        with open(possessions_json, 'w') as file:
+            json.dump(data, file, indent=5)
+
+
 
         # for stage_id in epl_schedule['stage_id'].unique():
         #     stages_id.append(int(stage_id))

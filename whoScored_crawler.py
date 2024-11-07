@@ -246,23 +246,16 @@ if __name__ == "__main__":
     driver = webdriver.Chrome(options=options)
 
     # replace with your path
-    file_path = r"C:\Users\user\Desktop\jsons\games_id.json"
+    file_path = r"C:\Users\peret\Desktop\possessions_data.json"
     with open(file_path, 'r') as file:
         game_ids = json.load(file)
-    i = 0
-    for g in game_ids:
-        if g == "1640974":
-            i += 1
-            break
-        i += 1
-    # G = ["1729423"]
     # continue_flag = True
-    for game_id in game_ids[i:]:
+    for game_id in game_ids:
         # built in this way: { minute (string) : [home team possession (double), away team possession (double)], ... }
         possessions_dict = get_possession(window_time, game_id, driver)
         # print(possessions_dict)
         # replace with your path
-        possessions_json = r'C:\Users\user\Desktop\jsons\possessions_data.json'
+        possessions_json = r'C:\Users\peret\Desktop\possessions_data.json'
 
         # Load the existing data
         with open(possessions_json, 'r') as file:
