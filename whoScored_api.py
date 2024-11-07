@@ -10,6 +10,7 @@ from psycopg2.extras import execute_values
 from dotenv import load_dotenv
 import os
 import sys
+import MatchToGameIDs
 
 # Mapping of formation codes to formation names
 formations_dict = {
@@ -103,12 +104,40 @@ def convert_period(period):
         return 2
     else:
         return 1  # Default to 1 if period is unrecognized
+ # fixture_id VARCHAR(255),
+ #        event_time INT,
+ #        team_id VARCHAR(255),
+ #        event_type VARCHAR(255),
+ #        detailed_type VARCHAR(255),
+ #        main_player_id VARCHAR(255),
+ #        secondary_player_id VARCHAR(255),
+
+def insert_to_json(whoScored_array, possessions_json_path,  whoScored_json_path, season_Whoscored):
+    with open(possessions_json_path, 'r') as f1:
+        possessions_dict = json.load(f1)
+
+    whoscored_to_footballAPI_dict = MatchToGameIDs.mapping_games_footballapi_whoscoredapi(39, int(season_Whoscored[:4]), "ENG-Premier League", season_Whoscored)
+
+    with open(whoScored_json_path, 'r') as f2:
+        events_list = json.load(f2)
+    # values[1] = game_id, values[4] = home_team_id, values[5] = home_team, values[8] = away_team_id, values[9] = away_team, values[26] = date (YYYY-MM-DD HH:MM:SS+00:00)
+    for i in range(len(whoScored_array)):
+        temp_possesion_dict = possessions_dict[str(whoScored_array[i][1])]
+        for minute, possessions in temp_possesion_dict.items():
+            #home_team_id = select from team table where name = values[5] = home_team and season = int(season_Whoscored[:5])
+            #awat_team = select from team table where name = values[9] = home_team and season = int(season_Whoscored[:5])
+            # inserting events of home and away team
+            try:
+                events_list.append(
+                    [whoscored_to_footballAPI_dict[whoScored_array[i][1]], minute, whoScored_array[i][4], "Possession", possessions[0], None, None])
+                events_list.append(
+                    [whoscored_to_footballAPI_dict[whoScored_array[i][1]], minute, whoScored_array[i][8], "Possession", possessions[1], None, None])
+            except KeyError:
+                print("error occurred in " + str(i))
 
 
-def insert_to_json(game_id_array, possessions_json_path){
-
-}
-
+    with open(whoScored_json_path, 'w') as f3:
+        json.dump(events_list, f3, indent=4)
 
 # Main code to fetch events and insert them into the database
 if __name__ == "__main__":
@@ -123,6 +152,7 @@ if __name__ == "__main__":
         # Retrieve the schedule for the 2023-2024 season
         epl_schedule = ws.read_schedule()
         print(f"this is schedule for season {season}: \n epl schedule: {epl_schedule}")
+        # values[1] = game_id, values[4] = home_team_id, values[5] = home_team, values[8] = away_team_id, values[9] = away_team, values[26] = date (YYYY-MM-DD HH:MM:SS+00:00)
         values = epl_schedule.values
         # Connect to the database
         # connect_to_db()
@@ -130,8 +160,11 @@ if __name__ == "__main__":
         #     exit("Failed to connect to the database")
 
         possessions_json = r'C:\Users\peret\Desktop\possessions_data.json'
-
+        WhoScored_jason = r'C:\Users\peret\Desktop\whoScoredEvents.json'
         # Load the existing data
+
+        insert_to_json(values, possessions_json, WhoScored_jason, season)
+
         with open(possessions_json, 'r') as file:
             data = json.load(file)
         # If it's an empty dictionary, initialize it as an empty collection (for example, a dictionary)
