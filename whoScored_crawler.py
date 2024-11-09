@@ -7,7 +7,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import json
-
+import os
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from pathlib import Path
 # built in this way: { minute: [home team possession, away team possession], ... }
 time_dict = {}
 
@@ -107,7 +109,7 @@ def access_to_time_slider(actions, driver):
     """
 
     element = driver.find_element(By.XPATH, '/html/body/div[3]/div[5]/div[2]/div[3]/div[1]/div[2]/div/div[3]/div')
-    time.sleep(0.6)
+    time.sleep(0.5)
     actions.move_to_element(element).click().perform()
     actions.move_to_element(element).click().perform()
     actions.move_to_element(element).click().perform()
@@ -180,6 +182,45 @@ def half_possessions(window_time, half_time, actions, driver, is_first_half=Fals
     # moving to the end of the previous half
 
 
+def check_if_url_is_bad(driver, is_overtime, actions):
+    if is_overtime:
+        return 150 < get_current_half_minutes(driver, time_offset_calculate(False, True))
+
+    else:
+        return 120 < get_current_half_minutes(driver, time_offset_calculate(False, False))
+
+
+def is_over_time(driver):
+    second_tooltip_text = driver.execute_script("return document.querySelectorAll('.noUi-tooltip')[1].textContent;")
+    # Add a small wait after interacting with the slider
+    time.sleep(1)
+    # Attempt to access tooltip text directly via JavaScript
+    if '+' in second_tooltip_text:
+        minutes = second_tooltip_text.split('+')[0]
+    else:
+        minutes = second_tooltip_text
+    return minutes == "120"
+
+
+def bad_time_dict(time_window):
+    # Locate the home data using full XPath
+    home_element = driver.find_element(By.XPATH,
+                                       '/html/body/div[3]/div[5]/div[2]/div[2]/div[1]/ul[1]/li[3]/div[1]/span[1]')
+    home_value = home_element.text  # Get the text (value inside the element)
+    time.sleep(0.5)
+    # Locate the away data using full XPath
+    away_element = driver.find_element(By.XPATH,
+                                       '/html/body/div[3]/div[5]/div[2]/div[2]/div[1]/ul[1]/li[3]/div[1]/span[3]')
+    away_value = away_element.text  # Get the text (value inside the element)
+    time.sleep(0.5)
+
+    data_values = [float(home_value), float(away_value)]
+    # insert the time to the dictionary
+    bad_time = {}
+    for i in range(90, 0, -1 * time_window):
+        bad_time[str(i)] = data_values
+    return bad_time
+
 
 def get_possession(window_time, game_id, driver, overtime_first_half=0, overtime_second_half=0):
     """
@@ -205,9 +246,15 @@ def get_possession(window_time, game_id, driver, overtime_first_half=0, overtime
     try:
         actions = ActionChains(driver)
         access_to_time_slider(actions, driver)
-        time.sleep(0.5)
+        time.sleep(0.35)
+        is_overtime = is_over_time(driver)
+        time.sleep(0.3)
+        # some games don't have valid data, checking if it's the situation ant return a default values
+        # of the last minute possession
+        if check_if_url_is_bad(driver, is_overtime, actions):
+            return bad_time_dict(window_time)
         # overtime second half
-        if overtime_first_half > 0:
+        if is_overtime:
             overtime_second_half = get_current_half_minutes(driver, time_offset_calculate(False, True))
             time.sleep(0.6)
             half_possessions(window_time, overtime_second_half, actions, driver, False, True)
@@ -216,15 +263,15 @@ def get_possession(window_time, game_id, driver, overtime_first_half=0, overtime
             overtime_first_half = get_current_half_minutes(driver, time_offset_calculate(True, True))
             time.sleep(0.5)
             half_possessions(window_time, overtime_first_half, actions, driver, True, True)
+            time.sleep(0.5)
         # second half
-        time.sleep(0.5)
         second_half_minutes = get_current_half_minutes(driver, time_offset_calculate(False, False))
-        time.sleep(0.5)
+        time.sleep(0.35)
         half_possessions(window_time, second_half_minutes, actions, driver)
         # first half
-        time.sleep(0.5)
+        time.sleep(0.35)
         first_half_minutes = get_current_half_minutes(driver, time_offset_calculate(True, False))
-        time.sleep(0.5)
+        time.sleep(0.35)
         half_possessions(window_time, first_half_minutes, actions, driver, True)
         if '0' in time_dict:
             del time_dict['0']
@@ -234,8 +281,74 @@ def get_possession(window_time, game_id, driver, overtime_first_half=0, overtime
         print(f"An error occurred: {e}")
 
 
+def get_current_game_ids(finished_game_ids_json_path, new_games_id):
+
+    with open(finished_game_ids_json_path, 'r') as f:
+        finished_game_ids = json.load(f)
+
+def process_game(game_id, window_time):
+    # Use the Selenium driver to fetch possession data for the given game_id
+    options = Options()
+    options.add_argument("--start-maximized")  # Optional: Start the browser maximized
+    driver = webdriver.Chrome(options=options)
+
+    possessions_dict = get_possession(window_time, game_id, driver)
+    driver.quit()
+    return {game_id: possessions_dict}
+
+
+def main():
+    # Define paths for your files
+    new_games_ids_path = r'C:\Users\user\Desktop\jsons\new_games_id.json'
+    possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
+
+    # Load game_ids from the JSON file
+    with open(new_games_ids_path, 'r') as file:
+        game_ids = json.load(file)
+
+    # Load any existing possession data, if the JSON file already exists
+    if Path(possessions_json).exists():
+        with open(possessions_json, 'r') as file:
+            all_possessions_data = json.load(file)
+    else:
+        all_possessions_data = {}
+
+    # Set the window time for possession calculation (e.g., 15 minutes)
+    window_time = 10  # Update to your actual desired window time
+    save_interval = 10  # Number of processed games before saving to JSON
+    processed_count = 0  # Counter to keep track of processed games
+
+    # Use ProcessPoolExecutor to process multiple games in parallel
+    with ProcessPoolExecutor() as executor:
+        # Submit each game_id to be processed by `process_game` function in parallel
+        futures = {executor.submit(process_game, game_id, window_time): game_id for game_id in game_ids}
+
+        # Iterate through completed tasks as they finish
+        for future in as_completed(futures):
+            game_id = futures[future]
+            try:
+                # Retrieve the result from the completed task
+                result = future.result()
+                # Update the all_possessions_data with the possession data for the game_id
+                all_possessions_data.update(result)
+                processed_count += 1
+
+                # Save the data to JSON every 10 processed games
+                if processed_count % save_interval == 0:
+                    with open(possessions_json, 'w') as file:
+                        json.dump(all_possessions_data, file, indent=5)
+                    print(f"Saved progress to JSON after processing {processed_count} games.")
+            except Exception as e:
+                print(f"Error processing game_id {game_id}: {e}")
+
+    # Final save after all games are processed
+    with open(possessions_json, 'w') as file:
+        json.dump(all_possessions_data, file, indent=5)
+    print("Final save completed after processing all games.")
+
 
 if __name__ == "__main__":
+    main()
     # defining window time
     window_time = 10
     # fetching game ids from WhoScored database
@@ -245,17 +358,40 @@ if __name__ == "__main__":
     options.add_argument("--start-maximized")  # Optional: Start the browser maximized
     driver = webdriver.Chrome(options=options)
 
+    finished_game_ids_json_path = r"C:\Users\user\Desktop\jsons\games_id.json"
+    new_games_ids_path = r"C:\Users\user\Desktop\jsons\new_games_id.json"
+    all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"
+
+    # with open(all_games_id_json_path, 'r') as file:
+    #     all_games = json.load(file)
+    #
+    # with open(finished_game_ids_json_path, 'r') as file:
+    #     processed = json.load(file)
+    #
+    # with open(new_games_ids_path, 'r') as file:
+    #     unprocessed_games_id = json.load(file)
+    #
+    # for game_id in all_games:
+    #     if game_id not in processed:
+    #         unprocessed_games_id.append(game_id)
+    #
+    #
+    # # Write the updated data back to the JSON file
+    # with open(new_games_ids_path, 'w') as file:
+    #     json.dump(unprocessed_games_id, file, indent=1)
+
     # replace with your path
-    file_path = r"C:\Users\peret\Desktop\possessions_data.json"
-    with open(file_path, 'r') as file:
+    # file_path = r"C:\Users\user\Desktop\jsons\games_id.json"
+    with open(new_games_ids_path, 'r') as file:
         game_ids = json.load(file)
-    # continue_flag = True
     for game_id in game_ids:
         # built in this way: { minute (string) : [home team possession (double), away team possession (double)], ... }
         possessions_dict = get_possession(window_time, game_id, driver)
         # print(possessions_dict)
         # replace with your path
-        possessions_json = r'C:\Users\peret\Desktop\possessions_data.json'
+        ############# need to merge the two files!!!!!!####################
+        possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
+        new_possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
 
         # Load the existing data
         with open(possessions_json, 'r') as file:

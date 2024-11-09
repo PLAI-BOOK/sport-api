@@ -11,13 +11,16 @@ def get_db_connection(db_name=None):
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     db_name = db_name or os.getenv("DB_NAME").lower()
+    DB_PORT = os.getenv("DB_PORT")
+
 
     try:
         conn = psycopg2.connect(
             host=DB_HOST,
             database=db_name,
             user=DB_USER,
-            password=DB_PASSWORD
+            password=DB_PASSWORD,
+            port = DB_PORT
         )
         return conn
     except Exception as e:

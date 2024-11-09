@@ -1,10 +1,10 @@
-from trio import sleep
 
+import time
 from connection import *
 from db import connectDB
 
 COUNT_PULL_REQUESTS = 0
-
+COUNT_PULL_REQUESTS_PER_DAY = 37250
 # Load environment variables from .env file
 conn = connectDB.get_db_connection()  # Connect to the default postgres database
 
@@ -14,13 +14,21 @@ cur = conn.cursor()
 
 # this function responsible to make sure we won't pull more than 450 requests in minute
 def call_api_counter_caller(params):
-    global COUNT_PULL_REQUESTS
+    global COUNT_PULL_REQUESTS,COUNT_PULL_REQUESTS_PER_DAY
     COUNT_PULL_REQUESTS += 1
+    COUNT_PULL_REQUESTS_PER_DAY+=1
+    if COUNT_PULL_REQUESTS_PER_DAY == 75000:
+        print("stoppppppppp aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print(COUNT_PULL_REQUESTS_PER_DAY)
+        print("stoppppppppp aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     if COUNT_PULL_REQUESTS == 449:
         print("!!!!!!!!! API requests is over 450 in minute, I'm going to sleep for 100 seconds !!!!!!!!!")
-        sleep(100)
+        time.sleep(100)
         COUNT_PULL_REQUESTS = 0
+        call_api(params)
     return call_api(params)
+
+
 
 # Step 1: Fetch all available leagues
 def fetch_all_leagues():
@@ -161,7 +169,7 @@ def pull_fixture_statistics(fixture_id):
                 elif str(team_id) == str(away_team_id):
                     team_type = 'away'
                 else:
-                    # print(f"Unknown team {team_id} for fixture {fixture_id}")
+                    print(f"Unknown team {team_id} for fixture {fixture_id}")
                     continue
 
                 # Loop through statistics and store them (e.g., shots, fouls, possession)
@@ -225,7 +233,7 @@ def pull_fixture_lineups(fixture_id):
             # Process away team lineup
             away_team_id = away_team_lineup['team']['id']
             away_formation = away_team_lineup['formation']
-            # print(away_formation)
+            print(away_formation)
             away_start_xi = [player['player']['id'] for player in away_team_lineup['startXI']]
             away_substitutes = [player['player']['id'] for player in away_team_lineup['substitutes']]
 
@@ -245,7 +253,7 @@ def pull_fixture_lineups(fixture_id):
         except Exception as e:
             print(f"Error occurred for fixture {fixture_id}: {e}")
             return
-    print(f"Lineups updated for fixture {fixture_id}")
+    # print(f"Lineups updated for fixture {fixture_id}")
 
 
 # Step 5: Pull Fixture Events
@@ -288,54 +296,63 @@ def pull_fixture_events(fixture_id):
         except Exception as e:
             print(f"Error occurred for fixture {fixture_id}: {e}")
             return
-    print(f"Events for fixture {fixture_id} have been successfully processed.")
+    # print(f"Events for fixture {fixture_id} have been successfully processed.")
 
 
 # Step 6: Pull Team Data
 def pull_team_data(team_id, season, league_id):
     params = f"/teams?id={team_id}"
-    all_data = call_api(params)
 
+    # Fetch all pages of data from the API
+    all_data = call_api_counter_caller(params)
+
+    # Check if the response is empty
     if not all_data or not all_data[0]['response']:
         print("Data is empty on pull_team_data")
         return
 
+    # Process each page of team data
     for page_data in all_data:
         if not page_data['response']:
             continue
         try:
             for team in page_data['response']:
-                team_id = team['team']['id']
+                team_id = str(team['team']['id'])
                 team_name = team['team']['name']
+                season = str(season)
+                league_id = str(league_id)
                 stadium_capacity = team['venue']['capacity']
-                team_country = team['team']['country']
+                # print(f"log!!!! {team_name} stadium capacity is {stadium_capacity}")
+
+
 
                 # Insert team data into the Teams table
                 cur.execute('''
                     INSERT INTO Teams (
-                        team_id, team_name, season, league_id, 
-                        stadium_capacity, team_country
+                        team_id, team_name, season, league_id, stadium_capacity
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (team_id, season, league_id) DO NOTHING
-                ''', (team_id, team_name, season, league_id, stadium_capacity, team_country))
+                ''', (team_id, team_name, season, league_id, stadium_capacity))
         except Exception as e:
             print(f"Error occurred for team {team_id}: {e}")
             return
-    print(f"Team data for team {team_id} has been successfully processed.")
-
+    # print(f"Team data for team {team_id} has been successfully processed.")
 
 
 # Step 7: Pull Team Statistics
 def pull_team_statistics(team_id, season_year, league_id):
     params = f"/teams/statistics?team={team_id}&season={season_year}&league={league_id}"
-    all_data = call_api(params)
 
+    # Fetch all pages of data from the API
+    all_data = call_api_counter_caller(params)
+
+    # Check if the response is empty
     if not all_data or not all_data[0]['response']:
         print("Data is empty on pull_team_statistics")
         return
-
     try:
+        # Process each page of statistics data
         for page_data in all_data:
             if not page_data['response']:
                 continue
@@ -430,7 +447,7 @@ def pull_team_statistics(team_id, season_year, league_id):
     except Exception as e:
         print(f"Error occurred for team {team_id}: {e}")
         return
-    print(f"Team statistics for team {team_id} have been successfully processed.")
+    # print(f"Team statistics for team {team_id} have been successfully processed.")
 
 
 # Main function to pull data for all leagues and seasons
@@ -446,7 +463,7 @@ def main():
 
         for season in league['seasons']:
             # # remove the break when we want to pull all the seasons
-            if season not in [2023]:
+            if season not in [2016]:
                 continue
             print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
@@ -587,7 +604,7 @@ def pull_players(season_year, league_id):
             continue
     # Commit the transaction to the database
     conn.commit()
-    print("Players data inserted successfully!")
+    # print("Players data inserted successfully!")
 
 #todo: pull data of injuries for each player
 
