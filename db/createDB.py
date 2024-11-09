@@ -25,7 +25,9 @@ try:
     else:
         print(f"Database {DB_NAME} already exists.")
 
-    # Wait a few seconds to ensure that the creation is recognized
+
+
+    # Wait a few seconds to ensure that the creation is recognized (a brief delay can help)
     import time
     time.sleep(2)
 
@@ -115,29 +117,70 @@ try:
 
     # SQL to create the Teams table
     create_teams_table = '''
-    CREATE TABLE IF NOT EXISTS Teams (
-        team_id VARCHAR(255),
-        team_name VARCHAR(255),
-        season VARCHAR(255),
-        league_id VARCHAR(255),
-        team_form VARCHAR(255),
-        games_played_home INT,
-        games_played_away INT,
-        wins_home INT,
-        losses_home INT,
-        draws_home INT,
-        wins_away INT,
-        losses_away INT,
-        draws_away INT,
-        stadium_capacity INT,
-        team_country VARCHAR(255),
-        goals_scored_per_15_min INT[],
-        penalty_success_rate DOUBLE PRECISION,
-        yellow_cards_per_15_min INT[],
-        red_cards_per_15_min INT[],
-        lineups_per_game INT[],
-        PRIMARY KEY (team_id, season, league_id)
-    );
+CREATE TABLE IF NOT EXISTS Teams (
+    team_id VARCHAR(255),
+    team_name VARCHAR(255),
+    season VARCHAR(255),
+    league_id VARCHAR(255),
+    team_form VARCHAR(255),
+    games_played_home INT,
+    games_played_away INT,
+    wins_home INT,
+    losses_home INT,
+    draws_home INT,
+    wins_away INT,
+    losses_away INT,
+    draws_away INT,
+    stadium_capacity INT,
+    team_country VARCHAR(255),
+    goals_scored_0_15 INT,
+    goals_scored_16_30 INT,
+    goals_scored_31_45 INT,
+    goals_scored_46_60 INT,
+    goals_scored_61_75 INT,
+    goals_scored_76_90 INT,
+    goals_scored_91_105 INT,
+    goals_scored_106_120 INT,
+    goals_conceded_0_15 INT,
+    goals_conceded_16_30 INT,
+    goals_conceded_31_45 INT,
+    goals_conceded_46_60 INT,
+    goals_conceded_61_75 INT,
+    goals_conceded_76_90 INT,
+    goals_conceded_91_105 INT,
+    goals_conceded_106_120 INT,
+    clean_sheets INT,
+    failed_to_score INT,
+    penalty_success_rate DOUBLE PRECISION,
+    over_0_5 INT,
+    under_0_5 INT,
+    over_1_5 INT,
+    under_1_5 INT,
+    over_2_5 INT,
+    under_2_5 INT,
+    over_3_5 INT,
+    under_3_5 INT,
+    over_4_5 INT,
+    under_4_5 INT,
+    yellow_cards_0_15 INT,
+    yellow_cards_16_30 INT,
+    yellow_cards_31_45 INT,
+    yellow_cards_46_60 INT,
+    yellow_cards_61_75 INT,
+    yellow_cards_76_90 INT,
+    yellow_cards_91_105 INT,
+    yellow_cards_106_120 INT,
+    red_cards_0_15 INT,
+    red_cards_16_30 INT,
+    red_cards_31_45 INT,
+    red_cards_46_60 INT,
+    red_cards_61_75 INT,
+    red_cards_76_90 INT,
+    red_cards_91_105 INT,
+    red_cards_106_120 INT,
+    lineups_per_game INT[],
+    PRIMARY KEY (team_id, season, league_id)
+);
     '''
 
     # # SQL to create the Players table

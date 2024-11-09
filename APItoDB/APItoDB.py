@@ -22,8 +22,6 @@ def call_api_counter_caller(params):
         COUNT_PULL_REQUESTS = 0
     return call_api(params)
 
-
-
 # Step 1: Fetch all available leagues
 def fetch_all_leagues():
     # params for leagues (you can modify as needed)
@@ -36,7 +34,7 @@ def fetch_all_leagues():
 
     # Loop through all responses returned from the API (from multiple pages)
     for data in all_data:
-        print("League data retrieved successfully, this is the data: ", data["response"])
+        # print("League data retrieved successfully, this is the data: ", data["response"])
 
         # Loop through each league in the 'response' key from each page
         for league in data['response']:
@@ -50,7 +48,7 @@ def fetch_all_leagues():
             })
 
     # Print final leagues data for debugging
-    print("This is the leagues data: ", leagues)
+    # print("This is the leagues data: ", leagues)
 
     return leagues
 
@@ -89,11 +87,11 @@ def pull_fixtures(league_id, season_year):
 
 
                 # Updated print statement with all values
-                print(f"Fixture ID: {fixture_id}, League ID: {league_id}, League Name: {league_name}, "
-                      f"Home Team ID: {home_team_id}, Home Team Name: {home_team_name}, "
-                      f"Away Team ID: {away_team_id}, Away Team Name: {away_team_name}, "
-                      f"Goals HT Home: {goals_half_time_home}, Goals HT Away: {goals_half_time_away}, "
-                      f"Goals FT Home: {goals_full_time_home}, Goals FT Away: {goals_full_time_away}")
+                # print(f"Fixture ID: {fixture_id}, League ID: {league_id}, League Name: {league_name}, "
+                #       f"Home Team ID: {home_team_id}, Home Team Name: {home_team_name}, "
+                #       f"Away Team ID: {away_team_id}, Away Team Name: {away_team_name}, "
+                #       f"Goals HT Home: {goals_half_time_home}, Goals HT Away: {goals_half_time_away}, "
+                #       f"Goals FT Home: {goals_full_time_home}, Goals FT Away: {goals_full_time_away}")
 
                 # Insert fixture data into the Fixtures table
                 cur.execute('''
@@ -163,7 +161,7 @@ def pull_fixture_statistics(fixture_id):
                 elif str(team_id) == str(away_team_id):
                     team_type = 'away'
                 else:
-                    print(f"Unknown team {team_id} for fixture {fixture_id}")
+                    # print(f"Unknown team {team_id} for fixture {fixture_id}")
                     continue
 
                 # Loop through statistics and store them (e.g., shots, fouls, possession)
@@ -192,7 +190,7 @@ def pull_fixture_statistics(fixture_id):
             except Exception as e:
                 print(f"Error occurred for fixture {fixture_id}: {e}")
                 return
-    print(f"Statistics for fixture {fixture_id} have been successfully processed.")
+    # print(f"Statistics for fixture {fixture_id} have been successfully processed.")
 
 # Step 4: Pull Fixture Lineups
 def pull_fixture_lineups(fixture_id):
@@ -213,21 +211,21 @@ def pull_fixture_lineups(fixture_id):
         try:
             # Assume the first team is the home team, and the second is the away team
             home_team_lineup = page_data['response'][0]
-            print(home_team_lineup)
+            # print(home_team_lineup)
             away_team_lineup = page_data['response'][1]
-            print(away_team_lineup)
+            # print(away_team_lineup)
 
             # Process home team lineup
             home_team_id = home_team_lineup['team']['id']
             home_formation = home_team_lineup['formation']
-            print(home_formation)
+            # print(home_formation)
             home_start_xi = [player['player']['id'] for player in home_team_lineup['startXI']]
             home_substitutes = [player['player']['id'] for player in home_team_lineup['substitutes']]
 
             # Process away team lineup
             away_team_id = away_team_lineup['team']['id']
             away_formation = away_team_lineup['formation']
-            print(away_formation)
+            # print(away_formation)
             away_start_xi = [player['player']['id'] for player in away_team_lineup['startXI']]
             away_substitutes = [player['player']['id'] for player in away_team_lineup['substitutes']]
 
@@ -296,16 +294,12 @@ def pull_fixture_events(fixture_id):
 # Step 6: Pull Team Data
 def pull_team_data(team_id, season, league_id):
     params = f"/teams?id={team_id}"
+    all_data = call_api(params)
 
-    # Fetch all pages of data from the API
-    all_data = call_api_counter_caller(params)
-
-    # Check if the response is empty
     if not all_data or not all_data[0]['response']:
         print("Data is empty on pull_team_data")
         return
 
-    # Process each page of team data
     for page_data in all_data:
         if not page_data['response']:
             continue
@@ -313,55 +307,72 @@ def pull_team_data(team_id, season, league_id):
             for team in page_data['response']:
                 team_id = team['team']['id']
                 team_name = team['team']['name']
-
                 stadium_capacity = team['venue']['capacity']
-                print(f"log!!!! {team_name} stadium capacity is {stadium_capacity}")
-
+                team_country = team['team']['country']
 
                 # Insert team data into the Teams table
                 cur.execute('''
                     INSERT INTO Teams (
-                        team_id, team_name, season, league_id,capacity
+                        team_id, team_name, season, league_id, 
+                        stadium_capacity, team_country
                     )
-                    VALUES (%s, %s, %s, %s)
-                    ON CONFLICT (team_id, season, league_id, stadium_capacity) DO NOTHING
-                ''', (team_id, team_name, season, league_id, stadium_capacity))
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (team_id, season, league_id) DO NOTHING
+                ''', (team_id, team_name, season, league_id, stadium_capacity, team_country))
         except Exception as e:
             print(f"Error occurred for team {team_id}: {e}")
             return
     print(f"Team data for team {team_id} has been successfully processed.")
 
 
+
 # Step 7: Pull Team Statistics
 def pull_team_statistics(team_id, season_year, league_id):
     params = f"/teams/statistics?team={team_id}&season={season_year}&league={league_id}"
+    all_data = call_api(params)
 
-    # Fetch all pages of data from the API
-    all_data = call_api_counter_caller(params)
-
-    # Check if the response is empty
     if not all_data or not all_data[0]['response']:
         print("Data is empty on pull_team_statistics")
         return
+
     try:
-        # Process each page of statistics data
         for page_data in all_data:
             if not page_data['response']:
                 continue
 
             response = page_data['response']
 
-            form = response['form']
-            games_played_home = response['fixtures']['played']['home']
-            games_played_away = response['fixtures']['played']['away']
-            wins_home = response['fixtures']['wins']['home']
-            wins_away = response['fixtures']['wins']['away']
-            draws_home = response['fixtures']['draws']['home']
-            draws_away = response['fixtures']['draws']['away']
-            losses_home = response['fixtures']['loses']['home']
-            losses_away = response['fixtures']['loses']['away']
+            # Team form and fixture statistics
+            form = response.get('form', None)
+            games_played_home = response['fixtures']['played'].get('home', 0)
+            games_played_away = response['fixtures']['played'].get('away', 0)
+            wins_home = response['fixtures']['wins'].get('home', 0)
+            wins_away = response['fixtures']['wins'].get('away', 0)
+            draws_home = response['fixtures']['draws'].get('home', 0)
+            draws_away = response['fixtures']['draws'].get('away', 0)
+            losses_home = response['fixtures']['loses'].get('home', 0)
+            losses_away = response['fixtures']['loses'].get('away', 0)
 
-            # Insert team statistics into the Teams table
+            # Goals per interval
+            goals_scored = response['goals']['for']['minute']
+            goals_conceded = response['goals']['against']['minute']
+
+            # Clean sheets and failed to score
+            clean_sheets = response['clean_sheet'].get('total', 0)
+            failed_to_score = response['failed_to_score'].get('total', 0)
+
+            # Convert penalty success rate to float, removing '%' symbol and handling null
+            penalty_success_rate = response['penalty']['scored'].get('percentage', '0%').replace('%', '')
+            penalty_success_rate = float(penalty_success_rate) if penalty_success_rate else 0.0
+
+            # Over/Under data
+            over_under = response['goals']['for']['under_over']
+
+            # Yellow and Red Cards per interval
+            yellow_cards = response['cards']['yellow']
+            red_cards = response['cards']['red']
+
+            # Update the Teams table with new statistics
             cur.execute('''
                 UPDATE Teams
                 SET 
@@ -369,14 +380,52 @@ def pull_team_statistics(team_id, season_year, league_id):
                     wins_home = %s, wins_away = %s, 
                     draws_home = %s, draws_away = %s, 
                     losses_home = %s, losses_away = %s, 
-                    team_form = %s
-                WHERE team_id = %s
+                    team_form = %s,
+                    goals_scored_0_15 = %s, goals_scored_16_30 = %s, goals_scored_31_45 = %s, 
+                    goals_scored_46_60 = %s, goals_scored_61_75 = %s, goals_scored_76_90 = %s,
+                    goals_scored_91_105 = %s, goals_scored_106_120 = %s,
+                    goals_conceded_0_15 = %s, goals_conceded_16_30 = %s, goals_conceded_31_45 = %s,
+                    goals_conceded_46_60 = %s, goals_conceded_61_75 = %s, goals_conceded_76_90 = %s,
+                    goals_conceded_91_105 = %s, goals_conceded_106_120 = %s,
+                    clean_sheets = %s, failed_to_score = %s, 
+                    penalty_success_rate = %s,
+                    over_0_5 = %s, under_0_5 = %s,
+                    over_1_5 = %s, under_1_5 = %s,
+                    over_2_5 = %s, under_2_5 = %s,
+                    over_3_5 = %s, under_3_5 = %s,
+                    over_4_5 = %s, under_4_5 = %s,
+                    yellow_cards_0_15 = %s, yellow_cards_16_30 = %s, yellow_cards_31_45 = %s,
+                    yellow_cards_46_60 = %s, yellow_cards_61_75 = %s, yellow_cards_76_90 = %s,
+                    yellow_cards_91_105 = %s, yellow_cards_106_120 = %s,
+                    red_cards_0_15 = %s, red_cards_16_30 = %s, red_cards_31_45 = %s,
+                    red_cards_46_60 = %s, red_cards_61_75 = %s, red_cards_76_90 = %s,
+                    red_cards_91_105 = %s, red_cards_106_120 = %s
+                WHERE team_id = %s AND season = %s AND league_id = %s
             ''', (
                 games_played_home, games_played_away,
                 wins_home, wins_away,
                 draws_home, draws_away,
                 losses_home, losses_away,
-                form, team_id
+                form,
+                goals_scored['0-15']['total'] or 0, goals_scored['16-30']['total'] or 0, goals_scored['31-45']['total'] or 0,
+                goals_scored['46-60']['total'] or 0, goals_scored['61-75']['total'] or 0, goals_scored['76-90']['total'] or 0,
+                goals_scored['91-105']['total'] or 0, goals_scored['106-120']['total'] or 0,
+                goals_conceded['0-15']['total'] or 0, goals_conceded['16-30']['total'] or 0, goals_conceded['31-45']['total'] or 0,
+                goals_conceded['46-60']['total'] or 0, goals_conceded['61-75']['total'] or 0, goals_conceded['76-90']['total'] or 0,
+                goals_conceded['91-105']['total'] or 0, goals_conceded['106-120']['total'] or 0,
+                clean_sheets, failed_to_score, penalty_success_rate,
+                over_under['0.5']['over'], over_under['0.5']['under'],
+                over_under['1.5']['over'], over_under['1.5']['under'],
+                over_under['2.5']['over'], over_under['2.5']['under'],
+                over_under['3.5']['over'], over_under['3.5']['under'],
+                over_under['4.5']['over'], over_under['4.5']['under'],
+                yellow_cards['0-15']['total'] or 0, yellow_cards['16-30']['total'] or 0, yellow_cards['31-45']['total'] or 0,
+                yellow_cards['46-60']['total'] or 0, yellow_cards['61-75']['total'] or 0, yellow_cards['76-90']['total'] or 0,
+                yellow_cards['91-105']['total'] or 0, yellow_cards['106-120']['total'] or 0,
+                red_cards['0-15']['total'] or 0, red_cards['16-30']['total'] or 0, red_cards['31-45']['total'] or 0,
+                red_cards['46-60']['total'] or 0, red_cards['61-75']['total'] or 0, red_cards['76-90']['total'] or 0,
+                red_cards['91-105']['total'] or 0, red_cards['106-120']['total'] or 0,
+                team_id, str(season_year), str(league_id)
             ))
     except Exception as e:
         print(f"Error occurred for team {team_id}: {e}")
@@ -397,8 +446,8 @@ def main():
 
         for season in league['seasons']:
             # # remove the break when we want to pull all the seasons
-            # if season not in [2023]:
-            #     continue
+            if season not in [2023]:
+                continue
             print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
             # Step 2: Pull fixtures for the league and season
