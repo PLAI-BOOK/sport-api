@@ -1,5 +1,7 @@
 import math
 import time
+from typing import OrderedDict
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -217,8 +219,9 @@ def bad_time_dict(time_window):
     data_values = [float(home_value), float(away_value)]
     # insert the time to the dictionary
     bad_time = {}
-    for i in range(90, 0, -1 * time_window):
+    for i in range(0, 90, time_window):
         bad_time[str(i)] = data_values
+    bad_time = dict(reversed(list(bad_time.items())))
     return bad_time
 
 
@@ -315,7 +318,7 @@ def main():
 
     # Set the window time for possession calculation (e.g., 15 minutes)
     window_time = 10  # Update to your actual desired window time
-    save_interval = 10  # Number of processed games before saving to JSON
+    save_interval = 5  # Number of processed games before saving to JSON
     processed_count = 0  # Counter to keep track of processed games
 
     # Use ProcessPoolExecutor to process multiple games in parallel
@@ -333,10 +336,10 @@ def main():
                 all_possessions_data.update(result)
                 processed_count += 1
 
-                # Save the data to JSON every 10 processed games
+                # Save the data to JSON every 5 processed games
                 if processed_count % save_interval == 0:
                     with open(possessions_json, 'w') as file:
-                        json.dump(all_possessions_data, file, indent=5)
+                        json.dump(all_possessions_data, file, indent=4)
                     print(f"Saved progress to JSON after processing {processed_count} games.")
             except Exception as e:
                 print(f"Error processing game_id {game_id}: {e}")
@@ -350,63 +353,63 @@ def main():
 if __name__ == "__main__":
     main()
     # defining window time
-    window_time = 10
-    # fetching game ids from WhoScored database
-    # game_ids = get_WhoScored_game_ids()
-    # Set up the WebDriver (for Chrome, but you can use any other browser)
-    options = Options()
-    options.add_argument("--start-maximized")  # Optional: Start the browser maximized
-    driver = webdriver.Chrome(options=options)
-
-    finished_game_ids_json_path = r"C:\Users\user\Desktop\jsons\games_id.json"
-    new_games_ids_path = r"C:\Users\user\Desktop\jsons\new_games_id.json"
-    all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"
-
-    # with open(all_games_id_json_path, 'r') as file:
-    #     all_games = json.load(file)
+    # window_time = 10
+    # # fetching game ids from WhoScored database
+    # # game_ids = get_WhoScored_game_ids()
+    # # Set up the WebDriver (for Chrome, but you can use any other browser)
+    # options = Options()
+    # options.add_argument("--start-maximized")  # Optional: Start the browser maximized
+    # driver = webdriver.Chrome(options=options)
     #
-    # with open(finished_game_ids_json_path, 'r') as file:
-    #     processed = json.load(file)
+    # finished_game_ids_json_path = r"C:\Users\user\Desktop\jsons\games_id.json"
+    # new_games_ids_path = r"C:\Users\user\Desktop\jsons\new_games_id.json"
+    # all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"
     #
+    # # with open(all_games_id_json_path, 'r') as file:
+    # #     all_games = json.load(file)
+    # #
+    # # with open(finished_game_ids_json_path, 'r') as file:
+    # #     processed = json.load(file)
+    # #
+    # # with open(new_games_ids_path, 'r') as file:
+    # #     unprocessed_games_id = json.load(file)
+    # #
+    # # for game_id in all_games:
+    # #     if game_id not in processed:
+    # #         unprocessed_games_id.append(game_id)
+    # #
+    # #
+    # # # Write the updated data back to the JSON file
+    # # with open(new_games_ids_path, 'w') as file:
+    # #     json.dump(unprocessed_games_id, file, indent=1)
+    #
+    # # replace with your path
+    # # file_path = r"C:\Users\user\Desktop\jsons\games_id.json"
     # with open(new_games_ids_path, 'r') as file:
-    #     unprocessed_games_id = json.load(file)
+    #     game_ids = json.load(file)
+    # for game_id in game_ids:
+    #     # built in this way: { minute (string) : [home team possession (double), away team possession (double)], ... }
+    #     possessions_dict = get_possession(window_time, game_id, driver)
+    #     # print(possessions_dict)
+    #     # replace with your path
+    #     ############# need to merge the two files!!!!!!####################
+    #     possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
+    #     new_possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
     #
-    # for game_id in all_games:
-    #     if game_id not in processed:
-    #         unprocessed_games_id.append(game_id)
+    #     # Load the existing data
+    #     with open(possessions_json, 'r') as file:
+    #         data = json.load(file)
     #
+    #     # If it's an empty dictionary, initialize it as an empty collection (for example, a dictionary)
+    #     if not data:
+    #         data = {}
     #
-    # # Write the updated data back to the JSON file
-    # with open(new_games_ids_path, 'w') as file:
-    #     json.dump(unprocessed_games_id, file, indent=1)
-
-    # replace with your path
-    # file_path = r"C:\Users\user\Desktop\jsons\games_id.json"
-    with open(new_games_ids_path, 'r') as file:
-        game_ids = json.load(file)
-    for game_id in game_ids:
-        # built in this way: { minute (string) : [home team possession (double), away team possession (double)], ... }
-        possessions_dict = get_possession(window_time, game_id, driver)
-        # print(possessions_dict)
-        # replace with your path
-        ############# need to merge the two files!!!!!!####################
-        possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
-        new_possessions_json = r'C:\Users\user\Desktop\jsons\new_possessions_data.json'
-
-        # Load the existing data
-        with open(possessions_json, 'r') as file:
-            data = json.load(file)
-
-        # If it's an empty dictionary, initialize it as an empty collection (for example, a dictionary)
-        if not data:
-            data = {}
-
-        data[game_id] = possessions_dict
-
-        # Write the updated data back to the JSON file
-        with open(possessions_json, 'w') as file:
-            json.dump(data, file, indent=5)
-
-        time_dict.clear()
-
-    driver.quit()
+    #     data[game_id] = possessions_dict
+    #
+    #     # Write the updated data back to the JSON file
+    #     with open(possessions_json, 'w') as file:
+    #         json.dump(data, file, indent=5)
+    #
+    #     time_dict.clear()
+    #
+    # driver.quit()
