@@ -13,3 +13,7 @@ it will print the result in the folder in a new json file
 
 to call somethins with some parameters use something like:
 params = "/teams/statistics?team=33&season=2019&league=39"
+
+the leagues and sesons we need to pull:
+seasons_dict = {2015:'2015-2016',2016:'2016-2017',2017:'2017-2018',2018:'2018-2019',2019:'2019-2020',2020:'2020-2021',2021:'2021-2022',2022:'2022-2023',2023:'2023-2024'}
+leagues_dict = {39:'ENG-Premier League', 140:'ESP-La Liga', 61:'FRA-Ligue 1', 78:'GER-Bundesliga', 135:'ITA-Serie A'}
