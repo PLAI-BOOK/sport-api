@@ -1,8 +1,6 @@
 
 import time
 
-from lxml.xslt import exception
-
 from connection import *
 from db import connectDB
 
@@ -155,7 +153,7 @@ def pull_fixture_statistics(fixture_id):
         # Fetch home and away team IDs from the database for this fixture
         cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id,))
         teams = cur.fetchone()
-    except exception as e:
+    except Exception as e:
         print(e)
         return
     if teams:
@@ -508,7 +506,7 @@ def main():
                     for team_id in teams:
                         pull_team_data(team_id, season, league_id)
                         pull_team_statistics(team_id, season, league_id)
-        except exception as e:
+        except Exception as e:
             print(e)
             continue
     # Commit all changes to the database
