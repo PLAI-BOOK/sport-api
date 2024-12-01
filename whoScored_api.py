@@ -39,7 +39,7 @@ def whoscored_call_api_schedule(league_name,season):
     chrome_path = Path("C:/Program Files/Google/Chrome/Application/chrome.exe")
     # for now we will pull only ENG-Premier League - otherwise, change it
     # season format for exm- '2020-2021'
-    ws = sd.WhoScored(leagues="FRA-Ligue 1", seasons=[season], path_to_browser = chrome_path, headless=False)
+    ws = sd.WhoScored(leagues=league_name, seasons=[season], path_to_browser = chrome_path, headless=False)
     schedule = ws.read_schedule()
     return schedule
 
@@ -91,25 +91,24 @@ if __name__ == "__main__":
     seasons = ['2015-2016','2016-2017','2017-2018','2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023', '2023-2024']
     stages_id = []
 
-    all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"
+    # all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"
+    #
+    # with open(all_games_id_json_path, 'r') as file:
+    #     data = json.load(file)
+    #
+    # if not data:
+    #     data = []
+    #
+    # for game_id in get_all_games_id():
+    #     data.append(game_id)
 
-    with open(all_games_id_json_path, 'r') as file:
-        data = json.load(file)
 
-    if not data:
-        data = []
-
-    for game_id in get_all_games_id():
-        data.append(game_id)
-
-    with open(all_games_id_json_path, 'w') as file:
-        json.dump(data, file, indent=4)
 
 
 
     for season in seasons:
 
-        ws = sd.WhoScored(leagues='FRA-Ligue 1', seasons=[season], headless=False)
+        ws = sd.WhoScored(leagues='ITA-Serie A', seasons=[season], headless=False)
 
         # Retrieve the schedule for the 2023-2024 season
         epl_schedule = ws.read_schedule()

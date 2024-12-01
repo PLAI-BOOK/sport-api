@@ -420,9 +420,10 @@ if __name__ == "__main__":
 
         # Write the updated data back to the JSON file
         if game_counter % 5 ==0:
-            with open(new_possessions_json, 'w') as file:
-                json.dump(data, file, indent=4)
             print(f"so far {game_counter} were inserted to the json file.")
+
+        with open(new_possessions_json, 'w') as file:
+            json.dump(data, file, indent=4)
 
         time_dict.clear()
 

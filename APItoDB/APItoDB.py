@@ -32,10 +32,9 @@ def call_api_counter_caller(params):
 
 
 # Step 1: Fetch all available leagues
-def fetch_all_leagues():
+def fetch_all_leagues(league_id):
     # params for leagues (you can modify as needed)
-    # 39 for premier league, 140 for la liga
-    params = "/leagues?id=140"  # Adjust this to retrieve all leagues if necessary
+    params = f"/leagues?id={league_id}"  # Adjust this to retrieve all leagues if necessary
 
     # Call the API to fetch all pages of data
     all_data = call_api_counter_caller(params)
@@ -232,15 +231,17 @@ def pull_fixture_lineups(fixture_id):
             home_team_id = home_team_lineup['team']['id']
             home_formation = home_team_lineup['formation']
             # print(home_formation)
-            home_start_xi = [player['player']['id'] for player in home_team_lineup['startXI']]
-            home_substitutes = [player['player']['id'] for player in home_team_lineup['substitutes']]
+            home_start_xi = [str(player['player']['id']) for player in home_team_lineup['startXI']]
+            home_substitutes = [str(player['player']['id']) for player in home_team_lineup['substitutes']]
 
             # Process away team lineup
             away_team_id = away_team_lineup['team']['id']
             away_formation = away_team_lineup['formation']
-            print(away_formation)
-            away_start_xi = [player['player']['id'] for player in away_team_lineup['startXI']]
-            away_substitutes = [player['player']['id'] for player in away_team_lineup['substitutes']]
+            # print("*"*20)
+            # print(f"this is the home team subs {home_substitutes}")
+            # print(away_formation)
+            away_start_xi = [str(player['player']['id']) for player in away_team_lineup['startXI']]
+            away_substitutes = [(player['player']['id']) for player in away_team_lineup['substitutes']]
 
             # Insert home team lineup into the Fixtures table
             cur.execute('''
@@ -458,18 +459,15 @@ def pull_team_statistics(team_id, season_year, league_id):
 # Main function to pull data for all leagues and seasons
 def main():
     # Step 1: Fetch all leagues
-    leagues = fetch_all_leagues()
-
-    # for start to check if it works only for leagueID = 2, season = 2022
-
+    leagues = fetch_all_leagues("218")
     for league in leagues:
         try:
             league_id = league['league_id']
             league_name = league['league_name']
 
             for season in league['seasons']:
-                # # remove the break when we want to pull all the seasons
-                if season not in [2016,2015]:
+                # # remove the break when we want to pull all the seasons ,
+                if season not in [2022]:
                     continue
                 print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
@@ -507,6 +505,8 @@ def main():
                         pull_team_data(team_id, season, league_id)
                         pull_team_statistics(team_id, season, league_id)
         except Exception as e:
+            conn.rollback()
+            print(f"transaction rollback due to error: {e}")
             print(e)
             continue
     # Commit all changes to the database
@@ -623,10 +623,10 @@ def pull_players(season_year, league_id):
 
 
 # only run pull_fixture_statistics to fix it
-def check_fexturs_statistic():
+def check_fexturs_statistic(league_id):
     # Fetch fixture IDs from the database for a given league_id
     cur.execute("SELECT fixture_id FROM Fixtures WHERE league_id = %s",
-                ("39",))  # Use league_id in the query
+                (league_id,))  # Use league_id in the query
     fixture_ids = cur.fetchall()  # Fetch all fixture IDs
 
     print(fixture_ids)
@@ -639,10 +639,12 @@ def check_fexturs_statistic():
 if __name__ == "__main__":
     main()
     # you need main to run players
-    # for i in range(0,7):
-    #     pull_players(2018+i, 39)
-
-    # check_fexturs_statistic()
+    # think if we want to add a column of league to each one
+    #
+    # for i in range(0,10):
+    #     pull_players(2015+i, 94)
+    #
+    # check_fexturs_statistic('94')
     print("bla, activate main maybe")
 
 

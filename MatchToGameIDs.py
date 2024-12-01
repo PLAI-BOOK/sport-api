@@ -83,5 +83,5 @@ def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league
     return mapping_dict
 
 
-dict_map = mapping_games_footballapi_whoscoredapi(39,2023,"ENG-Premier League",'2023-2024')
-print(dict_map)
+# dict_map = mapping_games_footballapi_whoscoredapi(39,2023,"ENG-Premier League",'2023-2024')
+# print(dict_map)
