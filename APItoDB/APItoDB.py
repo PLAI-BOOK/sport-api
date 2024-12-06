@@ -1,5 +1,6 @@
 
 import time
+
 from connection import *
 from db import connectDB
 
@@ -31,9 +32,9 @@ def call_api_counter_caller(params):
 
 
 # Step 1: Fetch all available leagues
-def fetch_all_leagues():
+def fetch_all_leagues(league_id):
     # params for leagues (you can modify as needed)
-    params = "/leagues?id=39"  # Adjust this to retrieve all leagues if necessary
+    params = f"/leagues?id={league_id}"  # Adjust this to retrieve all leagues if necessary
 
     # Call the API to fetch all pages of data
     all_data = call_api_counter_caller(params)
@@ -146,11 +147,14 @@ def pull_fixture_statistics(fixture_id):
     if not all_data or not all_data[0]['response']:
         print("Data is empty on pull_fixture_statistics")
         return
+    try:
 
-    # Fetch home and away team IDs from the database for this fixture
-    cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id,))
-    teams = cur.fetchone()
-
+        # Fetch home and away team IDs from the database for this fixture
+        cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id,))
+        teams = cur.fetchone()
+    except Exception as e:
+        print(e)
+        return
     if teams:
         home_team_id, away_team_id = teams
     else:
@@ -227,15 +231,17 @@ def pull_fixture_lineups(fixture_id):
             home_team_id = home_team_lineup['team']['id']
             home_formation = home_team_lineup['formation']
             # print(home_formation)
-            home_start_xi = [player['player']['id'] for player in home_team_lineup['startXI']]
-            home_substitutes = [player['player']['id'] for player in home_team_lineup['substitutes']]
+            home_start_xi = [str(player['player']['id']) for player in home_team_lineup['startXI']]
+            home_substitutes = [str(player['player']['id']) for player in home_team_lineup['substitutes']]
 
             # Process away team lineup
             away_team_id = away_team_lineup['team']['id']
             away_formation = away_team_lineup['formation']
-            print(away_formation)
-            away_start_xi = [player['player']['id'] for player in away_team_lineup['startXI']]
-            away_substitutes = [player['player']['id'] for player in away_team_lineup['substitutes']]
+            # print("*"*20)
+            # print(f"this is the home team subs {home_substitutes}")
+            # print(away_formation)
+            away_start_xi = [str(player['player']['id']) for player in away_team_lineup['startXI']]
+            away_substitutes = [(player['player']['id']) for player in away_team_lineup['substitutes']]
 
             # Insert home team lineup into the Fixtures table
             cur.execute('''
@@ -453,56 +459,63 @@ def pull_team_statistics(team_id, season_year, league_id):
 # Main function to pull data for all leagues and seasons
 def main():
     # Step 1: Fetch all leagues
-    leagues = fetch_all_leagues()
-
-    # for start to check if it works only for leagueID = 2, season = 2022
-
+    leagues = fetch_all_leagues("218")
     for league in leagues:
-        league_id = league['league_id']
-        league_name = league['league_name']
+        try:
+            league_id = league['league_id']
+            league_name = league['league_name']
 
-        for season in league['seasons']:
-            # # remove the break when we want to pull all the seasons
-            if season not in [2016]:
-                continue
-            print(f"Processing league: {league_name} ({league_id}), Season: {season}")
+            for season in league['seasons']:
+                # # remove the break when we want to pull all the seasons ,
+                if season not in [2022]:
+                    continue
+                print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
-            # Step 2: Pull fixtures for the league and season
-            pull_fixtures(league_id, season)
+                # Step 2: Pull fixtures for the league and season
+                pull_fixtures(league_id, season)
 
-            # Fetch fixture IDs from the database for a given league_id
-            cur.execute("SELECT fixture_id FROM Fixtures WHERE league_id = %s",
-                        (str(league_id),))  # Use league_id in the query
-            fixture_ids = cur.fetchall()  # Fetch all fixture IDs
+                # Fetch fixture IDs from the database for a given league_id
+                cur.execute("SELECT fixture_id FROM Fixtures WHERE league_id = %s",
+                            (str(league_id),))  # Use league_id in the query
+                fixture_ids = cur.fetchall()  # Fetch all fixture IDs
 
-            print(fixture_ids)
+                print(fixture_ids)
 
-            for fixture_id in fixture_ids:
-                # Step 3: Pull statistics for each fixture
-                pull_fixture_statistics(fixture_id[0])
+                for fixture_id in fixture_ids:
+                    # Step 3: Pull statistics for each fixture
+                    pull_fixture_statistics(fixture_id[0])
 
-                # Step 4: Pull lineups for each fixture
-                pull_fixture_lineups(fixture_id[0])
+                    # Step 4: Pull lineups for each fixture
+                    pull_fixture_lineups(fixture_id[0])
 
-                # Step 5: Pull events for each fixture
-                pull_fixture_events(fixture_id[0])
+                    # Step 5: Pull events for each fixture
+                    pull_fixture_events(fixture_id[0])
 
-                # Fetch teams involved in each fixture
-                cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id[0],))
-                teams = cur.fetchone()
+                    try:
+                        # Fetch teams involved in each fixture
+                        cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id[0], ))
+                        teams = cur.fetchone()
+                    except Exception as e:
+                        print(f"Error occurred for team {team_id}: {e} at line 496 and {fixture_id[0]} ")
 
-                # Step 6: Pull team data and statistics for home and away teams
-                for team_id in teams:
-                    pull_team_data(team_id, season, league_id)
-                    pull_team_statistics(team_id, season, league_id)
 
+
+                    # Step 6: Pull team data and statistics for home and away teams
+                    for team_id in teams:
+                        pull_team_data(team_id, season, league_id)
+                        pull_team_statistics(team_id, season, league_id)
+        except Exception as e:
+            conn.rollback()
+            print(f"transaction rollback due to error: {e}")
+            print(e)
+            continue
     # Commit all changes to the database
     conn.commit()
 
 # pull data for each player
 def pull_players(season_year, league_id):
     # Fetch all team IDs from the Teams table
-    cur.execute("SELECT team_id FROM Teams")
+    cur.execute("SELECT team_id FROM Teams WHERE season=%s",(str(season_year),))
     team_ids = cur.fetchall()
 
     for team_id in team_ids:
@@ -637,6 +650,12 @@ if __name__ == "__main__":
     missing_data_set = set()
     missing_data_set.update(missing_data_offside,missing_data_red,missing_data_offside)
     check_fixtures_statistic(missing_data_set)
+    # think if we want to add a column of league to each one
+    #
+    # for i in range(0,10):
+    #     pull_players(2015+i, 94)
+    #
+    # check_fexturs_statistic('94')
     print("bla, activate main maybe")
 
 
