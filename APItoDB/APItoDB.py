@@ -148,7 +148,7 @@ def pull_fixture_statistics(fixture_id):
         print("Data is empty on pull_fixture_statistics")
         return
     try:
-
+        fixture_id = str(fixture_id)
         # Fetch home and away team IDs from the database for this fixture
         cur.execute("SELECT home_team_id, away_team_id FROM Fixtures WHERE fixture_id = %s", (fixture_id,))
         teams = cur.fetchone()
@@ -459,7 +459,7 @@ def pull_team_statistics(team_id, season_year, league_id):
 # Main function to pull data for all leagues and seasons
 def main():
     # Step 1: Fetch all leagues
-    leagues = fetch_all_leagues("218")
+    leagues = fetch_all_leagues("88")
     for league in leagues:
         try:
             league_id = league['league_id']
@@ -467,7 +467,7 @@ def main():
 
             for season in league['seasons']:
                 # # remove the break when we want to pull all the seasons ,
-                if season not in [2022]:
+                if season not in [2019]:
                     continue
                 print(f"Processing league: {league_name} ({league_id}), Season: {season}")
 
@@ -634,7 +634,7 @@ def check_fixtures_statistic(fixture_ids):
     else:
         for fixture_id in fixture_ids:
             # Step 3: Pull statistics for each fixture
-            pull_fixture_statistics(fixture_id[0])
+            pull_fixture_statistics(fixture_id)
 
 # Run the main function
 if __name__ == "__main__":
@@ -652,10 +652,8 @@ if __name__ == "__main__":
     check_fixtures_statistic(missing_data_set)
     # think if we want to add a column of league to each one
     #
-    # for i in range(0,10):
-    #     pull_players(2015+i, 94)
-    #
-    # check_fexturs_statistic('94')
+    # for i in range(0,2):
+    #     pull_players(2015+i, 88)
     print("bla, activate main maybe")
 
 
