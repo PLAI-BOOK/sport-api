@@ -1,15 +1,15 @@
 import os
 import psycopg2
 from dotenv import load_dotenv
+# Load environment variables from .env file
+# it likes it here dont ask why
+load_dotenv()
 from db_connect.connectDB import get_db_connection as get_db_connection_out
 
 # i changed it to work with the connecting repo, i hope it works
 
-# Load environment variables from .env file
-load_dotenv()
-
 def get_db_connection(db_name=None):
-    return get_db_connection_out()
+    return get_db_connection_out(db_name=db_name)
     # """Establish a connection to the database."""
     # DB_HOST = os.getenv("DB_HOST")
     # DB_USER = os.getenv("DB_USER")
@@ -30,8 +30,3 @@ def get_db_connection(db_name=None):
     # except Exception as e:
     #     print(f"Error while connecting to the {db_name} database: {e}")
     #     return None
-
-
-con=get_db_connection_out()
-print(con)
-con.close()
