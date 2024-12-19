@@ -1,11 +1,15 @@
 from connection import *
 import soccerdata as sd
+import time
 from whoScored_api import *
+
+COUNT_PULL_REQUESTS = 0
+COUNT_PULL_REQUESTS_PER_DAY = 37250
 
 def football_api_pull_fixtures_data(league_id,season):
     params = f"/fixtures?league={league_id}&season={season}"
     # Fetch all pages of data from the API
-    fixtures_data = call_api(params)
+    fixtures_data = call_api_counter_caller(params)
     return fixtures_data
 
 def football_api_json_extraction(fixtures_data):
@@ -66,22 +70,43 @@ def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league
     # Iterate over whoscored_dict and try to find matching entries in footballapi_dict
     for game_id, game_info in whoscored_dict.items():
         fixture_id = None
-        if game_info in footballapi_dict.values():
-            for fid, f_info in footballapi_dict.items():
-                if f_info == game_info:
+        for fid, f_info in footballapi_dict.items():
+            # first checks that the date is similar
+            if f_info[0] == game_info[0] :
+                # check if one team played the game
+                if(f_info[1] == game_info[1] or f_info[2] == game_info[2]):
+                    fixture_id = fid
+                    break
+                elif (f_info[1].lower() in game_info[1].lower() or game_info[1].lower() in f_info[1].lower() or f_info[2].lower() in game_info[2].lower() or game_info[2].lower() in f_info[2].lower()):
                     fixture_id = fid
                     break
 
-            # Check for duplicate mapping
-            if game_info in mapping_dict.values():
-                print(f"Error: Duplicate match found for {game_info} on {game_id} from footballAPI dict")
-            else:
-                # Map game_id to fixture_id
-                mapping_dict[game_id] = fixture_id
+        # Check for duplicate mapping
+        if game_info in mapping_dict.values():
+            print(f"Error: Duplicate match found for {game_info} on {game_id} from footballAPI dict")
+        else:
+            # Map game_id to fixture_id
+            mapping_dict[game_id] = fixture_id
 
 
     return mapping_dict
 
+# this function responsible to make sure we won't pull more than 450 requests in minute
+def call_api_counter_caller(params):
+    global COUNT_PULL_REQUESTS,COUNT_PULL_REQUESTS_PER_DAY
+    COUNT_PULL_REQUESTS += 1
+    COUNT_PULL_REQUESTS_PER_DAY+=1
+    if COUNT_PULL_REQUESTS_PER_DAY == 75000:
+        print("stoppppppppp aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print(COUNT_PULL_REQUESTS_PER_DAY)
+        print("stoppppppppp aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    if COUNT_PULL_REQUESTS == 449:
+        print("!!!!!!!!! API requests is over 450 in minute, I'm going to sleep for 100 seconds !!!!!!!!!")
+        time.sleep(100)
+        COUNT_PULL_REQUESTS = 0
+        call_api(params)
+    return call_api(params)
 
-dict_map = mapping_games_footballapi_whoscoredapi(39,2023,"ENG-Premier League",'2023-2024')
-print(dict_map)
+
+# dict_map = mapping_games_footballapi_whoscoredapi(39,2023,"ENG-Premier League",'2023-2024')
+# print(dict_map)

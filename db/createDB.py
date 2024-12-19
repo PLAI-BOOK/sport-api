@@ -311,5 +311,20 @@ CREATE TABLE IF NOT EXISTS Teams (
     cur.close()
     conn.close()
 
+
+# if you want to add the new who scored this is the build:
+# create_whoScored_events_table = '''
+#     CREATE TABLE IF NOT EXISTS whoScored_events_plus_plus (
+#         game_id VARCHAR(255) NOT NULL,
+#         team_id VARCHAR(255),
+#         minute INT NOT NULL,
+# 		second INT NOT NULL,
+#         type VARCHAR(50) NOT NULL,
+#         outcome_type VARCHAR(255),
+# 		player_id VARCHAR(255),
+#         PRIMARY KEY (game_id, minute, second)
+#     );
+#     '''
+
 except Exception as e:
     print(f"Error while connecting to the {DB_NAME} database: {e}")

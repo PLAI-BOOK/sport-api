@@ -1,7 +1,8 @@
 import csv
 
+import whoScored_api
 from MatchToGameIDs import *
-#from whoScored_api import  *
+from whoScored_api import get_all_games_id
 import soccerdata as sd
 import pandas as pd
 
@@ -13,6 +14,8 @@ whoscored_events_csv_path = r"C:\Users\user\Documents\GitHub\EDA\backup_2024-12-
 fixtures_csv_path = r"C:\Users\user\Documents\GitHub\EDA\backup_2024-12-01\fixtures.csv"
 
 whoscored_possession_json_path = r"C:\Users\user\Desktop\jsons\current_possession_data.json"
+
+unprocessed_games_id_json = r"C:\Users\user\Desktop\jsons\unprocessed_games_id.json"
 
 seasons = ['2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023',
            '2023-2024']
@@ -53,6 +56,8 @@ if __name__ == "__main__":
     possessions_dict = get_dict_from_json(whoscored_possession_json_path)
     fixture_home_away_dict = get_fixture_home_away_dict(fixtures_csv_path)
     games_id = list(possessions_dict.keys())
+
+
     ######### Shapira, I need you to run each league in different run, 0 - 5 in the leagues_dict.keys()[i]
     ######### After each run please save the arrays that are printed!!!
     ######### the csv where it all saved for the EDA is in this address : C:\Users\user\Documents\GitHub\EDA\backup_2024-12-01\merged_events.csv
@@ -60,10 +65,14 @@ if __name__ == "__main__":
     ######### Name: merged_events.csv
 
     ################################ need to change each time - [0:1], [1:2], [2:3], [3:4], [4:5]
-    for league_id in list(leagues_dict.keys())[0:1]:
+    for league_id in list(leagues_dict.keys())[4:5]:
+        print("*************************************************")
         league_name = leagues_dict[league_id]
+        print('**************************************************')
         for season_WhoScored in seasons:
+            print('**************************************************')
             print(f"leauge: {league_name}, season WhoScored: {season_WhoScored}")
+            print('**************************************************')
             season_FootballAPI = season_WhoScored[0:4]
             games_id_dict = mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league_name,
                                                                    season_WhoScored)
@@ -75,6 +84,11 @@ if __name__ == "__main__":
             for game_id in epl_schedule['game_id'].unique():
                 try:
                     fixture_id = str(games_id_dict[game_id])
+                    # if fixture id is none it's problematic
+                    if fixture_id == 'None':
+                        print(f"found problematic game ID: {game_id}")
+                        problematic_games_id.append(str(game_id))
+                        continue
                 except Exception as e:
                     problematic_games_id.append(str(game_id))
                     continue
@@ -88,67 +102,91 @@ if __name__ == "__main__":
                     data_as_list = list(filtered_rows.iloc[i])
                     is_home = whoscored_league_game_home_away_dict[str(game_id)][0] == data_as_list[2]
 
-                    if is_home:
-                        team_id = fixture_home_away_dict[fixture_id][0]
-                    else:
-                        team_id = fixture_home_away_dict[fixture_id][1]
+                    try:
+                        if is_home:
+                            team_id = fixture_home_away_dict[fixture_id][0]
+                        else:
+                            team_id = fixture_home_away_dict[fixture_id][1]
+                        new_data = {
+                            'fixture_id': [str(fixture_id)],
+                            'event_time': [data_as_list[4]],
+                            'team_id': [str(team_id)],
+                            'event_type': [str(data_as_list[6])],
+                            'detailed_type': [str(data_as_list[7])],
+                            'main_player_id': [None],
+                            'secondary_player_id': [None]
+                        }
+                        new_df = pd.DataFrame(new_data)
 
-                    new_data = {
-                        'fixture_id': [str(fixture_id)],
-                        'event_time': [data_as_list[4]],
-                        'team_id': [str(team_id)],
-                        'event_type': [str(data_as_list[6])],
-                        'detailed_type': [str(data_as_list[7])],
-                        'main_player_id': [None],
-                        'secondary_player_id': [None]
-                    }
-                    new_df = pd.DataFrame(new_data)
+                        # Append to an existing CSV
+                        new_df.to_csv(target_csv_path, mode='a', header=False, index=False)
 
-                    # Append to an existing CSV
-                    new_df.to_csv(target_csv_path, mode='a', header=False, index=False)
+
+                    except Exception as e:
+                        print(f"problem with fixture_id: {fixture_id} and is home is {is_home}")
 
                 # adding possessions to events
-                if str(game_id) not in games_id:
+                # possessions_dict[str(game_id)] is None - add this because some of the game exist by game id in the dict but the possesion is None
+                if str(game_id) not in games_id or possessions_dict[str(game_id)] is None:
                     unproccessed_possesions_games_id.append(str(game_id))
                     continue
+
                 game_possession_dict = possessions_dict[str(game_id)]
                 home_team_id = fixture_home_away_dict[fixture_id][0]
                 away_team_id = fixture_home_away_dict[fixture_id][1]
-                for minute in list(game_possession_dict.keys()):
-                    # if minute[2] == '+':
-                    #     minute = str(int(minute[:2]) + int(minute[3:]))
+                try:
+                    for minute in list(game_possession_dict.keys()):
+                        # if minute[2] == '+':
+                        #     minute = str(int(minute[:2]) + int(minute[3:]))
 
-                    home_possession = game_possession_dict[minute][0]
-                    away_possession = game_possession_dict[minute][1]
+                        home_possession = game_possession_dict[minute][0]
+                        away_possession = game_possession_dict[minute][1]
 
-                    home_data = {
-                        'fixture_id': [str(fixture_id)],
-                        'event_time': [minute],
-                        'team_id': [str(home_team_id)],
-                        'event_type': ["Possession"],
-                        'detailed_type': [str(home_possession)],
-                        'main_player_id': [None],
-                        'secondary_player_id': [None]
-                    }
+                        home_data = {
+                            'fixture_id': [str(fixture_id)],
+                            'event_time': [minute],
+                            'team_id': [str(home_team_id)],
+                            'event_type': ["Possession"],
+                            'detailed_type': [str(home_possession)],
+                            'main_player_id': [None],
+                            'secondary_player_id': [None]
+                        }
 
-                    away_data = {
-                        'fixture_id': [str(fixture_id)],
-                        'event_time': [minute],
-                        'team_id': [str(away_team_id)],
-                        'event_type': ["Possession"],
-                        'detailed_type': [str(away_possession)],
-                        'main_player_id': [None],
-                        'secondary_player_id': [None]
-                    }
+                        away_data = {
+                            'fixture_id': [str(fixture_id)],
+                            'event_time': [minute],
+                            'team_id': [str(away_team_id)],
+                            'event_type': ["Possession"],
+                            'detailed_type': [str(away_possession)],
+                            'main_player_id': [None],
+                            'secondary_player_id': [None]
+                        }
 
-                    home_df = pd.DataFrame(home_data)
-                    away_df = pd.DataFrame(away_data)
-                    # Append to an existing CSV
-                    home_df.to_csv(target_csv_path, mode='a', header=False, index=False)
-                    away_df.to_csv(target_csv_path, mode='a', header=False, index=False)
+                        home_df = pd.DataFrame(home_data)
+                        away_df = pd.DataFrame(away_data)
+                        # Append to an existing CSV
+                        home_df.to_csv(target_csv_path, mode='a', header=False, index=False)
+                        away_df.to_csv(target_csv_path, mode='a', header=False, index=False)
+
+                except Exception as e:
+                    print(f"exception caught on season {season_WhoScored} for minute {minute}: {e}")
+                    print(
+                        f" this is the list of the possession that failed {list(game_possession_dict.keys())}")
+                    continue
 
 
 
 
-    print(problematic_games_id)
-    print(unproccessed_possesions_games_id)
+
+
+
+
+
+    if(len(problematic_games_id) == 0):
+        print(f"no games are problematic in the array problematic_games_id")
+    else:
+        print(problematic_games_id)
+    if (len(unproccessed_possesions_games_id) == 0):
+        print(f"no games are problematic in the array unproccessed_possesions_games_id")
+    else:
+        print(unproccessed_possesions_games_id)

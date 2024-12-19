@@ -20,6 +20,16 @@ cur = conn.cursor()
 # Mapping of formation codes to formation names
 formations_dict = {
     8: "4-2-3-1",
+    9: "4-3-2-1",
+    3: "4-1-2-1-2",
+    5: "4-5-1",
+    18: "3-4-1-2",
+    19: "3-1-4-2",
+    20: "3-4-3",
+    21: "4-1-3-2",
+    22: "4-2-4",
+    24: "3-2-4-1",
+    25: "3-3-3-1",
     23: "4-3-1-2",
     4: "4-3-3",
     15: "4-2-2-2",
@@ -39,7 +49,7 @@ def whoscored_call_api_schedule(league_name,season):
     chrome_path = Path("C:/Program Files/Google/Chrome/Application/chrome.exe")
     # for now we will pull only ENG-Premier League - otherwise, change it
     # season format for exm- '2020-2021'
-    ws = sd.WhoScored(leagues="ENG-Premier League", seasons=[season], path_to_browser = chrome_path, headless=False)
+    ws = sd.WhoScored(leagues=league_name, seasons=[season], path_to_browser = chrome_path, headless=False)
     schedule = ws.read_schedule()
     return schedule
 
