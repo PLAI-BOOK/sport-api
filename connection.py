@@ -54,8 +54,8 @@ def call_api(params):
             safe_filename = f"{base_url}{paginated_params.replace('?', '_').replace('&', '_').replace('=', '-').replace('/', '-')}.json"
 
             # Save the JSON response to a file
-            # with open(safe_filename, 'w', encoding='utf-8') as file:
-            #     json.dump(response_data, file, ensure_ascii=False, indent=4)
+            with open(safe_filename, 'w', encoding='utf-8') as file:
+                json.dump(response_data, file, ensure_ascii=False, indent=4)
 
             # Extract pagination info (total pages and current page)
             if page == 1:

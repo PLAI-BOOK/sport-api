@@ -7,7 +7,9 @@ from db import connectDB
 COUNT_PULL_REQUESTS = 0
 COUNT_PULL_REQUESTS_PER_DAY = 37250
 # Load environment variables from .env file
-conn = connectDB.get_db_connection()  # Connect to the default postgres database
+# choose the database you wanna connect to
+# conn = connectDB.get_db_connection(db_name="second_league")
+conn = connectDB.get_db_connection(db_name="workingdb")
 
 # Create a cursor object
 cur = conn.cursor()
@@ -620,6 +622,49 @@ def pull_players(season_year, league_id):
     # print("Players data inserted successfully!")
 
 #todo: pull data of injuries for each player
+def pull_injuries():
+    print("Fetching fixture IDs...")
+    cur.execute("SELECT fixture_id FROM Fixtures")
+    fixture_ids = cur.fetchall()  # Returns a list of tuples
+
+    for fixture_id_row in fixture_ids:
+        fixture_id = fixture_id_row[0]  # Extract fixture_id from the tuple
+        params = f"/injuries?fixture={fixture_id}"
+
+        print(f"Calling API with params: {params}")
+        all_data = call_api_counter_caller(params)
+
+        if not all_data:
+            print(f"No data returned for fixture_id: {fixture_id}")
+            continue
+
+        for data in all_data:
+            for entrance in data['response']:
+                try:
+                    # Extract required fields
+                    player_id = entrance['player']['id']
+                    team_id = entrance['team']['id']
+                    league_id = entrance['league']['id']
+                    league_season = entrance['league']['season']
+                    photo = entrance['player']['photo']
+                    type_info = entrance['player']['type']
+                    reason=entrance['player']['reason']
+                    # Insert data into the database
+                    cur.execute("""
+                        INSERT INTO injuries (
+                            fixture_id, player_id, team_id, league_id, season, photo, type_info,reason
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s,%s)
+                        ON CONFLICT (fixture_id, player_id, team_id, league_id, season) DO NOTHING;
+                    """, (fixture_id, player_id, team_id, league_id, league_season, photo, type_info,reason))
+                except Exception as e:
+                    print(f"Error inserting data for player_id {player_id}: {e}")
+
+        # Commit once after processing all data for the current fixture_id
+        conn.commit()
+        print(f"Data for fixture_id {fixture_id} committed.")
+
+    print("Injuries data processing completed.")
+
 
 # if fixture_ids array is not empty, run all over the league, otherwise run only on the arrat
 # only run pull_fixture_statistics to fix it
@@ -638,7 +683,7 @@ def check_fixtures_statistic(fixture_ids):
 
 # Run the main function
 if __name__ == "__main__":
-    main()
+    # main()
     # you need main to run players
     # pull_players(2020,39)
     # pull_players(2021, 39)
@@ -654,6 +699,10 @@ if __name__ == "__main__":
     #
     # for i in range(0,2):
     #     pull_players(2015+i, 88)
+
+    # pull_injuries()
+
+
     print("bla, activate main maybe")
 
 

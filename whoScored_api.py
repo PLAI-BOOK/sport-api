@@ -98,7 +98,7 @@ def convert_period(period):
 # Main code to fetch events and insert them into the database
 if __name__ == "__main__":
     # Initialize WhoScored for the 2023-2024 season
-    seasons = ['2019-2020', '2020-2021','2021-2022', '2022-2023', '2023-2024']
+    seasons = ['2023-2024']
     stages_id = []
 
     all_games_id_json_path = r"C:\Users\user\Desktop\jsons\all_games_id.json"

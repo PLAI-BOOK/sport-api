@@ -317,6 +317,7 @@ CREATE TABLE IF NOT EXISTS Teams (
 #     CREATE TABLE IF NOT EXISTS whoScored_events_plus_plus (
 #         game_id VARCHAR(255) NOT NULL,
 #         team_id VARCHAR(255),
+#         player_name  VARCHAR(255),
 #         minute INT NOT NULL,
 # 		second INT NOT NULL,
 #         type VARCHAR(50) NOT NULL,
@@ -325,6 +326,18 @@ CREATE TABLE IF NOT EXISTS Teams (
 #         PRIMARY KEY (game_id, minute, second)
 #     );
 #     '''
+
+# CREATE TABLE IF NOT EXISTS injuries (
+# 	fixture_id VARCHAR(255),
+# 	player_id VARCHAR(255),
+# 	team_id VARCHAR(255),
+# 	league_id VARCHAR(255),
+# 	season VARCHAR(255),
+# 	photo VARCHAR(1024),
+# 	type_info VARCHAR(1024),
+#     reason TEXT,
+# 	PRIMARY KEY (fixture_id, player_id, team_id, league_id,season)
+# );
 
 except Exception as e:
     print(f"Error while connecting to the {DB_NAME} database: {e}")
