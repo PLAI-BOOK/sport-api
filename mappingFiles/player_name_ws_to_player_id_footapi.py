@@ -3,6 +3,7 @@ from whoScored_api import *
 from connection import *
 from db import connectDB
 import unicodedata
+from fuzzywuzzy import fuzz
 
 
 conn = connectDB.get_db_connection(db_name="workingdb")
@@ -102,7 +103,7 @@ def clean_dict(input_dict):
     """
     return {k: v for k, v in input_dict.items() if k is not None and v is not None}
 
-def map_players(dict_footapi, dict_pp):
+def map_players2(dict_footapi, dict_pp):
     # Clean dictionaries to remove None keys or values
     dict_footapi = clean_dict(dict_footapi)
     dict_pp = clean_dict(dict_pp)
@@ -128,6 +129,50 @@ def map_players(dict_footapi, dict_pp):
 
         if not matched:
             unmatched_pp.append((pp_id, pp_name))  # Add unmatched pp player
+
+    return mapping, unmatched_pp
+
+def map_players(dict_footapi, dict_pp, fuzzy_threshold=0.7):
+    # Clean dictionaries to remove None keys or values
+    dict_footapi = clean_dict(dict_footapi)
+    dict_pp = clean_dict(dict_pp)
+
+    mapping = {}
+    unmatched_pp = []  # List for unmatched players in dict_pp
+
+    # Iterate through the second dictionary (smaller table)
+    for pp_id, pp_name in dict_pp.items():
+        pp_name_cleaned = clean_string(pp_name)  # Normalize and clean name
+        pp_name_words = set(pp_name_cleaned.split())  # Split into words for comparison
+        matched = False
+
+        for footapi_id, footapi_name in dict_footapi.items():
+            footapi_name_cleaned = clean_string(footapi_name)  # Normalize and clean name
+            footapi_name_words = set(footapi_name_cleaned.split())  # Split into words for comparison
+
+            # Check if all words in the smaller name exist in the larger name
+            if pp_name_words.issubset(footapi_name_words) or footapi_name_words.issubset(pp_name_words):
+                mapping[footapi_id] = pp_id  # Map player_id from footapi to pp_id
+                matched = True
+                break  # Stop searching once a match is found
+
+        if not matched:
+            unmatched_pp.append((pp_id, pp_name))  # Add unmatched pp player
+
+    # Fuzzy matching for unmatched players
+    for pp_id, pp_name in unmatched_pp[:]:  # Iterate over a copy of unmatched_pp
+        pp_name_cleaned = clean_string(pp_name)  # Normalize and clean name
+
+        for footapi_id, footapi_name in dict_footapi.items():
+            footapi_name_cleaned = clean_string(footapi_name)  # Normalize and clean name
+
+            # Calculate fuzzy match score
+            score = fuzz.token_set_ratio(pp_name_cleaned, footapi_name_cleaned)
+
+            if score >= fuzzy_threshold:  # If score meets or exceeds the threshold
+                mapping[footapi_id] = pp_id  # Map player_id from footapi to pp_id
+                unmatched_pp.remove((pp_id, pp_name))  # Remove from unmatched list
+                break  # Stop searching once a match is found
 
     return mapping, unmatched_pp
 
@@ -171,7 +216,7 @@ def load_from_json(file_path):
 
 dict_footapi = get_all_players_from_players(cur)
 dict_pp = get_all_players_from_pp(cur)
-dict_map_players, unmatched_pp= map_players(dict_footapi, dict_pp)
+dict_map_players, unmatched_pp= map_players(dict_footapi, dict_pp,fuzzy_threshold=0.7)
 
 # Save the mapping to a JSON file
 file_path = "player_mapping.json"
