@@ -15,7 +15,9 @@ seasons = ['2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020', '202
 
 leagues_dict = {39:'ENG-Premier League', 140:'ESP-La Liga', 61:'FRA-Ligue 1', 78:'GER-Bundesliga', 135:'ITA-Serie A'}
 
-players_mapping_path = "mappingFiles/player_mapping.json"
+players_mapping_path = r"C:\Users\user\Documents\GitHub\sport-api\mappingFiles\player_mapping.json"
+fixtures_mapping_path = r"C:\Users\user\Documents\GitHub\sport-api\mappingFiles\all_fixtures_mapping.json"
+teams_mapping_path = r"C:\Users\user\Documents\GitHub\sport-api\mappingFiles\all_teams_mapping.json"
 
 
 def export_table_to_csv(table_name, csv_file_path, conn):
@@ -66,17 +68,19 @@ def create_dict_for_team_and_fixtures(league_id, season_FootballAPI, league_name
 
     return fixtures_dict, teams_dict
 
-def merge_all_fixtures(input_folder='.', output_file='all_fixtures_mapping.json'):
-    """
-    Merges all fixture mapping JSON files into one.
+def merge_all_fixtures(input_folder=r'C:\Users\user\Documents\GitHub\sport-api\mappingFiles', output_file='all_fixtures_mapping.json'):
+    # List all files in the folder that start with "fixture_mapping_" and end with ".json"
+    json_files = [os.path.join(input_folder, f) for f in os.listdir(input_folder)
+                  if f.startswith('fixture_mapping_') and f.endswith('.json')]
 
-    Args:
-        input_folder (str): Folder containing fixture JSON files (default: current directory).
-        output_file (str): Name of the final merged JSON file (default: 'all_fixtures_mapping.json').
-    """
-    return merge_json_files(input_folder, output_file)
+    if not json_files:
+        raise FileNotFoundError(
+            f"No files starting with 'fixture_mapping_' and ending with '.json' found in '{input_folder}'.")
 
-def merge_all_teams(input_folder='.', output_file='all_teams_mapping.json'):
+    # Merge only the filtered JSON files
+    return merge_json_files(json_files, output_file)
+
+def merge_all_teams(input_folder=r'C:\Users\user\Documents\GitHub\sport-api\mappingFiles', output_file='all_teams_mapping.json'):
     """
     Merges all team mapping JSON files into one.
 
@@ -84,7 +88,16 @@ def merge_all_teams(input_folder='.', output_file='all_teams_mapping.json'):
         input_folder (str): Folder containing team JSON files (default: current directory).
         output_file (str): Name of the final merged JSON file (default: 'all_teams_mapping.json').
     """
-    return merge_json_files(input_folder, output_file)
+    # List all files in the folder that start with "fixture_mapping_" and end with ".json"
+    json_files = [os.path.join(input_folder, f) for f in os.listdir(input_folder)
+                  if f.startswith('team_mapping_') and f.endswith('.json')]
+
+    if not json_files:
+        raise FileNotFoundError(
+            f"No files starting with 'team_mapping_' and ending with '.json' found in '{input_folder}'.")
+
+    # Merge only the filtered JSON files
+    return merge_json_files(json_files, output_file)
 
 def merge_events_pp_to_csv(cur,game_to_fixture_dict,players_map_dict,teams_map_dict):
     # todo: change it to the actual mapping dictionaries we have
@@ -96,7 +109,7 @@ def merge_events_pp_to_csv(cur,game_to_fixture_dict,players_map_dict,teams_map_d
     csv_file_path = 'merged_events_pp.csv'
 
     # Open the CSV file in write mode if it does not exist, otherwise append mode
-    file_mode = 'w' if not os.path.exists(csv_file_path) else 'a'
+    file_mode = 'w'
 
     with open(csv_file_path, file_mode, newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -164,6 +177,16 @@ def main(cur,leagues_dict,seasons):
     merge_events_pp_to_csv(cur, game_to_fixture_dict, players_map_dict, teams_map_dict)
 
 
-main(cur,leagues_dict,seasons)
+def do_on():
+    main(cur,leagues_dict,seasons)
+
+
+# game_to_fixture_dict = merge_all_fixtures()
+# players_map_dict = load_from_json(players_mapping_path)
+# teams_map_dict = merge_all_teams()
+game_to_fixture_dict = load_from_json(fixtures_mapping_path)
+players_map_dict = load_from_json(players_mapping_path)
+teams_map_dict = load_from_json(teams_mapping_path)
+merge_events_pp_to_csv(cur, game_to_fixture_dict, players_map_dict, teams_map_dict)
 
 

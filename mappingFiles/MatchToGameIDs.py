@@ -115,38 +115,44 @@ def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league
         home_team_id_ws = game_info[3]  # WhoScored home team ID
         away_team_id_ws = game_info[4]  # WhoScored away team ID
 
-        for fid, f_info in footballapi_dict.items():
-            date_match = f_info[0] == game_info[0]  # Date match
-            home_team_name_api = f_info[1]  # FootballAPI home team name
-            away_team_name_api = f_info[2]  # FootballAPI away team name
-            home_team_id_api = f_info[3]  # FootballAPI home team ID
-            away_team_id_api = f_info[4]  # FootballAPI away team ID
+        try:
+            for fid, f_info in footballapi_dict.items():
+                date_match = f_info[0] == game_info[0]  # Date match
+                home_team_name_api = f_info[1]  # FootballAPI home team name
+                away_team_name_api = f_info[2]  # FootballAPI away team name
+                home_team_id_api = f_info[3]  # FootballAPI home team ID
+                away_team_id_api = f_info[4]  # FootballAPI away team ID
 
-            # Matching based on names (not IDs)
-            if date_match and (home_team_name_api == home_team_name_ws or away_team_name_api == away_team_name_ws):
-                fixture_id = fid
-                break
-            elif date_match and (
-                home_team_name_api.lower() in home_team_name_ws.lower() or home_team_name_ws.lower() in home_team_name_api.lower() or
-                away_team_name_api.lower() in away_team_name_ws.lower() or away_team_name_ws.lower() in away_team_name_api.lower()
-            ):
-                fixture_id = fid
-                break
+                # Matching based on names (not IDs)
+                if date_match and (home_team_name_api == home_team_name_ws or away_team_name_api == away_team_name_ws):
+                    fixture_id = fid
+                    break
+                elif date_match and (
+                    home_team_name_api.lower() in home_team_name_ws.lower() or home_team_name_ws.lower() in home_team_name_api.lower() or
+                    away_team_name_api.lower() in away_team_name_ws.lower() or away_team_name_ws.lower() in away_team_name_api.lower()
+                ):
+                    fixture_id = fid
+                    break
 
-        # Save the fixture mapping
-        mapping_dict[game_id] = fixture_id
+            # Save the fixture mapping
+            mapping_dict[game_id] = fixture_id
 
-        # Save the **team ID mappings** (using IDs) if they don't already exist
-        if home_team_id_ws not in team_mapping_dict:
-            team_mapping_dict[home_team_id_ws] = home_team_id_api  # Map home team ID
-        if away_team_id_ws not in team_mapping_dict:
-            team_mapping_dict[away_team_id_ws] = away_team_id_api  # Map away team ID
+            # Save the team ID mappings if they don't already exist and are not None
+            if home_team_id_ws and home_team_id_api and home_team_id_ws not in team_mapping_dict:
+                team_mapping_dict[home_team_id_ws] = home_team_id_api  # Map home team ID
+            if away_team_id_ws and away_team_id_api and away_team_id_ws not in team_mapping_dict:
+                team_mapping_dict[away_team_id_ws] = away_team_id_api  # Map away team ID
+
+        except Exception as e:
+            print(f"Error mapping game ID {game_id}: {e}")
+            continue  # Skip to the next game if there's an issue
 
     # Save fixture and team mappings to JSON using imported functions
     save_to_json(mapping_dict, f'fixture_mapping_{league_name}_{season_FootballAPI}.json')
     save_to_json(team_mapping_dict, f'team_mapping_{league_name}_{season_FootballAPI}.json')
 
     return mapping_dict, team_mapping_dict
+
 
 # this function responsible to make sure we won't pull more than 450 requests in minute
 def call_api_counter_caller(params):
