@@ -2,6 +2,7 @@ from connection import *
 import soccerdata as sd
 import time
 from whoScored_api import *
+from json_functions.json_func import *
 
 COUNT_PULL_REQUESTS = 0
 COUNT_PULL_REQUESTS_PER_DAY = 37250
@@ -26,7 +27,10 @@ def football_api_json_extraction(fixtures_data):
         home_team = fixture["teams"]["home"]["name"]
         away_team = fixture["teams"]["away"]["name"]
 
-        fixtures_dict[fixture_id] = (date, home_team, away_team)
+        home_team_id = fixture["teams"]["home"]["id"]
+        away_team_id = fixture["teams"]["away"]["id"]
+
+        fixtures_dict[fixture_id] = (date, home_team, away_team, home_team_id, away_team_id)
 
     return fixtures_dict
 
@@ -53,13 +57,16 @@ def whoscored_api_df_extraction(fixtures_data):
         home_team = row['home_team']
         away_team = row['away_team']
 
+        home_team_id = row['home_team_id']
+        away_team_id = row['away_team_id']
+
         # Add to the dictionary
-        fixtures_dict[game_id] = (date,home_team,away_team)
+        fixtures_dict[game_id] = (date,home_team,away_team,home_team_id,away_team_id)
     return fixtures_dict
 
 
 # params: league_id - the league id for footballAPI, season_FootballAPI - the season by the format of footballAPI, league_name - the name of the league according to whoScoredAPI,season_WhoScored - the season by the format of whoScoredAPI
-def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league_name, season_WhoScored):
+def mapping_games_footballapi_whoscoredapi2(league_id, season_FootballAPI, league_name, season_WhoScored):
     # creating the dictionaries
     whoscored_dict = whoscored_api_df_extraction(whoscored_api_pull_fixtures_data(league_name=league_name,season=season_WhoScored))
     footballapi_dict= football_api_json_extraction(football_api_pull_fixtures_data(league_id=league_id,season=season_FootballAPI))
@@ -91,6 +98,56 @@ def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league
 
     return mapping_dict
 
+def mapping_games_footballapi_whoscoredapi(league_id, season_FootballAPI, league_name, season_WhoScored):
+    # Create the dictionaries
+    whoscored_dict = whoscored_api_df_extraction(whoscored_api_pull_fixtures_data(league_name=league_name, season=season_WhoScored))
+    footballapi_dict = football_api_json_extraction(football_api_pull_fixtures_data(league_id=league_id, season=season_FootballAPI))
+
+    # Resulting dictionaries
+    mapping_dict = {}  # {game_id: fixture_id}
+    team_mapping_dict = {}  # {team_id_whoscored: team_id_footballapi}
+
+    # Iterate over WhoScored fixtures to map them to FootballAPI fixtures
+    for game_id, game_info in whoscored_dict.items():
+        fixture_id = None
+        home_team_name_ws = game_info[1]  # WhoScored home team name
+        away_team_name_ws = game_info[2]  # WhoScored away team name
+        home_team_id_ws = game_info[3]  # WhoScored home team ID
+        away_team_id_ws = game_info[4]  # WhoScored away team ID
+
+        for fid, f_info in footballapi_dict.items():
+            date_match = f_info[0] == game_info[0]  # Date match
+            home_team_name_api = f_info[1]  # FootballAPI home team name
+            away_team_name_api = f_info[2]  # FootballAPI away team name
+            home_team_id_api = f_info[3]  # FootballAPI home team ID
+            away_team_id_api = f_info[4]  # FootballAPI away team ID
+
+            # Matching based on names (not IDs)
+            if date_match and (home_team_name_api == home_team_name_ws or away_team_name_api == away_team_name_ws):
+                fixture_id = fid
+                break
+            elif date_match and (
+                home_team_name_api.lower() in home_team_name_ws.lower() or home_team_name_ws.lower() in home_team_name_api.lower() or
+                away_team_name_api.lower() in away_team_name_ws.lower() or away_team_name_ws.lower() in away_team_name_api.lower()
+            ):
+                fixture_id = fid
+                break
+
+        # Save the fixture mapping
+        mapping_dict[game_id] = fixture_id
+
+        # Save the **team ID mappings** (using IDs) if they don't already exist
+        if home_team_id_ws not in team_mapping_dict:
+            team_mapping_dict[home_team_id_ws] = home_team_id_api  # Map home team ID
+        if away_team_id_ws not in team_mapping_dict:
+            team_mapping_dict[away_team_id_ws] = away_team_id_api  # Map away team ID
+
+    # Save fixture and team mappings to JSON using imported functions
+    save_to_json(mapping_dict, f'fixture_mapping_{league_name}_{season_FootballAPI}.json')
+    save_to_json(team_mapping_dict, f'team_mapping_{league_name}_{season_FootballAPI}.json')
+
+    return mapping_dict, team_mapping_dict
+
 # this function responsible to make sure we won't pull more than 450 requests in minute
 def call_api_counter_caller(params):
     global COUNT_PULL_REQUESTS,COUNT_PULL_REQUESTS_PER_DAY
@@ -110,3 +167,5 @@ def call_api_counter_caller(params):
 
 # dict_map = mapping_games_footballapi_whoscoredapi(39,2023,"ENG-Premier League",'2023-2024')
 # print(dict_map)
+
+

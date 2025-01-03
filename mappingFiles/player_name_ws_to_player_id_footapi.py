@@ -103,6 +103,7 @@ def clean_dict(input_dict):
     """
     return {k: v for k, v in input_dict.items() if k is not None and v is not None}
 
+# without fuzzy
 def map_players2(dict_footapi, dict_pp):
     # Clean dictionaries to remove None keys or values
     dict_footapi = clean_dict(dict_footapi)
@@ -132,6 +133,7 @@ def map_players2(dict_footapi, dict_pp):
 
     return mapping, unmatched_pp
 
+# with fuzzy
 def map_players(dict_footapi, dict_pp, fuzzy_threshold=0.7):
     # Clean dictionaries to remove None keys or values
     dict_footapi = clean_dict(dict_footapi)

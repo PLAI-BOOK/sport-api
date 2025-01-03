@@ -1,11 +1,8 @@
 import csv
 
-import whoScored_api
-from MatchToGameIDs import *
-from whoScored_api import get_all_games_id
+from mappingFiles.MatchToGameIDs import *
 import soccerdata as sd
 import pandas as pd
-
 
 target_csv_path = r"C:\Users\user\Documents\GitHub\EDA\backup_2024-12-01\merged_events.csv"
 
@@ -21,6 +18,11 @@ seasons = ['2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020', '202
            '2023-2024']
 
 leagues_dict = {39:'ENG-Premier League', 140:'ESP-La Liga', 61:'FRA-Ligue 1', 78:'GER-Bundesliga', 135:'ITA-Serie A'}
+
+conn = connectDB.get_db_connection(db_name="workingdb")
+
+# Create a cursor object
+cur = conn.cursor()
 
 def get_dict_from_json(json_path):
     with open(json_path) as json_file:
@@ -47,6 +49,115 @@ def get_whoscored_league_game_home_away_dict(league_data_frame):
         game_home_away_dict[str(games_id[i])] = \
             [str(home_teams_id[i]), str(away_teams_id[i])]
     return game_home_away_dict
+
+def merge_events_pp_to_events(cur):
+    # assume that I want to add the tables into table named: merged_events
+    # step 1: get the mapping between the api's
+    game_to_fixture_dict = {}
+    players_map_dict = {}
+    teams_map_dict = {}
+
+    # run over all the rows in the ws_events_pp
+    # Query to fetch all rows from the table
+    query = "SELECT game_id, team_id, player_name, minute, second, type, outcome_type, player_id FROM whoScored_events_plus_plus;"
+    cur.execute(query)
+
+    # Iterate over the rows
+    for row in cur.fetchall():
+        # Assigning values to variables
+        game_id = row[0]
+        team_id = row[1]
+        minute = row[2]
+        second = row[3]
+        type = row[4]
+        outcome_type = row[5]
+        player_id = row[6]
+
+        fixed_game_id = game_to_fixture_dict[game_id]
+        fixed_team_id = teams_map_dict[team_id]
+        if second > 30:
+            minute = minute + 1
+        detailed_type = f"{type}_{outcome_type}"
+        fixed_player_id = players_map_dict[player_id]
+        event_type = type
+
+        # insert the values into the merged_events_table
+        # Insert the row into merged_events_table
+        insert_query = """
+                INSERT INTO merged_events_table (
+                    fixture_id, event_time, team_id, event_type, detailed_type, main_player_id, secondary_player_id
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s)
+                ON CONFLICT (fixture_id, event_time, team_id, event_type) DO NOTHING;
+                """
+        cur.execute(
+            insert_query,
+            (
+                fixed_game_id,  # fixture_id
+                minute,  # event_time
+                fixed_team_id,  # team_id
+                event_type,  # event_type
+                detailed_type,  # detailed_type
+                fixed_player_id,  # main_player_id
+                None  # secondary_player_id (NULL)
+            )
+        )
+
+    return
+
+def merge_events_pp_to_csv(cur):
+    # todo: change it to the actual mapping dictionaries we have
+    game_to_fixture_dict = {}
+    players_map_dict = {}
+    teams_map_dict = {}
+
+    # File name for CSV
+    csv_file_path = 'merged_events_pp.csv'
+
+    # Open the CSV file in write mode if it does not exist, otherwise append mode
+    file_mode = 'w' if not os.path.exists(csv_file_path) else 'a'
+
+    with open(csv_file_path, file_mode, newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+
+        # Write the header only if the file was just created
+        if file_mode == 'w':
+            csvwriter.writerow(['fixture_id', 'event_time', 'team_id', 'event_type', 'detailed_type', 'main_player_id', 'secondary_player_id'])
+
+        # Query to fetch all rows from the whoScored_events_plus_plus table
+        query = "SELECT game_id, team_id, minute, second, type, outcome_type, player_id FROM whoScored_events_plus_plus;"
+        cur.execute(query)
+
+        # Iterate over the rows
+        for row in cur.fetchall():
+            game_id = row[0]
+            team_id = row[1]
+            minute = row[2]
+            second = row[3]
+            event_type = row[4]
+            outcome_type = row[5]
+            player_id = row[6]
+
+            # Example mappings (to be provided)
+            fixed_game_id = game_to_fixture_dict.get(game_id)
+            fixed_team_id = teams_map_dict.get(team_id)
+            fixed_player_id = players_map_dict.get(player_id)
+
+            # Ensure mappings exist
+            if not fixed_game_id or not fixed_team_id or not fixed_player_id:
+                print(f"Missing mapping for game_id: {game_id}, team_id: {team_id}, player_id: {player_id}")
+                continue
+
+            # Adjust event time
+            if second > 30:
+                minute += 1
+
+            # Combine event_type and outcome_type
+            detailed_type = f"{event_type}{outcome_type or ''}"
+
+            # Write row to CSV
+            csvwriter.writerow([fixed_game_id, minute, fixed_team_id, event_type, detailed_type, fixed_player_id, None])
+            print(f"Inserted row into CSV: [{fixed_game_id}, {minute}, {fixed_team_id}, {event_type}, {detailed_type}, {fixed_player_id}, None]")
+
 
 
 
@@ -190,3 +301,4 @@ if __name__ == "__main__":
         print(f"no games are problematic in the array unproccessed_possesions_games_id")
     else:
         print(unproccessed_possesions_games_id)
+
